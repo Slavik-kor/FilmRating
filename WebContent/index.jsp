@@ -29,13 +29,13 @@
           <a class="navbar-brand" href="#">КИНОРЕЙТИНГ</a>
         </div>
                <div class="navbar-collapse collapse">
-                   <form action="Controller" class="navbar-form navbar-right hidden-sm" >
-                   <input type="hidden" name="command" value="authorisation" />
+                   <form action="Controller" class="navbar-form navbar-right hidden-sm" method = "post" >
+                   <input type="hidden" name="command" value="authorization" />
                        <div class="form-group">
-                           <input type="text" class="form-control" placeholder="Логин" value="">
+                           <input type="text" name="login" class="form-control" placeholder="Логин" value="">
                        </div>
                        <div class="form-group">
-                           <input type="password" class="form-control" placeholder="Пароль" value="">
+                           <input type="password" name="password" class="form-control" placeholder="Пароль" value="">
                        </div>
                        <button type="submit" class="btn btn-primary">
                         ВОЙТИ

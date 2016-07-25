@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>CinemaRating</display-name>
+	<display-name>FilmRating</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -13,21 +13,8 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
-	<servlet>
-		<description></description>
-		<display-name>Controller</display-name>
-		<servlet-name>Controller</servlet-name>
-		<servlet-class>by.epam.karotki.film_rating.controller.Controller</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Controller</servlet-name>
-		<url-pattern>/Controller</url-pattern>
-	</servlet-mapping>
-
 	<listener>
 		<listener-class>by.epam.karotki.film_rating.listener.FilmRatingListener</listener-class>
 	</listener>
-
 
 </web-app>

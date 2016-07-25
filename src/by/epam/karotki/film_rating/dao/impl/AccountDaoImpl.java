@@ -196,7 +196,8 @@ public class AccountDaoImpl implements IAccountDao {
 	}
 
 	private Account getAccount(ResultSet rs) throws SQLException {
-			Account user = new Account();
+		if(rs.next()){	
+		Account user = new Account();
 			user.setFirstName(rs.getString(DBColumnNames.ACCOUNT_FIRST_NAME));
 			user.setLastName(rs.getString(DBColumnNames.ACCOUNT_LAST_NAME));
 			user.setBirthDay(rs.getDate(DBColumnNames.ACCOUNT_BIRTH_DAY));
@@ -207,8 +208,10 @@ public class AccountDaoImpl implements IAccountDao {
 			user.setRole(rs.getString(DBColumnNames.ACCOUNT_ROLE));
 			user.setActive(rs.getBoolean(DBColumnNames.ACCOUNT_IS_ACTIVE));
 			user.setCityId(rs.getInt(DBColumnNames.ACCOUNT_CITY_ID));
+			return user;
+		}
 
-		return user;
+		return null;
 	}
 	
 	private List<Account> getAccounts(ResultSet rs) throws SQLException {
@@ -240,8 +243,8 @@ public class AccountDaoImpl implements IAccountDao {
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(AUTHORIZATION);
-			ps.setString(1, login);
-			ps.setString(1, password);
+			ps.setString(1,login);
+			ps.setString(2,password);
 			rs = ps.executeQuery();
 			account = getAccount(rs);
 		} catch (ConnectionPoolException e) {
@@ -254,6 +257,8 @@ public class AccountDaoImpl implements IAccountDao {
 				ps.close();
 			} catch (SQLException e) {
 	//			LOG.warn("Can't close PreparedStatement or ResultSet");
+			} catch (Exception e){
+				
 			}
 			conPool.returnConnection(con);
 		}
