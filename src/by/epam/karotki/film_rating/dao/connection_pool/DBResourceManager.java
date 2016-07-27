@@ -1,4 +1,4 @@
-package by.epam.karotki.film_rating.connection_pool;
+package by.epam.karotki.film_rating.dao.connection_pool;
 
 import java.util.ResourceBundle;
 

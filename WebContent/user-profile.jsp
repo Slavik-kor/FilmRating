@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -29,10 +31,11 @@
         </div>
                <div class="navbar-collapse collapse">
          <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="#">Профиль</a></li>
-            <li><a href="#">Мои отзывы</a></li>
-            <li><a href="index.html">Любимые фильмы</a></li>
+            <li><a href="index.jsp">Главная</a></li>
+            <li><a href="#">Профиль</a></li>
+            <li><a href="#">Мои отзывы</a></li>
+            <li><a href="#">Любимые фильмы</a></li>
+            <li><a href="#">Выйти</a></li>
           </ul>
         </div>
       </div>
@@ -42,16 +45,16 @@
           <ul class="nav nav-sidebar ">
             <li class="active"><a href="index.html">Новинки</a></li>
             <li><a href="index.html">По рейтингу</a></li>
-            <li><a href="index.html">По жанру</a></li>
-            <li><a href="index.html">По году</a></li>
+            <li><a href="index.html">По жанру</a></li>
+            <li><a href="index.html">По году</a></li>
           </ul>
         </div>
 
 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container">
-<h3>Профиль пользователя</h3>
+<h3>Профиль пользователя</h3>
             <div class="container col-md-3">
                  
-                <img src="images/karotki.jpg" width="100"  class="img-rounded" alt="аватар">
+                <img src="images/karotki.jpg" width="100"  class="img-rounded" alt="Ð°Ð²Ð°ÑÐ°Ñ">
             </div>
   <div class="container col-lg-9 col-md-9 col-sm-9">      
         
@@ -66,7 +69,7 @@
         </div>
     </div>
      <div>
-     <button type="submit" class="btn btn-success">Редактировать профиль</button>  
+   <button type="submit" class="btn btn-success">Редактировать профиль</button>  
      <button type="button" class="btn btn-danger">Отмена</button>
     </div>
 <div class="container" >
@@ -77,7 +80,7 @@
         <a href="#">Terms of Service</a> | <a href="#">Privacy</a>    
       </div>
       <div class="col-sm-4">
-        <p>© 2016 Epam training. All rights reserved</p>
+        <p>Â© 2016 Epam training. All rights reserved</p>
       </div>
     </div>
   </div>

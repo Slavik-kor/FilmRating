@@ -4,8 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import by.epam.karotki.film_rating.connection_pool.ConnectionPool;
-import by.epam.karotki.film_rating.connection_pool.exception.ConnectionPoolException;
+import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
+import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 
 /**
  * Application Lifecycle Listener implementation class FilmRatingListener
