@@ -12,7 +12,12 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account autorization(String login, String pass) throws ServiceException {
-		//validation
+		if (login == null || login.isEmpty()) {
+			throw new ServiceException("Empty login field!");
+		}
+		if (pass == null || pass.isEmpty()) {
+			throw new ServiceException("Empty password field!");
+		}
 		DaoFactory dao = DaoFactory.getInstance();
 		IAccountDao aDao = dao.getAccountDao();
 		

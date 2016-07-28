@@ -1,10 +1,12 @@
 package by.epam.karotki.film_rating.service;
 
 import by.epam.karotki.film_rating.service.impl.AccountServiceImpl;
+import by.epam.karotki.film_rating.service.impl.InitServiceImpl;
 
 public class ServiceFactory {
 	private static final ServiceFactory instance = new ServiceFactory();
 	private static AccountService uService= new AccountServiceImpl();
+	private static InitService iService= new InitServiceImpl();
 	
 	private ServiceFactory(){
 		super();
@@ -18,4 +20,7 @@ public class ServiceFactory {
 		return uService;
 	}
 	
+	public InitService getInitService(){
+		return iService;
+	}
 }

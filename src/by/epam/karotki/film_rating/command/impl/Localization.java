@@ -15,8 +15,7 @@ public class Localization implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("local", request.getParameter("local"));
-	//	request.getRequestDispatcher();
-		System.out.println(request.getRequestURL());
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 
 	}
 

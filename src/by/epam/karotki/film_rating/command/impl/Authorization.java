@@ -31,7 +31,7 @@ public class Authorization implements Command {
 			
 			request.setAttribute("account", account);
 			
-			request.getRequestDispatcher("user-profile.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/user-profile.jsp").forward(request, response);
 		} catch (ServiceAuthException e) {
 			
 			request.setAttribute("errorMessage", "Wrong login or password");

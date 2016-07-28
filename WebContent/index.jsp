@@ -9,11 +9,25 @@
 <title>Кинорейтинг</title>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.message" var="message" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.ru"
 	var="ru_button" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.en"
 	var="en_button" />
+<fmt:message bundle="${loc}" key="local.brand"
+	var="brand" />
+<fmt:message bundle="${loc}" key="local.menu.top.reg"
+	var="reg" />
+<fmt:message bundle="${loc}" key="local.menu.top.sign_in"
+	var="signIn" />
+<fmt:message bundle="${loc}" key="local.menu.side.new"
+	var="newFilm" />
+<fmt:message bundle="${loc}" key="local.menu.side.rate"
+	var="rate" />			
+<fmt:message bundle="${loc}" key="local.menu.side.genre"
+	var="genre" />		
+<fmt:message bundle="${loc}" key="local.menu.side.years"
+	var="years" />				
+	
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -35,7 +49,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">КИНОРЕЙТИНГ</a>
+					<a class="navbar-brand" href="#">${brand}</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<form action="Controller"
@@ -49,19 +63,19 @@
 							<input type="password" name="password" class="form-control"
 								placeholder="Пароль" value="">
 						</div>
-						<button type="submit" class="btn btn-primary">ВОЙТИ</button>
-						<a href="" type="button">РЕГИСТРАЦИЯ</a>
+						<button type="submit" class="btn btn-primary">${signIn}</button>
+						<a href="" type="button" >${reg}</a>
 					</form>
 					<div class="container">
 					<form action="Controller" method="post">
 						<input type="hidden" name="local" value="ru" />
 						<input type="hidden" name="command" value="localization" />
-						<input type="submit" value="ru" />
+						<input type="submit" value="${ru_button}" />
 					</form>
 					<form action="Controller" method="post">
 						<input type="hidden" name="local" value="en" />
 						<input type="hidden" name="command" value="localization" />
-						<input type="submit" value="en" />
+						<input type="submit" value="${en_button}" />
 					</form>
 					</div>
 				</div>
@@ -71,10 +85,10 @@
 
 	<div class="col-lg-3 col-md-3 col-sm-3 sidebar">
 		<ul class="nav nav-sidebar ">
-			<li class="active"><a href="#">Новинки</a></li>
-			<li><a href="#">По рейтингу</a></li>
-			<li><a href="#">По жанру</a></li>
-			<li><a href="#">По году</a></li>
+			<li><a href="#">${newFilm}</a></li>
+			<li><a href="#">${rate}</a></li>
+			<li><a href="#">${genre}</a></li>
+			<li><a href="#">${years}</a></li>
 		</ul>
 	</div>
 	<div class="container col-md-9 col-lg-9 col-sm-9">

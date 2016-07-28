@@ -54,7 +54,7 @@
 <h3>Профиль пользователя</h3>
             <div class="container col-md-3">
                  
-                <img src="images/karotki.jpg" width="100"  class="img-rounded" alt="Ð°Ð²Ð°ÑÐ°Ñ">
+                <img src="images/karotki.jpg" width="100"  class="img-rounded" alt="Аватар">
             </div>
   <div class="container col-lg-9 col-md-9 col-sm-9">      
         
