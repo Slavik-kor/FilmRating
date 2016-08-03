@@ -16,7 +16,7 @@ public class Localization implements Command {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("local", request.getParameter("local"));
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-
+		//response.sendRedirect(request.getRequestURL().toString());
 	}
 
 }
