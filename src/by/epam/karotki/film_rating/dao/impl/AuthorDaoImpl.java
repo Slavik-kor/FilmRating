@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.DBColumnNames;
-import by.epam.karotki.film_rating.dao.IAuthorDao;
+import by.epam.karotki.film_rating.dao.AuthorDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
@@ -17,7 +17,7 @@ import by.epam.karotki.film_rating.entity.Author;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 
-public class AuthorDaoImpl implements IAuthorDao {
+public class AuthorDaoImpl implements AuthorDao {
 //	private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 

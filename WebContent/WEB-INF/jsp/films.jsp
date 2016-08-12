@@ -2,12 +2,12 @@
 	pageEncoding="utf-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<% session.setAttribute("prev_page","index.jsp");%>
+<% session.setAttribute("prev_page","WEB-INF/jsp/films.jsp");%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title>Film rating</title>
+<title>Films</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="locale.locbutton.name.ru"
@@ -42,8 +42,16 @@
 
 </head>
 <body>
-	<%@include file="WEB-INF/jsp/inc/top-menu.jsp" %>
-	<%@include file="WEB-INF/jsp/inc/left-menu.jsp" %>
+	<%@include file="inc/top-menu.jsp" %>
+	<%@include file="inc/left-menu.jsp" %>
+
+<c:set var="films" value="${requestScope.films}" />
+<c:forEach items="${films}" var="film">
+      <h2>
+          <c:out value="${film}"/>
+      </h2>
+  </c:forEach>
+
 
 	<div class="container col-md-9 col-lg-9 col-sm-9">
 		<table class="table table-hover">
@@ -81,7 +89,7 @@
 		</table>
 	</div>
 
-    <%@include file="WEB-INF/jsp/inc/footer.jsp" %>
+    <%@include file="inc/footer.jsp" %>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>

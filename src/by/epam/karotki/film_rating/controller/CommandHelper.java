@@ -6,6 +6,7 @@ import java.util.Map;
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.Localization;
+import by.epam.karotki.film_rating.command.impl.NewFilms;
 
 public class CommandHelper {
 
@@ -15,7 +16,7 @@ public class CommandHelper {
 	public CommandHelper() {
 		 commands.put(CommandName.AUTHORIZATION, new Authorization());
 		 commands.put(CommandName.LOCALIZATION, new Localization());
-
+		 commands.put(CommandName.NEWFILMS, new NewFilms());
 	}
 
 	public Command getCommand(String name) {

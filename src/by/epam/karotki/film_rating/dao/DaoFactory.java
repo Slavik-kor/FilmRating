@@ -6,9 +6,9 @@ import by.epam.karotki.film_rating.dao.impl.FilmDaoImpl;
 
 public class DaoFactory {
 	private static final DaoFactory instance = new DaoFactory();
-	private IAuthorDao authorDao = new AuthorDaoImpl();
-	private IFilmDao filmDao = new FilmDaoImpl();
-	private IAccountDao userDao = new AccountDaoImpl();
+	private AuthorDao authorDao = new AuthorDaoImpl();
+	private FilmDao filmDao = new FilmDaoImpl();
+	private AccountDao userDao = new AccountDaoImpl();
 
 	private DaoFactory(){}
 
@@ -16,15 +16,15 @@ public class DaoFactory {
 		return instance;
 	}
 
-	public IAuthorDao getAuthorDao() {
+	public AuthorDao getAuthorDao() {
 		return authorDao;
 	}
 
-	public IFilmDao getFilmDao() {
+	public FilmDao getFilmDao() {
 		return filmDao;
 	}
 
-	public IAccountDao getAccountDao() {
+	public AccountDao getAccountDao() {
 		return userDao;
 	}
 

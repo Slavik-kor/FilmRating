@@ -1,7 +1,7 @@
 package by.epam.karotki.film_rating.service.impl;
 
 import by.epam.karotki.film_rating.dao.DaoFactory;
-import by.epam.karotki.film_rating.dao.IAccountDao;
+import by.epam.karotki.film_rating.dao.AccountDao;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Account;
 import by.epam.karotki.film_rating.service.AccountService;
@@ -13,13 +13,13 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account autorization(String login, String pass) throws ServiceException {
 		if (login == null || login.isEmpty()) {
-			throw new ServiceException("Empty login field!");
+			throw new ServiceAuthException("Empty login field!");
 		}
 		if (pass == null || pass.isEmpty()) {
-			throw new ServiceException("Empty password field!");
+			throw new ServiceAuthException("Empty password field!");
 		}
 		DaoFactory dao = DaoFactory.getInstance();
-		IAccountDao aDao = dao.getAccountDao();
+		AccountDao aDao = dao.getAccountDao();
 		
 		Account account = null;
 		

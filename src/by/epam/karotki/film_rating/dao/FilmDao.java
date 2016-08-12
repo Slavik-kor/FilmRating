@@ -6,9 +6,9 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Film;
 
 
-public interface IFilmDao {
+public interface FilmDao {
 
-	List<Film> getTopFilmsByRating(int value) throws DaoException;
+	List<Film> getTopFilmsByRating(int value, String lang) throws DaoException;
 
 	List<Film> getFilmsByActors(String firstName, String lastName) throws DaoException;
 
@@ -22,4 +22,5 @@ public interface IFilmDao {
 
 	List<Film> getMostCashBoxFilms(int value) throws DaoException;
 
+	List<Film> getNewestFilms(int value) throws DaoException;
 }

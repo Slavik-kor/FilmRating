@@ -6,7 +6,7 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Author;
 
 
-public interface IAuthorDao {
+public interface AuthorDao {
 
 	List<Author> getAuthorListByCountry(String country) throws DaoException;
 

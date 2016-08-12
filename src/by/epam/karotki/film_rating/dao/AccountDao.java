@@ -6,7 +6,7 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Account;
 
 
-public interface IAccountDao {
+public interface AccountDao {
 
 	List<Account> getUsersByCity(String city) throws DaoException;
 
