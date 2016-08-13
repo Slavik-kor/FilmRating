@@ -14,7 +14,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByNewest(int value) throws ServiceException {
-		if (value==0) {throw new ServiceException("wrong number of film list");}
+		if (value==0) {throw new ServiceException("wrong value of film list");}
 		List<Film> films = new ArrayList<Film>();
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();

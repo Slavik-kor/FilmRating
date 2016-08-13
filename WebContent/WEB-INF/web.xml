@@ -9,15 +9,16 @@
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-<listener>
+	<listener>
 		<listener-class>by.epam.karotki.film_rating.listener.FilmRatingListener</listener-class>
-</listener>
-<servlet>
+	</listener>
+	<servlet>
 		<servlet-name>Registration</servlet-name>
 		<jsp-file>/WEB-INF/jsp/registration.jsp</jsp-file>
 	</servlet>
-<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>Registration</servlet-name>
 		<url-pattern>/reg</url-pattern>
 	</servlet-mapping>
+
 </web-app>

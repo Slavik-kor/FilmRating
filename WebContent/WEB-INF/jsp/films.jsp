@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<% session.setAttribute("prev_page","WEB-INF/jsp/films.jsp");%>
+<% session.setAttribute("prev_page","Controller?command=newfilms&value=5");%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -46,48 +46,32 @@
 	<%@include file="inc/left-menu.jsp" %>
 
 <c:set var="films" value="${requestScope.films}" />
-<c:forEach items="${films}" var="film">
-      <h2>
-          <c:out value="${film}"/>
-      </h2>
-  </c:forEach>
-
-
-	<div class="container col-md-9 col-lg-9 col-sm-9">
-		<table class="table table-hover">
-			<tbody>
-				<tr>
+<div class="container col-md-9 col-lg-9 col-sm-9">
+<table class="table table-hover">
+<tbody>
+<tr>
 					<th>#</th>
 					<th>Постер</th>
 					<th>Название</th>
-					<th>Добавлен</th>
-					<th>Рейтинг</th>
+					<th>Бюджет</th>
+					<th>Сборы</th>
 				</tr>
-				<tr>
-					<th scope="row">1</th>
-					<td><a href="#"><img src="images/Expandabales.jpg"
-							width="50"></a></td>
-					<td><a href="#">Неудержимые</a></td>
-					<td>05.02.2016</td>
-					<td>6.53</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td><a href="#"><img src="images/element.jpg" width="50"></a></td>
-					<td><a href="#">Пятый элемент</a></td>
-					<td>05.02.2016</td>
-					<td>8.05</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td><a href="#"><img src="images/legend.jpg" width="50"></a></td>
-					<td><a href="#">Легенда № 17</a></td>
-					<td>07.03.2016</td>
-					<td>8.33</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+<c:set var="count" value="1" scope="page" />
+<c:forEach items="${films}" var="film">
+ <tr>
+ <th scope="row">${count}</th>
+ <c:set var="count" value="${count + 1}" scope="page"/>
+					<td><a href="#"><img src="${film.poster}" onerror="this.src = 'images/avatar/noFoto.jpg'" alt="${film.title}"
+							width="150"></a></td>
+					<td><a href="#"><c:out value="${film.title}"/></a></td>
+ 					<td><fmt:formatNumber value="${film.budget}" type="currency" currencySymbol="$"/></td>
+					<td><fmt:formatNumber value="${film.boxOfficeCash}" type="currency" currencySymbol="$"/></td>
+ </tr>
+ </c:forEach>
+ </tbody> 
+</table>  
+</div>
+
 
     <%@include file="inc/footer.jsp" %>
 

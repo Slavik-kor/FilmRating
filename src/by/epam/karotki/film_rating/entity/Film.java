@@ -16,6 +16,8 @@ public class Film implements Serializable {
 	private Date premierDate;
 	private Time duration;
 	private String webSite;
+	private String poster;
+	private String teaser;
 
 	public String getTitle() {
 		return title;
@@ -89,11 +91,27 @@ public class Film implements Serializable {
 		this.duration = duration;
 	}
 
+	public String getPoster() {
+		return poster;
+	}
+
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+
+	public String getTeaser() {
+		return teaser;
+	}
+
+	public void setTeaser(String teaser) {
+		this.teaser = teaser;
+	}
+
 	@Override
 	public String toString() {
 		return "Film [id=" + id + ", title=" + title + ", description=" + description + ", budget=" + budget
 				+ ", boxOfficeCash=" + boxOfficeCash + ", audience=" + audience + ", premierDate=" + premierDate
-				+ ", duration=" + duration + ", webSite=" + webSite + "]";
+				+ ", duration=" + duration + ", webSite=" + webSite + ", poster=" + poster + ", teaser=" + teaser + "]";
 	}
 
 	@Override
@@ -109,7 +127,9 @@ public class Film implements Serializable {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
 		result = prime * result + ((premierDate == null) ? 0 : premierDate.hashCode());
+		result = prime * result + ((teaser == null) ? 0 : teaser.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((webSite == null) ? 0 : webSite.hashCode());
 		return result;
@@ -142,10 +162,20 @@ public class Film implements Serializable {
 			return false;
 		if (id != other.id)
 			return false;
+		if (poster == null) {
+			if (other.poster != null)
+				return false;
+		} else if (!poster.equals(other.poster))
+			return false;
 		if (premierDate == null) {
 			if (other.premierDate != null)
 				return false;
 		} else if (!premierDate.equals(other.premierDate))
+			return false;
+		if (teaser == null) {
+			if (other.teaser != null)
+				return false;
+		} else if (!teaser.equals(other.teaser))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -160,4 +190,5 @@ public class Film implements Serializable {
 		return true;
 	}
 
+	
 }

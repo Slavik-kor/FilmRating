@@ -21,37 +21,37 @@ public class FilmDaoImpl implements FilmDao {
 	// private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 
-	private static final String FILM_BY_RATING = "SELECT title, Budget, BoxOfficeCash ROUND(AVG(Rate),2) Rating "
+	private static final String FILM_BY_RATING = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser, ROUND(AVG(Rate),2) Rating "
 			+ "from(select g.idFilm idFilm, coalesce(t.title,g.title) title, coalesce(t.description,g.description) description "
 			+ "from (film as g left join (select * from film_lang where lang = '?')  t using(idFilm))) films "
 			+ "JOIN rate ON rate.Film_id = films.idFilm GROUP BY title ORDER BY Rating Desc LIMIT ?;";
 
-	private static final String FILM_BY_ACTOR = "SELECT Title, Budget, BoxOfficeCash FROM film "
+	private static final String FILM_BY_ACTOR = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "JOIN Film_has_Authors ON Film_has_Authors.Film_id = film.idFilm "
 			+ "JOIN Author ON Author.idAuthor = Film_has_Authors.Authors_idAuthors "
 			+ "WHERE (AuthorFirstName = ?) AND (AuthorLastName = ?) AND (Role = 'Actor');";
 
-	private static final String FILM_BY_DIRECTOR = "SELECT Title, Budget, BoxOfficeCash FROM film "
+	private static final String FILM_BY_DIRECTOR = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "JOIN Film_has_Authors ON Film_has_Authors.Film_id = film.idFilm "
 			+ "JOIN Author ON Author.idAuthor = Film_has_Authors.Authors_idAuthors "
 			+ "WHERE (AuthorFirstName = ?) AND (AuthorLastName = ?) AND (Role = 'Director');";
 
-	private static final String FILM_BY_SCENARIO_WRITER = "SELECT Title, Budget, BoxOfficeCash FROM film "
+	private static final String FILM_BY_SCENARIO_WRITER = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "JOIN Film_has_Authors ON Film_has_Authors.Film_id = film.idFilm "
 			+ "JOIN Author ON Author.idAuthor = Film_has_Authors.Authors_idAuthors "
 			+ "WHERE (AuthorFirstName = ?) AND (AuthorLastName = ?) AND (Role = 'ScenarioWriter');";
 
-	private static final String FILM_BY_GENRE = "SELECT Title, Budget, BoxOfficeCash FROM film "
+	private static final String FILM_BY_GENRE = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "JOIN Film_Genre ON Film_Genre.Film_id = film.idFilm "
 			+ "JOIN Genre ON Genre.idGenre = Film_Genre.Genre_id " + "WHERE Name = ? ;";
 
-	private static final String FILM_BY_BUDGET = "SELECT Title, Budget, BoxOfficeCash FROM film "
+	private static final String FILM_BY_BUDGET = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "ORDER BY Budget DESC LIMIT ? ;";
 
-	private static final String FILM_BY_BOX_OFFICE_CASH = "SELECT Title, Budget, BoxOfficeCash FROM film "
+	private static final String FILM_BY_BOX_OFFICE_CASH = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "ORDER BY BoxOfficeCash DESC LIMIT ?";
-	
-	private static final String NEWEST_FILM = "SELECT Title, Budget, BoxOfficeCash, PremierDate FROM film "
+
+	private static final String NEWEST_FILM = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "ORDER BY PremierDate DESC LIMIT ? ;";
 
 	@Override
@@ -254,7 +254,7 @@ public class FilmDaoImpl implements FilmDao {
 		}
 		return filmList;
 	}
-	
+
 	@Override
 	public List<Film> getNewestFilms(int value) throws DaoException {
 		List<Film> filmList = new ArrayList<Film>();
@@ -281,21 +281,27 @@ public class FilmDaoImpl implements FilmDao {
 			conPool.returnConnection(con);
 		}
 		return filmList;
-		
+
 	}
 
 	private List<Film> getFilms(ResultSet rs) throws SQLException {
 		List<Film> filmList = new ArrayList<Film>();
 		while (rs.next()) {
 			Film film = new Film();
+			film.setId(rs.getInt(DBColumnNames.FILM_ID));
 			film.setTitle(rs.getString(DBColumnNames.FILM_TITLE));
+			film.setDescription(rs.getString(DBColumnNames.FILM_DESCRIPTION));
 			film.setBudget(rs.getDouble(DBColumnNames.FILM_BUDGET));
 			film.setBoxOfficeCash(rs.getDouble(DBColumnNames.FILM_BOX_OFFICE_CASH));
+			film.setAudience(rs.getInt(DBColumnNames.FILM_AUDIENCE));
+			film.setPremierDate(rs.getDate(DBColumnNames.FILM_PREMIER_DATE));
+			film.setDuration(rs.getTime(DBColumnNames.FILM_DURATION));
+			film.setWebSite(rs.getString(DBColumnNames.FILM_SITE));
+			film.setPoster(rs.getString(DBColumnNames.FILM_POSTER));
+			film.setTeaser(rs.getString(DBColumnNames.FILM_TEASER));
 			filmList.add(film);
 		}
 		return filmList;
 	}
-
-	
 
 }
