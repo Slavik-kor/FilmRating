@@ -53,6 +53,8 @@ public class FilmDaoImpl implements FilmDao {
 
 	private static final String NEWEST_FILM = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "ORDER BY PremierDate DESC LIMIT ? ;";
+	private static final String FILM_BY_ID = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
+			+ "WHERE idFilm = ?";
 
 	@Override
 	public List<Film> getTopFilmsByRating(int value, String lang) throws DaoException {
@@ -284,6 +286,35 @@ public class FilmDaoImpl implements FilmDao {
 
 	}
 
+	@Override
+	public Film getFilmById(int id) throws DaoException {
+		List<Film> filmList = new ArrayList<Film>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(FILM_BY_ID);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			filmList = getFilms(rs);
+		} catch (ConnectionPoolException e) {
+			throw new DaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new DaoException("Can't perform query", e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.warn("Can't close PreparedStatement or ResultSet");
+			}
+			conPool.returnConnection(con);
+		}
+		
+		return filmList.get(0);
+	}
+	
 	private List<Film> getFilms(ResultSet rs) throws SQLException {
 		List<Film> filmList = new ArrayList<Film>();
 		while (rs.next()) {
@@ -303,5 +334,7 @@ public class FilmDaoImpl implements FilmDao {
 		}
 		return filmList;
 	}
+
+	
 
 }

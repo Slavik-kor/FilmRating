@@ -30,4 +30,8 @@ public class DBColumnNames {
 	public static final String FILM_SITE = "WebSite";
 	public static final String FILM_POSTER = "Poster";
 	public static final String FILM_TEASER = "Teaser";
+	
+	public static final String COUNTRY_ID = "idCountry";
+	public static final String COUNTRY_NAME = "CountryName";
+	public static final String COUNTRY_CODE = "CountryCode";
 }

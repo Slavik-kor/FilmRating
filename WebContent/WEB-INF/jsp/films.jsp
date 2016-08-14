@@ -61,9 +61,9 @@
  <tr>
  <th scope="row">${count}</th>
  <c:set var="count" value="${count + 1}" scope="page"/>
-					<td><a href="#"><img src="${film.poster}" onerror="this.src = 'images/avatar/noFoto.jpg'" alt="${film.title}"
+					<td><a href="Controller?command=film_Card&film=${film.id}"><img src="${film.poster}" onerror="this.src = 'images/avatar/noFoto.jpg'" alt="${film.title}"
 							width="150"></a></td>
-					<td><a href="#"><c:out value="${film.title}"/></a></td>
+					<td><a href="Controller?command=film_Card&film=${film.id}"><c:out value="${film.title}"/></a></td>
  					<td><fmt:formatNumber value="${film.budget}" type="currency" currencySymbol="$"/></td>
 					<td><fmt:formatNumber value="${film.boxOfficeCash}" type="currency" currencySymbol="$"/></td>
  </tr>

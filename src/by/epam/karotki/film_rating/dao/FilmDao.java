@@ -23,4 +23,6 @@ public interface FilmDao {
 	List<Film> getMostCashBoxFilms(int value) throws DaoException;
 
 	List<Film> getNewestFilms(int value) throws DaoException;
+	
+	Film getFilmById(int id) throws DaoException;
 }

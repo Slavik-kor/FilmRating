@@ -14,17 +14,33 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByNewest(int value) throws ServiceException {
-		if (value==0) {throw new ServiceException("wrong value of film list");}
+		if (value == 0) {
+			throw new ServiceException("wrong value of film list");
+		}
 		List<Film> films = new ArrayList<Film>();
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		try {
 			films = fDao.getNewestFilms(value);
 		} catch (DaoException e) {
-			//log
-			throw new ServiceException("can't get newest films",e);
+			// log
+			throw new ServiceException("can't get newest films", e);
 		}
 		return films;
+	}
+
+	@Override
+	public Film getFilmById(int id) throws ServiceException {
+		DaoFactory factory = DaoFactory.getInstance();
+		FilmDao fDao = factory.getFilmDao();
+		Film film = null;
+		try {
+			film = fDao.getFilmById(id);
+		} catch (DaoException e) {
+			// log
+			throw new ServiceException("can't get film by id", e);
+		}
+		return film;
 	}
 
 }
