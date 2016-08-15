@@ -11,5 +11,9 @@ public interface AuthorDao {
 	List<Author> getAuthorListByCountry(String country) throws DaoException;
 
 	List<Author> getAuthorListByFilm(String Title) throws DaoException;
+	
+	List<Author> getAuthorListByFilm(int idFilm,String role) throws DaoException;
+	
+	Author getAuthorById(int idAuthor) throws DaoException;
 
 }

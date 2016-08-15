@@ -8,5 +8,7 @@ import by.epam.karotki.film_rating.service.exception.ServiceException;
 public interface CountryService {
 	
 	List<Country> getCountriesByFilm(int idFilm) throws ServiceException;
+	
+	Country getCountryById(int idFilm) throws ServiceException;
 
 }

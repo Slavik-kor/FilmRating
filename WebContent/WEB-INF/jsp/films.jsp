@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<% session.setAttribute("prev_page","Controller?command=newfilms&value=5");%>
+<% session.setAttribute("prev_page","Controller?command=newfilms&value=10");%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -61,11 +61,11 @@
  <tr>
  <th scope="row">${count}</th>
  <c:set var="count" value="${count + 1}" scope="page"/>
-					<td><a href="Controller?command=film_Card&film=${film.id}"><img src="${film.poster}" onerror="this.src = 'images/avatar/noFoto.jpg'" alt="${film.title}"
+					<td><a href="Controller?command=film_Card&film=${film.id}"><img src="${film.poster}" onerror="this.src = 'images/poster/noFoto.jpg'" alt="${film.title}"
 							width="150"></a></td>
 					<td><a href="Controller?command=film_Card&film=${film.id}"><c:out value="${film.title}"/></a></td>
- 					<td><fmt:formatNumber value="${film.budget}" type="currency" currencySymbol="$"/></td>
-					<td><fmt:formatNumber value="${film.boxOfficeCash}" type="currency" currencySymbol="$"/></td>
+ 					<td><fmt:formatNumber value="${film.budget}" type="currency" currencySymbol="$" maxFractionDigits="0"/></td>
+					<td><fmt:formatNumber value="${film.boxOfficeCash}" type="currency" currencySymbol="$" maxFractionDigits="0"/></td>
  </tr>
  </c:forEach>
  </tbody> 

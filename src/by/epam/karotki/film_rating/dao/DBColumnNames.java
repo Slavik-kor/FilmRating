@@ -16,8 +16,12 @@ public class DBColumnNames {
 	public static final String ACCOUNT_IS_ACTIVE = "AccountActive";
 	public static final String ACCOUNT_CITY_ID = "City_id";
 	
+	public static final String AUTHOR_ID = "idAuthor";
 	public static final String AUTHOR_FIRST_NAME = "AuthorFirstName";
 	public static final String AUTHOR_LAST_NAME = "AuthorLastName";
+	public static final String AUTHOR_BIRTHDAY = "AuthorsBirthday";
+	public static final String AUTHOR_COUNTRY = "CountryOfBirth_id";
+	public static final String AUTHOR_PHOTO = "Photo";
 	
 	public static final String FILM_ID = "idFilm";
 	public static final String FILM_TITLE = "Title";
@@ -34,4 +38,8 @@ public class DBColumnNames {
 	public static final String COUNTRY_ID = "idCountry";
 	public static final String COUNTRY_NAME = "CountryName";
 	public static final String COUNTRY_CODE = "CountryCode";
+	
+	public static final String GENRE_ID = "idGenre";
+	public static final String GENRE_NAME = "Name";
+	public static final String GENRE_DESCRIPTION = "Description";
 }

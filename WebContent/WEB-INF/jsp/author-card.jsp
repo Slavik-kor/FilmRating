@@ -6,10 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Film</title>
-<c:set var="film" value="${requestScope.film}" />
+<c:set var="author" value="${requestScope.author}" />
+<title><c:out value="${author.firstName}"/><c:out value=" ${author.lastName}"/> </title>
 <c:set var="prev_page"
-	value="Controller?command=film_card&film=${film.id}" scope="session" />
+	value="Controller?command=author_card&author_id=${author.id}" scope="session" />
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -39,113 +39,86 @@
 	<%@include file="inc/top-menu.jsp"%>
 	<%@include file="inc/left-menu.jsp"%>
 
-	<div class="container col-lg-9 col-md-9 col-sm-9">
+<div class="container col-lg-9 col-md-9 col-sm-9">
 
 		<div class="row">
 			<div class="container col-lg-4 col-lg-offset-4">
-				<h3>
-					<c:out value="${film.title}" />
-				</h3>
 			</div>
 			<div class="container col-lg-4 col-lg-offset-1">
-				<img src="${film.poster }" width="250" class="img-rounded"
-					alt="постер">
+				<img src="${author.photo}" width="250" class="img-rounded" onerror="this.src = 'images/author/noFoto.jpg'"
+					alt="фото">
 			</div>
 			<div class="container col-lg-6">
 				<table class="table table-hover">
 					<tbody>
-						<tr>
-							<th scope="row">Год</th>
-							<td><fmt:formatDate value="${film.premierDate }"
-									pattern="yyyy" /></td>
+					    <tr>
+							<th scope="row">Имя</th>
+							<td><c:out value="${author.firstName}" /></td>
+						</tr>
+					    <tr>
+							<th scope="row">Фамилия</th>
+							<td><c:out value="${author.lastName}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Страна</th>
-							<td><c:set var="countries"
-									value="${requestScope.country_list}" /> <c:forEach
-									items="${countries}" var="country" varStatus="loopStatus">
-									<c:out value="${country.name} " />
-									<c:if test="${!loopStatus.last}">, </c:if>
-								</c:forEach></td>
+							<th scope="row">Дата рождения</th>
+							<td><fmt:formatDate value="${author.birthDay}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Жанр</th>
-							<td><c:set var="genres"
-									value="${requestScope.genre_list}" /> <c:forEach
-									items="${genres}" var="genre" varStatus="loopStatus">
-									<c:out value="${genre.name} " />
-									<c:if test="${!loopStatus.last}">, </c:if>
-								</c:forEach>
-							</td>
+							<th scope="row">Страна рождения</th>
+							<td><c:set var="country"
+									value="${requestScope.country}" />
+									<c:out value="${country.name}" />
+									</td>
 						</tr>
 						<tr>
-							<th scope="row">Бюджет</th>
-							<td><fmt:formatNumber value="${film.budget}" type="currency"
-									currencySymbol="$" maxFractionDigits="0"/></td>
-						</tr>
-						<tr>
-							<th scope="row">Кассовые сборы</th>
-							<td><fmt:formatNumber value="${film.boxOfficeCash}"
-									type="currency" currencySymbol="$" maxFractionDigits="0" /></td>
-						</tr>
-						<tr>
-							<th scope="row">Зрители</th>
-							<td><fmt:formatNumber value="${film.audience }" /></td>
-						</tr>
-						<tr>
-							<th scope="row">Премьера</th>
-							<td><fmt:formatDate value="${film.premierDate }" /></td>
-						</tr>
-					</tbody>
+							
 				</table>
-				<p>Режисеры</p>
-				<c:set var="directors" value="${requestScope.directors_list }"/>
+				<h3>Фильмография</h3>
+				<p>Режисер</p>
+				<c:set var="directorFilms" value="${requestScope.directorFilms }"/>
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
-					<c:forEach items="${directors}" var="director">
+					<c:forEach items="${directorFilms}" var="dFilm">
 						<tr>
 							<th scope="row">${count}</th>
 							 <c:set var="count" value="${count + 1}"/>
-							<td><a href="Controller?command=author_card&author_id=${director.id}"><c:out value="${director.firstName} ${director.lastName}"/></a></td>
+							<td><a href="Controller?command=film_card&film=${dFilm.id}"><c:out value="${dFilm.title}"/></a></td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
-				<p>Сценаристы</p>
-				<c:set var="scWriters" value="${requestScope.scenarioWriters_list }"/>
+				<p>Сценарист</p>
+				<c:set var="scWriterFilms" value="${requestScope.scenarioWriterFilms }"/>
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 						<tbody>
-					<c:forEach items="${scWriters}" var="scWriter">
+					<c:forEach items="${scWriterFilms}" var="scWriterFilm">
 						<tr>
 							<th scope="row">${count}</th>
 							 <c:set var="count" value="${count + 1}"/>
-							<td><a href="Controller?command=author_card&author_id=${scWriter.id}"><c:out value="${scWriter.firstName} ${scWriter.lastName}"/></a></td>
+							<td><a href="Controller?command=film_card&film=${scWriterFilm.id}"><c:out value="${scWriterFilm.title}"/></a></td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
-				<p>Актеры</p>
-				<c:set var="actors" value="${requestScope.actors_list }"/>
+				<p>Актер</p>
+				<c:set var="actorFilms" value="${requestScope.actorFilm }"/>
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
-						<c:forEach items="${actors}" var="actor">
+						<c:forEach items="${actorFilm}" var="aFilm">
 						<tr>
 							<th scope="row">${count}</th>
 							 <c:set var="count" value="${count + 1}"/>
-							<td><a href="Controller?command=author_card&author_id=${actor.id}"><c:out value="${actor.firstName} ${actor.lastName}"/></a></td>
+							<td><a href="Controller?command=film_card&film=${aFilm.id}"><c:out value="${aFilm}"/></a></td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<div class="container col-lg-6">
-		 <iframe width="560" height="315" src="${film.teaser}" frameborder="0" allowfullscreen align="middle" ></iframe>
-		</div>
-		
+				
 	</div>
 	
 	<%@include file="inc/footer.jsp"%>

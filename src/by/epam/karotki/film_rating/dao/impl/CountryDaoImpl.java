@@ -20,6 +20,9 @@ public class CountryDaoImpl implements CountryDao {
 	private static final String COUNTRIES_BY_FILM = "SELECT idCountry, CountryName, CountryCode FROM Country "
 			+ "JOIN FilmOriginCountry film ON Country.idCountry = film.Country_id "
 			+ "WHERE film.Film_id=?";
+	
+	private static final String COUNTRY_BY_ID = "SELECT idCountry, CountryName, CountryCode FROM Country "
+			+ "WHERE idCountry=?";
 
 	@Override
 	public List<Country> getCountryByFilm(int idFilm) throws DaoException {
@@ -49,6 +52,45 @@ public class CountryDaoImpl implements CountryDao {
 		return countryList;
 	}
 
+	@Override
+	public Country getCountryById(int idFilm) throws DaoException {
+		Country country = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(COUNTRY_BY_ID);
+			ps.setInt(1, idFilm);
+			rs = ps.executeQuery();
+			country = getCountry(rs);
+		} catch (ConnectionPoolException e) {
+			throw new DaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new DaoException("Can't perform query", e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.warn("Can't close PreparedStatement or ResultSet");
+			}
+			conPool.returnConnection(con);
+		}
+		return country;
+	}
+	
+	private Country getCountry(ResultSet rs) throws SQLException {
+		Country country = null;
+		while (rs.next()) {
+			country = new Country();
+			country.setId(rs.getInt(DBColumnNames.COUNTRY_ID));
+			country.setName(rs.getString(DBColumnNames.COUNTRY_NAME));
+			country.setCode(rs.getString(DBColumnNames.COUNTRY_CODE));
+		}
+		return country;
+		}
+	
 	private List<Country> getCountryList(ResultSet rs) throws SQLException {
 		List<Country> countryList = new ArrayList<Country>();
 		while (rs.next()) {
@@ -61,5 +103,7 @@ public class CountryDaoImpl implements CountryDao {
 		return countryList;
 
 	}
+
+	
 
 }

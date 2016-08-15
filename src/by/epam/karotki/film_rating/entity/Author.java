@@ -10,6 +10,7 @@ public class Author implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Date birthDay;
+	private String photo;
 	private int countryOfBirthId;
 
 	public String getFirstName() {
@@ -52,10 +53,18 @@ public class Author implements Serializable {
 		this.countryOfBirthId = countryOfBirthId;
 	}
 
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 	@Override
 	public String toString() {
 		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay=" + birthDay
-				+ ", countryOfBirthId=" + countryOfBirthId + "]";
+				+ ", photo=" + photo + ", countryOfBirthId=" + countryOfBirthId + "]";
 	}
 
 	@Override
@@ -67,6 +76,7 @@ public class Author implements Serializable {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((photo == null) ? 0 : photo.hashCode());
 		return result;
 	}
 
@@ -98,8 +108,15 @@ public class Author implements Serializable {
 				return false;
 		} else if (!lastName.equals(other.lastName))
 			return false;
+		if (photo == null) {
+			if (other.photo != null)
+				return false;
+		} else if (!photo.equals(other.photo))
+			return false;
 		return true;
 	}
+
+	
 
 	
 

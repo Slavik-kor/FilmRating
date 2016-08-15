@@ -4,6 +4,7 @@ import by.epam.karotki.film_rating.dao.impl.AccountDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.AuthorDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.CountryDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.FilmDaoImpl;
+import by.epam.karotki.film_rating.dao.impl.GenreDaoImpl;
 
 public class DaoFactory {
 	private static final DaoFactory instance = new DaoFactory();
@@ -11,6 +12,7 @@ public class DaoFactory {
 	private FilmDao filmDao = new FilmDaoImpl();
 	private AccountDao userDao = new AccountDaoImpl();
 	private CountryDao countryDao = new CountryDaoImpl();
+	private GenreDao genreDao = new GenreDaoImpl();
 
 	private DaoFactory(){}
 
@@ -32,6 +34,10 @@ public class DaoFactory {
 	
 	public CountryDao getCountryDao(){
 		return countryDao;
+	}
+	
+	public GenreDao getGenreDao(){
+		return genreDao;
 	}
 
 }

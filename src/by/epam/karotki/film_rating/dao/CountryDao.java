@@ -7,4 +7,6 @@ import by.epam.karotki.film_rating.entity.Country;
 
 public interface CountryDao {
 	List<Country> getCountryByFilm(int idFilm) throws DaoException;
+	
+	Country getCountryById(int idFilm) throws DaoException;
 }

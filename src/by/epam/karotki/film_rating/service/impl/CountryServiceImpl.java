@@ -26,4 +26,18 @@ public class CountryServiceImpl implements CountryService {
 		return countryList;
 	}
 
+	@Override
+	public Country getCountryById(int idFilm) throws ServiceException {
+		Country country = null;
+		DaoFactory dao = DaoFactory.getInstance();
+		CountryDao cDao = dao.getCountryDao();
+		try {
+			country = cDao.getCountryById(idFilm);
+		} catch (DaoException e) {
+			// log
+			throw new ServiceException("can't get author country", e);
+		}
+		return country;
+	}
+
 }

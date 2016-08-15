@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.epam.karotki.film_rating.command.Command;
+import by.epam.karotki.film_rating.command.impl.AuthorCard;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.FilmCard;
 import by.epam.karotki.film_rating.command.impl.Localization;
@@ -19,6 +20,7 @@ public class CommandHelper {
 		 commands.put(CommandName.LOCALIZATION, new Localization());
 		 commands.put(CommandName.NEWFILMS, new NewFilms());
 		 commands.put(CommandName.FILM_CARD, new FilmCard());
+		 commands.put(CommandName.AUTHOR_CARD, new AuthorCard());
 	}
 
 	public Command getCommand(String name) {
