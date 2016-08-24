@@ -6,28 +6,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Film</title>
+<c:set var="account" value="${sessionScope.account}" />
 <c:set var="film" value="${requestScope.film}" />
 <c:set var="prev_page"
 	value="Controller?command=film_card&film=${film.id}" scope="session" />
-
+<title>Film</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
-<fmt:message bundle="${loc}" key="locale.locbutton.name.ru"
-	var="ru_button" />
-<fmt:message bundle="${loc}" key="locale.locbutton.name.en"
-	var="en_button" />
-<fmt:message bundle="${loc}" key="locale.brand" var="brand" />
-<fmt:message bundle="${loc}" key="locale.menu.top.reg" var="reg" />
-<fmt:message bundle="${loc}" key="locale.menu.top.sign_in" var="signIn" />
-<fmt:message bundle="${loc}" key="locale.menu.top.login" var="login" />
-<fmt:message bundle="${loc}" key="locale.menu.top.password"
-	var="password" />
-<fmt:message bundle="${loc}" key="locale.menu.side.new" var="newFilm" />
-<fmt:message bundle="${loc}" key="locale.menu.side.rate" var="rate" />
-<fmt:message bundle="${loc}" key="locale.menu.side.genre" var="genre" />
-<fmt:message bundle="${loc}" key="locale.menu.side.years" var="years" />
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -37,7 +22,6 @@
 </head>
 <body>
 	<%@include file="inc/top-menu.jsp"%>
-	<%@include file="inc/left-menu.jsp"%>
 
 	<div class="container col-lg-9 col-md-9 col-sm-9">
 
@@ -70,18 +54,16 @@
 						</tr>
 						<tr>
 							<th scope="row">Жанр</th>
-							<td><c:set var="genres"
-									value="${requestScope.genre_list}" /> <c:forEach
-									items="${genres}" var="genre" varStatus="loopStatus">
+							<td><c:set var="genres" value="${requestScope.genre_list}" />
+								<c:forEach items="${genres}" var="genre" varStatus="loopStatus">
 									<c:out value="${genre.name} " />
 									<c:if test="${!loopStatus.last}">, </c:if>
-								</c:forEach>
-							</td>
+								</c:forEach></td>
 						</tr>
 						<tr>
 							<th scope="row">Бюджет</th>
 							<td><fmt:formatNumber value="${film.budget}" type="currency"
-									currencySymbol="$" maxFractionDigits="0"/></td>
+									currencySymbol="$" maxFractionDigits="0" /></td>
 						</tr>
 						<tr>
 							<th scope="row">Кассовые сборы</th>
@@ -99,55 +81,62 @@
 					</tbody>
 				</table>
 				<p>Режисеры</p>
-				<c:set var="directors" value="${requestScope.directors_list }"/>
+				<c:set var="directors" value="${requestScope.directors_list }" />
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
-					<c:forEach items="${directors}" var="director">
-						<tr>
-							<th scope="row">${count}</th>
-							 <c:set var="count" value="${count + 1}"/>
-							<td><a href="Controller?command=author_card&author_id=${director.id}"><c:out value="${director.firstName} ${director.lastName}"/></a></td>
-						</tr>
-					</c:forEach>
+						<c:forEach items="${directors}" var="director">
+							<tr>
+								<th scope="row">${count}</th>
+								<c:set var="count" value="${count + 1}" />
+								<td><a
+									href="Controller?command=author_card&author_id=${director.id}"><c:out
+											value="${director.firstName} ${director.lastName}" /></a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<p>Сценаристы</p>
-				<c:set var="scWriters" value="${requestScope.scenarioWriters_list }"/>
+				<c:set var="scWriters" value="${requestScope.scenarioWriters_list }" />
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
-						<tbody>
-					<c:forEach items="${scWriters}" var="scWriter">
-						<tr>
-							<th scope="row">${count}</th>
-							 <c:set var="count" value="${count + 1}"/>
-							<td><a href="Controller?command=author_card&author_id=${scWriter.id}"><c:out value="${scWriter.firstName} ${scWriter.lastName}"/></a></td>
-						</tr>
-					</c:forEach>
+					<tbody>
+						<c:forEach items="${scWriters}" var="scWriter">
+							<tr>
+								<th scope="row">${count}</th>
+								<c:set var="count" value="${count + 1}" />
+								<td><a
+									href="Controller?command=author_card&author_id=${scWriter.id}"><c:out
+											value="${scWriter.firstName} ${scWriter.lastName}" /></a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<p>Актеры</p>
-				<c:set var="actors" value="${requestScope.actors_list }"/>
+				<c:set var="actors" value="${requestScope.actors_list }" />
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
 						<c:forEach items="${actors}" var="actor">
-						<tr>
-							<th scope="row">${count}</th>
-							 <c:set var="count" value="${count + 1}"/>
-							<td><a href="Controller?command=author_card&author_id=${actor.id}"><c:out value="${actor.firstName} ${actor.lastName}"/></a></td>
-						</tr>
-					</c:forEach>
+							<tr>
+								<th scope="row">${count}</th>
+								<c:set var="count" value="${count + 1}" />
+								<td><a
+									href="Controller?command=author_card&author_id=${actor.id}"><c:out
+											value="${actor.firstName} ${actor.lastName}" /></a></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<div class="container col-lg-6">
-		 <iframe width="560" height="315" src="${film.teaser}" frameborder="0" allowfullscreen align="middle" ></iframe>
+			<iframe width="560" height="315" src="${film.teaser}" frameborder="0"
+				allowfullscreen align="center"></iframe>
 		</div>
-		
+
 	</div>
-	
+
 	<%@include file="inc/footer.jsp"%>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>

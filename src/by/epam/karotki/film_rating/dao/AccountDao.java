@@ -19,4 +19,10 @@ public interface AccountDao {
 	List<Account> getActiveUsersByComment(int value) throws DaoException;
 
 	Account authorization(String login, String password) throws DaoException;
+	
+	void addAccount(Account account) throws DaoException;
+	
+	void updateAccount(Account account) throws DaoException;
+
+	Account getAccountByLogin(String login) throws DaoException;
 }

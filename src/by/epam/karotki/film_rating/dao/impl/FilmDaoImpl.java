@@ -76,9 +76,13 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -105,9 +109,13 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -134,9 +142,13 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -163,9 +175,13 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -192,11 +208,15 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
-				ps.close();
-				conPool.returnConnection(con);
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close ResultSet");
 			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
 		}
 		return filmList;
 	}
@@ -220,12 +240,16 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
+			conPool.returnConnection(con);
 		}
-		conPool.returnConnection(con);
 		return filmList;
 	}
 
@@ -248,9 +272,13 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -276,9 +304,13 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -288,7 +320,7 @@ public class FilmDaoImpl implements FilmDao {
 
 	@Override
 	public Film getFilmById(int id) throws DaoException {
-		List<Film> filmList = new ArrayList<Film>();
+		Film film = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -297,7 +329,7 @@ public class FilmDaoImpl implements FilmDao {
 			ps = con.prepareStatement(FILM_BY_ID);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			filmList = getFilms(rs);
+			film = getFilm(rs);
 		} catch (ConnectionPoolException e) {
 			throw new DaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
@@ -305,15 +337,39 @@ public class FilmDaoImpl implements FilmDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
 		
-		return filmList.get(0);
+		return film;
 	}
+	
+	private Film getFilm(ResultSet rs) throws SQLException {
+		while (rs.next()) {
+			Film film = new Film();
+			film.setId(rs.getInt(DBColumnNames.FILM_ID));
+			film.setTitle(rs.getString(DBColumnNames.FILM_TITLE));
+			film.setDescription(rs.getString(DBColumnNames.FILM_DESCRIPTION));
+			film.setBudget(rs.getDouble(DBColumnNames.FILM_BUDGET));
+			film.setBoxOfficeCash(rs.getDouble(DBColumnNames.FILM_BOX_OFFICE_CASH));
+			film.setAudience(rs.getInt(DBColumnNames.FILM_AUDIENCE));
+			film.setPremierDate(rs.getDate(DBColumnNames.FILM_PREMIER_DATE));
+			film.setDuration(rs.getTime(DBColumnNames.FILM_DURATION));
+			film.setWebSite(rs.getString(DBColumnNames.FILM_SITE));
+			film.setPoster(rs.getString(DBColumnNames.FILM_POSTER));
+			film.setTeaser(rs.getString(DBColumnNames.FILM_TEASER));
+			return film;
+		}
+		return null;
+	}
+
 	
 	private List<Film> getFilms(ResultSet rs) throws SQLException {
 		List<Film> filmList = new ArrayList<Film>();

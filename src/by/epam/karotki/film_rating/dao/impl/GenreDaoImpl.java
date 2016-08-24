@@ -40,12 +40,12 @@ public class GenreDaoImpl implements GenreDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close ResultSet");
+				// LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}

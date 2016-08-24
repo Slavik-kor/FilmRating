@@ -14,9 +14,11 @@ public class Account implements Serializable {
 	private Date creationDate;
 	private String login;
 	private String password;
-	private String Role;
+	private String role;
 	private boolean active;
-	private int cityId;
+	private String phone;
+	private String photo;
+	private Integer cityId;
 
 	public String getFirstName() {
 		return firstName;
@@ -51,11 +53,11 @@ public class Account implements Serializable {
 	}
 
 	public String getRole() {
-		return Role;
+		return role;
 	}
 
 	public void setRole(String role) {
-		Role = role;
+		this.role = role;
 	}
 
 	public boolean isActive() {
@@ -98,26 +100,42 @@ public class Account implements Serializable {
 		this.password = password;
 	}
 
-	public int getCityId() {
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public Integer getCityId() {
 		return cityId;
 	}
 
-	public void setCityId(int cityId) {
+	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay=" + birthDay
+		return "Account [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay=" + birthDay
 				+ ", email=" + email + ", creationDate=" + creationDate + ", login=" + login + ", password=" + password
-				+ ", Role=" + Role + ", active=" + active + ", cityId=" + cityId + "]";
+				+ ", role=" + role + ", active=" + active + ", phone=" + phone + ", photo=" + photo + ", cityId="
+				+ cityId + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Role == null) ? 0 : Role.hashCode());
 		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((birthDay == null) ? 0 : birthDay.hashCode());
 		result = prime * result + cityId;
@@ -128,6 +146,9 @@ public class Account implements Serializable {
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((photo == null) ? 0 : photo.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
 
@@ -140,11 +161,6 @@ public class Account implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Account other = (Account) obj;
-		if (Role == null) {
-			if (other.Role != null)
-				return false;
-		} else if (!Role.equals(other.Role))
-			return false;
 		if (active != other.active)
 			return false;
 		if (birthDay == null) {
@@ -186,7 +202,26 @@ public class Account implements Serializable {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (photo == null) {
+			if (other.photo != null)
+				return false;
+		} else if (!photo.equals(other.photo))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
 		return true;
 	}
+
+	
+	
+	
 
 }

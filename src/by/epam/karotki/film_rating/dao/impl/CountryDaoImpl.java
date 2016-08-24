@@ -43,9 +43,13 @@ public class CountryDaoImpl implements CountryDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -71,9 +75,13 @@ public class CountryDaoImpl implements CountryDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}

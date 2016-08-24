@@ -55,9 +55,13 @@ public class AuthorDaoImpl implements AuthorDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -83,9 +87,13 @@ public class AuthorDaoImpl implements AuthorDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -112,9 +120,13 @@ public class AuthorDaoImpl implements AuthorDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -140,9 +152,13 @@ public class AuthorDaoImpl implements AuthorDao {
 		} finally {
 			try {
 				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.warn("Can't close PreparedStatement or ResultSet");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -150,17 +166,17 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 
 	private Author getAuthor(ResultSet rs) throws SQLException {
-		Author author = null;
 		while (rs.next()) {
-			author = new Author();
+			Author author = new Author();
 			author.setId(rs.getInt(DBColumnNames.AUTHOR_ID));
 			author.setFirstName(rs.getString(DBColumnNames.AUTHOR_FIRST_NAME));
 			author.setLastName(rs.getString(DBColumnNames.AUTHOR_LAST_NAME));
 			author.setBirthDay(rs.getDate(DBColumnNames.AUTHOR_BIRTHDAY));
 			author.setPhoto(rs.getString(DBColumnNames.AUTHOR_PHOTO));
 			author.setCountryOfBirthId(rs.getInt(DBColumnNames.AUTHOR_COUNTRY));
+			return author;
 		}
-		return author;
+		return null;
 	}
 	
 	private List<Author> getAuthors(ResultSet rs) throws SQLException {

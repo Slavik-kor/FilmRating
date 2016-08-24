@@ -27,15 +27,16 @@ public class AuthorCard implements Command {
 		ServiceFactory factory = ServiceFactory.getInstance();
 		AuthorService aService = factory.getAuthorService();
 		CountryService cService = factory.getCountryService();
-		try{
+		try {
 			Author author = aService.getAuthorById(idAuthor);
 			request.setAttribute(AUTHOR, author);
 			
-			Country country = cService.getCountryById(author.getCountryOfBirthId());
-			request.setAttribute(COUNTRY, country);
-			
+			if (author != null) {
+				Country country = cService.getCountryById(author.getCountryOfBirthId());
+				request.setAttribute(COUNTRY, country);
+			}
 			request.getRequestDispatcher(AUTHOR_CARD_PAGE).forward(request, response);
-		}catch(ServiceException e){
+		} catch (ServiceException e) {
 			e.printStackTrace();
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
