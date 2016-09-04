@@ -62,7 +62,7 @@ public final class ConnectionPool {
 
 	}
 
-	public Connection takeConnection() throws ConnectionPoolException {
+	public synchronized Connection takeConnection() throws ConnectionPoolException {
 		Connection con = null;
 		try {
 			if (!connectionQueue.isEmpty()) {
@@ -79,10 +79,9 @@ public final class ConnectionPool {
 		return con;
 	}
 
-	public boolean returnConnection(Connection con) {
-		boolean ret = false;
+	public synchronized void returnConnection(Connection con) {
 		if (givenAwayConQueue.remove(con)) {
-			ret=connectionQueue.offer(con);
+			connectionQueue.offer(con);
 		} else {
 			try {
 				con.close();
@@ -90,7 +89,6 @@ public final class ConnectionPool {
 	//			LOG.warn("Can't close connection!");
 			}
 		}
-		return ret;
 	}
 
 	public void dispose() {

@@ -2,6 +2,7 @@ package by.epam.karotki.film_rating.service;
 
 import by.epam.karotki.film_rating.service.impl.AccountServiceImpl;
 import by.epam.karotki.film_rating.service.impl.AuthorServiceImpl;
+import by.epam.karotki.film_rating.service.impl.CommentServiceImpl;
 import by.epam.karotki.film_rating.service.impl.CountryServiceImpl;
 import by.epam.karotki.film_rating.service.impl.FilmServiceImpl;
 import by.epam.karotki.film_rating.service.impl.GenreServiceImpl;
@@ -15,6 +16,7 @@ public class ServiceFactory {
 	private CountryService cService = new CountryServiceImpl();
 	private GenreService gService = new GenreServiceImpl();
 	private AuthorService aService = new AuthorServiceImpl();
+	private CommentService comService = new CommentServiceImpl();
 	
 	private ServiceFactory(){
 		super();
@@ -47,4 +49,8 @@ public class ServiceFactory {
 	public AuthorService getAuthorService(){
 		return aService;
 	} 
+	
+	public CommentService getCommentService(){
+		return comService;
+	}
 }

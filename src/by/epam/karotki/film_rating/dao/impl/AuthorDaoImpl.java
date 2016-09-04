@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.AuthorDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
-import by.epam.karotki.film_rating.dao.exception.DaoException;
+import by.epam.karotki.film_rating.dao.exception.AuthorDaoException;
+import by.epam.karotki.film_rating.dao.util.Criteria;
+import by.epam.karotki.film_rating.dao.util.DBColumnNames;
 import by.epam.karotki.film_rating.entity.Author;
 
 //import org.apache.logging.log4j.LogManager;
@@ -22,21 +23,44 @@ public class AuthorDaoImpl implements AuthorDao {
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 
 	private static final String AUTHOR_BY_COUNTRY = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id FROM Author "
-			+ "JOIN Country ON Country.idCountry = Author.CountryOfBirth_id WHERE CountryName = ? ;";
+			+ "JOIN Country ON Country.idCountry = Author.CountryOfBirth_id WHERE CountryName = ? ";
 
 	private static final String AUTHOR_BY_FILM = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, CountryOfBirth_id, Photo, Role FROM Author "
 			+ "JOIN Film_has_Authors ON Film_has_Authors.Authors_idAuthors = Author.idAuthor "
-			+ "JOIN Film ON film.idFilm = Film_has_Authors.Film_id WHERE Title = ? ORDER BY Role ;";
+			+ "JOIN Film ON film.idFilm = Film_has_Authors.Film_id WHERE Title = ? ORDER BY Role ";
 
 	private static final String DIRECTORS_BY_FILM = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id FROM Author "
 			+ "JOIN Film_has_Authors film ON film.Authors_idAuthors = Author.idAuthor "
-			+ "WHERE (film.Film_id = ?) AND (film.Role = ?) ;";
+			+ "WHERE (film.Film_id = ?) AND (film.Role = ?) ";
 	
 	private static final String AUTHOR_BY_ID = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id FROM Author "
-			+ " WHERE idAuthor = ? ;";
-
+			+ " WHERE idAuthor = ? ";
+	
+	private static final String AUTHOR_BY_NAME = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id FROM Author "
+			+ " WHERE (AuthorFirstName = ?) AND (AuthorLastName = ?) ";
+	
+	private static final String ADD_AUTHOR = "INSERT INTO Author (AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id) "
+			+ " VALUES(?,?,?,?,?) ";
+	
+	private static final String ADD_AUTHOR_LANG = "INSERT INTO Author_lang (AuthorFirstName, AuthorLastName, idAuthor, lang) "
+			+ " VALUES(?,?,?,?) ";
+	
+	private static final String UPDATE_AUTHOR = "UPDATE Author SET AuthorFirstName=?, AuthorLastName=?, AuthorsBirthday=?, Photo=?, CountryOfBirth_id=? "
+			+ " WHERE idAuthor = ?";
+	
+	private static final String UPDATE_AUTHOR_LANG = "UPDATE Author_lang SET AuthorFirstName = ?, AuthorLastName = ? "
+			+ " WHERE (idAuthor = ?) AND (lang = ?)";
+	
+	private static final String DELETE_AUTHOR = "DELETE FROM Author WHERE idAuthor = ?";
+		
+	private static final String DELETE_AUTHOR_LANG = "DELETE FROM Author_lang WHERE (idAuthor = ?) AND (lang = ?)";
+	
+	private static final String AUTHOR = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id "
+			+ "FROM (SELECT g.idAuthor idAuthor, coalesce(t.AuthorFirstName,g.AuthorFirstName) AuthorFirstName, "
+			+ "coalesce(t.AuthorLastName,g.AuthorLastName) AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id "
+			+ "FROM (author g LEFT JOIN (SELECT * FROM author_lang WHERE lang = ?) t USING(idAuthor))) Author ";
 	@Override
-	public List<Author> getAuthorListByCountry(String country) throws DaoException {
+	public List<Author> getAuthorListByCountry(String country) throws AuthorDaoException {
 
 		List<Author> authorList = new ArrayList<Author>();
 		Connection con = null;
@@ -49,9 +73,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new AuthorDaoException("Can't perform query", e);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
 		} finally {
 			try {
 				rs.close();
@@ -69,7 +93,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 
 	@Override
-	public List<Author> getAuthorListByFilm(String title) throws DaoException {
+	public List<Author> getAuthorListByFilm(String title) throws AuthorDaoException {
 		List<Author> authorList = new ArrayList<Author>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -81,9 +105,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new AuthorDaoException("Can't perform query", e);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
 		} finally {
 			try {
 				rs.close();
@@ -101,7 +125,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 
 	@Override
-	public List<Author> getAuthorListByFilm(int idFilm,String role) throws DaoException {
+	public List<Author> getAuthorListByFilm(int idFilm,String role) throws AuthorDaoException {
 		List<Author> authorList = new ArrayList<Author>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -114,9 +138,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new AuthorDaoException("Can't perform query", e);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
 		} finally {
 			try {
 				rs.close();
@@ -134,7 +158,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 	
 	@Override
-	public Author getAuthorById(int idAuthor) throws DaoException {
+	public Author getAuthorById(int idAuthor) throws AuthorDaoException {
 		Author author = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -146,9 +170,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			author = getAuthor(rs);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new AuthorDaoException("Can't perform query", e);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
 		} finally {
 			try {
 				rs.close();
@@ -192,6 +216,228 @@ public class AuthorDaoImpl implements AuthorDao {
 			authorList.add(author);
 		}
 		return authorList;
+	}
+
+	@Override
+	public void addAuthor(Author author) throws AuthorDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ADD_AUTHOR);
+			ps.setString(1, author.getFirstName());
+			ps.setString(2, author.getLastName());
+			ps.setDate(3, author.getBirthDay());
+			ps.setString(4, author.getPhoto());
+			ps.setInt(5, author.getCountryOfBirthId());
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		
+	}
+
+	@Override
+	public void updateAuthor(Author author) throws AuthorDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(UPDATE_AUTHOR);
+			ps.setString(1, author.getFirstName());
+			ps.setString(2, author.getLastName());
+			ps.setDate(3, author.getBirthDay());
+			ps.setString(4, author.getPhoto());
+			ps.setInt(5, author.getCountryOfBirthId());
+			ps.setInt(6, author.getId());
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}		
+	}
+
+	@Override
+	public void deleteAuthorById(int id) throws AuthorDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(DELETE_AUTHOR);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}				
+	}
+
+	@Override
+	public Author getAuthorByName(String firstName, String lastName) throws AuthorDaoException {
+		Author author = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(AUTHOR_BY_NAME);
+			ps.setString(1, firstName);
+			ps.setString(2, lastName);
+			rs = ps.executeQuery();
+			author = getAuthor(rs);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		return author;
+	}
+
+	@Override
+	public List<Author> getAuthorByCriteria(Criteria criteria, String lang) throws AuthorDaoException {
+		List<Author> authorList = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(AUTHOR+criteria.getClause());
+			ps.setString(1, lang);
+			rs = ps.executeQuery();
+			authorList = getAuthors(rs);
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		return authorList;
+	}
+
+	@Override
+	public void addAuthor(Author author, String lang) throws AuthorDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ADD_AUTHOR_LANG);
+			ps.setString(1, author.getFirstName());
+			ps.setString(2, author.getLastName());
+			ps.setInt(3, author.getId());
+			ps.setString(4, lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+				
+	}
+
+	@Override
+	public void updateAuthor(Author author, String lang) throws AuthorDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(UPDATE_AUTHOR_LANG);
+			ps.setString(1, author.getFirstName());
+			ps.setString(2, author.getLastName());
+			ps.setInt(3, author.getId());
+			ps.setString(4, lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}				
+	}
+
+	@Override
+	public void deleteAuthorById(int id, String lang) throws AuthorDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(DELETE_AUTHOR_LANG);
+			ps.setInt(1, id);
+			ps.setString(2, lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new AuthorDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}				
+		
 	}
 
 	

@@ -1,10 +1,11 @@
-package by.epam.karotki.film_rating.dao;
+package by.epam.karotki.film_rating.dao.util;
 
 public class DBColumnNames {
 
 	private DBColumnNames() {
 	}
 	
+	public static final String ACCOUNT_ID = "idAccount";
 	public static final String ACCOUNT_FIRST_NAME = "AccountFirstName";
 	public static final String ACCOUNT_LAST_NAME = "AccountLastName";
 	public static final String ACCOUNT_BIRTH_DAY = "AccountBirthday";
@@ -14,7 +15,9 @@ public class DBColumnNames {
 	public static final String ACCOUNT_PASSWORD = "AccountPassword";
 	public static final String ACCOUNT_ROLE = "AccountRole";
 	public static final String ACCOUNT_IS_ACTIVE = "AccountActive";
-	public static final String ACCOUNT_CITY_ID = "City_id";
+	public static final String ACCOUNT_COUNTRY_ID = "Country_id";
+	public static final String ACCOUNT_PHONE = "Phone";
+	public static final String ACCOUNT_PHOTO = "Photo";
 	
 	public static final String AUTHOR_ID = "idAuthor";
 	public static final String AUTHOR_FIRST_NAME = "AuthorFirstName";
@@ -34,6 +37,12 @@ public class DBColumnNames {
 	public static final String FILM_SITE = "WebSite";
 	public static final String FILM_POSTER = "Poster";
 	public static final String FILM_TEASER = "Teaser";
+	
+	public static final String COMMENT_ACCOUNT_ID = "Account_id";
+	public static final String COMMENT_FILM_ID = "Film_id";
+	public static final String COMMENT_TEXT = "CommentText";
+	public static final String COMMENT_RATE = "Rate";
+	public static final String COMMENT_DATE = "CommentDate";
 	
 	public static final String COUNTRY_ID = "idCountry";
 	public static final String COUNTRY_NAME = "CountryName";

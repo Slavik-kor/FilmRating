@@ -1,4 +1,4 @@
-<div class="container">
+<div class="footer">
 		<div class="row">
 			<hr>
 			<div class="col-lg-12">

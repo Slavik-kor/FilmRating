@@ -11,7 +11,7 @@ public class Author implements Serializable {
 	private String lastName;
 	private Date birthDay;
 	private String photo;
-	private int countryOfBirthId;
+	private Integer countryOfBirthId;
 
 	public String getFirstName() {
 		return firstName;
@@ -45,11 +45,11 @@ public class Author implements Serializable {
 		this.birthDay = birthDay;
 	}
 
-	public int getCountryOfBirthId() {
+	public Integer getCountryOfBirthId() {
 		return countryOfBirthId;
 	}
 
-	public void setCountryOfBirthId(int countryOfBirthId) {
+	public void setCountryOfBirthId(Integer countryOfBirthId) {
 		this.countryOfBirthId = countryOfBirthId;
 	}
 
@@ -72,7 +72,7 @@ public class Author implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((birthDay == null) ? 0 : birthDay.hashCode());
-		result = prime * result + countryOfBirthId;
+		result = prime * result + ((countryOfBirthId == null) ? 0 : countryOfBirthId.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
@@ -94,7 +94,10 @@ public class Author implements Serializable {
 				return false;
 		} else if (!birthDay.equals(other.birthDay))
 			return false;
-		if (countryOfBirthId != other.countryOfBirthId)
+		if (countryOfBirthId == null) {
+			if (other.countryOfBirthId != null)
+				return false;
+		} else if (!countryOfBirthId.equals(other.countryOfBirthId))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -116,8 +119,5 @@ public class Author implements Serializable {
 		return true;
 	}
 
-	
-
-	
 
 }

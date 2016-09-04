@@ -2,27 +2,27 @@ package by.epam.karotki.film_rating.dao;
 
 import java.util.List;
 
-import by.epam.karotki.film_rating.dao.exception.DaoException;
+import by.epam.karotki.film_rating.dao.exception.AccountDaoException;
 import by.epam.karotki.film_rating.entity.Account;
 
 
 public interface AccountDao {
 
-	List<Account> getUsersByCity(String city) throws DaoException;
+	List<Account> getUsersByCountry(String country) throws AccountDaoException;
 
-	List<Account> getUsersByCountry(String country) throws DaoException;
+	List<Account> getBannedUsers() throws AccountDaoException;
 
-	List<Account> getBannedUsers() throws DaoException;
-
-	List<Account> getActiveUsersByRate(int value) throws DaoException;
-
-	List<Account> getActiveUsersByComment(int value) throws DaoException;
-
-	Account authorization(String login, String password) throws DaoException;
+	List<Account> getActiveUsersByComment(int value) throws AccountDaoException;
 	
-	void addAccount(Account account) throws DaoException;
-	
-	void updateAccount(Account account) throws DaoException;
+	List<Account> getAccountList(int value) throws AccountDaoException;	
 
-	Account getAccountByLogin(String login) throws DaoException;
+	Account authorization(String login, String password) throws AccountDaoException;
+	
+	void addAccount(Account account) throws AccountDaoException;
+	
+	void updateAccount(Account account) throws AccountDaoException;
+
+	Account getAccountByLogin(String login) throws AccountDaoException;
+	
+	void deleteAccountById(int id) throws AccountDaoException;
 }

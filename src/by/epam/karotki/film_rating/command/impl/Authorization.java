@@ -12,7 +12,7 @@ import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.entity.Account;
 import by.epam.karotki.film_rating.service.AccountService;
 import by.epam.karotki.film_rating.service.ServiceFactory;
-import by.epam.karotki.film_rating.service.exception.ServiceAuthException;
+import by.epam.karotki.film_rating.service.exception.AuthServiceException;
 import by.epam.karotki.film_rating.service.exception.ServiceException;
 
 public class Authorization implements Command {
@@ -42,7 +42,7 @@ public class Authorization implements Command {
             	request.setAttribute(ERROR_MESSAGE, "attribute \"prev_page\" not founded");
     			errorDispatcher.forward(request, response);
             }
-		} catch (ServiceAuthException e) {
+		} catch (AuthServiceException e) {
 
 			request.setAttribute(ERROR_MESSAGE, "Wrong login or password");
 			errorDispatcher.forward(request, response);

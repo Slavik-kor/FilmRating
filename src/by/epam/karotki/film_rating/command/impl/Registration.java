@@ -24,7 +24,7 @@ public class Registration implements Command {
 	private static final String FIRST_NAME = "first-name";
 	private static final String LAST_NAME = "last-name";
 	private static final String BIRTHDAY = "birthday";
-	private static final String CITY = "city";
+	private static final String COUNTRY = "country";
 	private static final String EMAIL = "email";
 	private static final String PHONE_NUMBER = "phone-number";
 	private static final String AVATAR = "file";
@@ -41,7 +41,7 @@ public class Registration implements Command {
 		reqParam.put(FIRST_NAME, request.getParameter(FIRST_NAME));
 		reqParam.put(LAST_NAME, request.getParameter(LAST_NAME));
 		reqParam.put(BIRTHDAY,request.getParameter(BIRTHDAY));
-		reqParam.put(CITY,request.getParameter(CITY));
+		reqParam.put(COUNTRY,request.getParameter(COUNTRY));
 		reqParam.put(EMAIL,request.getParameter(EMAIL));
 		reqParam.put(PHONE_NUMBER,request.getParameter(PHONE_NUMBER));
 		reqParam.put(AVATAR,request.getParameter(AVATAR));

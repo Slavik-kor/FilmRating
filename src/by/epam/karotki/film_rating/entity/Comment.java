@@ -8,8 +8,10 @@ public class Comment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String comment;
 	private Date commentDate;
+	private int rate;
 	private int accountId;
 	private int filmId;
+	
 
 	public String getComment() {
 		return comment;
@@ -43,10 +45,18 @@ public class Comment implements Serializable {
 		this.filmId = filmId;
 	}
 
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
 	@Override
 	public String toString() {
-		return "Comment [comment=" + comment + ", commentDate=" + commentDate + ", accountId=" + accountId + ", filmId="
-				+ filmId + "]";
+		return "Comment [comment=" + comment + ", commentDate=" + commentDate + ", rate=" + rate + ", accountId="
+				+ accountId + ", filmId=" + filmId + "]";
 	}
 
 	@Override
@@ -57,6 +67,7 @@ public class Comment implements Serializable {
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime * result + ((commentDate == null) ? 0 : commentDate.hashCode());
 		result = prime * result + filmId;
+		result = prime * result + rate;
 		return result;
 	}
 
@@ -83,9 +94,9 @@ public class Comment implements Serializable {
 			return false;
 		if (filmId != other.filmId)
 			return false;
+		if (rate != other.rate)
+			return false;
 		return true;
 	}
-
-	
 
 }

@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.FilmDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
-import by.epam.karotki.film_rating.dao.exception.DaoException;
+import by.epam.karotki.film_rating.dao.exception.FilmDaoException;
+import by.epam.karotki.film_rating.dao.util.Criteria;
+import by.epam.karotki.film_rating.dao.util.DBColumnNames;
 import by.epam.karotki.film_rating.entity.Film;
 
 //import org.apache.logging.log4j.LogManager;
@@ -53,11 +54,33 @@ public class FilmDaoImpl implements FilmDao {
 
 	private static final String NEWEST_FILM = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "ORDER BY PremierDate DESC LIMIT ? ;";
+
 	private static final String FILM_BY_ID = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "WHERE idFilm = ?";
 
+	private static final String FILM = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser "
+			+ "from(select g.idFilm idFilm, coalesce(t.title,g.title) title, coalesce(t.description,g.description) description,Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser "
+			+ "from (film as g left join (select * from film_lang where lang = ?)  t using(idFilm))) films ";
+
+	private static final String FILM_BY_TITLE = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
+			+ "WHERE Title = ?";
+
+	private static final String ADD_FILM = "INSERT INTO film (Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser) "
+			+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
+	
+	private static final String ADD_FILM_LANG = "INSERT INTO film_lang (Title, Description, idFilm, lang) "
+			+ "VALUES(?,?,?,?)";
+
+	private static final String UPDATE_FILM = "UPDATE film SET Title=?, Description=?, Budget=?, BoxOfficeCash=?, Audience=?, PremierDate=?, Duration=?, WebSite=?, Poster=?, Teaser=? WHERE idFilm=? ";
+
+	private static final String UPDATE_FILM_LANG = "UPDATE film_lang SET Title = ?, Description = ? WHERE (idFilm = ?) AND (lang = ?) ";
+	
+	private static final String DELETE_FILM = "DELETE FROM film WHERE idFilm = ? ";
+
+	private static final String DELETE_FILM_LANG = "DELETE FROM film_lang WHERE (idFilm = ?) AND (lang = ?)";
+
 	@Override
-	public List<Film> getTopFilmsByRating(int value, String lang) throws DaoException {
+	public List<Film> getTopFilmsByRating(int value, String lang) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -70,9 +93,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -90,7 +113,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getFilmsByActors(String firstName, String lastName) throws DaoException {
+	public List<Film> getFilmsByActors(String firstName, String lastName) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -103,9 +126,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -123,7 +146,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getFilmsByDirectors(String firstName, String lastName) throws DaoException {
+	public List<Film> getFilmsByDirectors(String firstName, String lastName) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -136,9 +159,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -156,7 +179,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getFilmsByScenarioWriters(String firstName, String lastName) throws DaoException {
+	public List<Film> getFilmsByScenarioWriters(String firstName, String lastName) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -169,9 +192,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -189,7 +212,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getFilmsByGenre(String genre) throws DaoException {
+	public List<Film> getFilmsByGenre(String genre) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 
 		Connection con = null;
@@ -202,9 +225,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -222,7 +245,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getMostBudgetFilms(int value) throws DaoException {
+	public List<Film> getMostBudgetFilms(int value) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -234,9 +257,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -254,7 +277,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getMostCashBoxFilms(int value) throws DaoException {
+	public List<Film> getMostCashBoxFilms(int value) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -266,9 +289,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -286,7 +309,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public List<Film> getNewestFilms(int value) throws DaoException {
+	public List<Film> getNewestFilms(int value) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -298,9 +321,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -319,7 +342,7 @@ public class FilmDaoImpl implements FilmDao {
 	}
 
 	@Override
-	public Film getFilmById(int id) throws DaoException {
+	public Film getFilmById(int id) throws FilmDaoException {
 		Film film = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -331,9 +354,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			film = getFilm(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new FilmDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -347,10 +370,10 @@ public class FilmDaoImpl implements FilmDao {
 			}
 			conPool.returnConnection(con);
 		}
-		
+
 		return film;
 	}
-	
+
 	private Film getFilm(ResultSet rs) throws SQLException {
 		while (rs.next()) {
 			Film film = new Film();
@@ -370,7 +393,6 @@ public class FilmDaoImpl implements FilmDao {
 		return null;
 	}
 
-	
 	private List<Film> getFilms(ResultSet rs) throws SQLException {
 		List<Film> filmList = new ArrayList<Film>();
 		while (rs.next()) {
@@ -391,6 +413,240 @@ public class FilmDaoImpl implements FilmDao {
 		return filmList;
 	}
 
-	
+	@Override
+	public void addFilm(Film film) throws FilmDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ADD_FILM);
+			ps.setString(1, film.getTitle());
+			ps.setString(2, film.getDescription());
+			ps.setDouble(3, film.getBudget());
+			ps.setDouble(4, film.getBoxOfficeCash());
+			ps.setInt(5, film.getAudience());
+			ps.setDate(6, film.getPremierDate());
+			ps.setTime(7, film.getDuration());
+			ps.setString(8, film.getWebSite());
+			ps.setString(9, film.getPoster());
+			ps.setString(10, film.getTeaser());
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+
+	}
+
+	@Override
+	public void updateFilm(Film film) throws FilmDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(UPDATE_FILM);
+			ps.setString(1, film.getTitle());
+			ps.setString(2, film.getDescription());
+			ps.setDouble(3, film.getBudget());
+			ps.setDouble(4, film.getBoxOfficeCash());
+			ps.setInt(5, film.getAudience());
+			ps.setDate(6, film.getPremierDate());
+			ps.setTime(7, film.getDuration());
+			ps.setString(8, film.getWebSite());
+			ps.setString(9, film.getPoster());
+			ps.setString(10, film.getTeaser());
+			ps.setInt(11, film.getId());
+			ps.executeUpdate();
+
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+
+	}
+
+	@Override
+	public void deleteFilmById(int id) throws FilmDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(DELETE_FILM);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+
+	}
+
+	@Override
+	public Film getFilmByTitle(String title) throws FilmDaoException {
+		Film film = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(FILM_BY_TITLE);
+			ps.setString(1, title);
+			rs = ps.executeQuery();
+			film = getFilm(rs);
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+
+		return film;
+	}
+
+	@Override
+	public List<Film> getFilmListByCriteria(Criteria criteria, String lang) throws FilmDaoException {
+		List<Film> filmList = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(FILM + criteria.getClause());
+			System.out.println(FILM+ criteria.getClause());
+			ps.setString(1, lang);
+			rs = ps.executeQuery();
+			filmList = getFilms(rs);
+			System.out.println(filmList);
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		return filmList;
+	}
+
+	@Override
+	public void addFilm(Film film, String lang) throws FilmDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ADD_FILM_LANG);
+			ps.setString(1, film.getTitle());
+			ps.setString(2, film.getDescription());
+			ps.setInt(3, film.getId());
+			ps.setString(4,lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+	}
+
+	@Override
+	public void updateFilm(Film film, String lang) throws FilmDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(UPDATE_FILM_LANG);
+			ps.setString(1, film.getTitle());
+			ps.setString(2, film.getDescription());
+			ps.setInt(3, film.getId());
+			ps.setString(4, lang);
+			ps.executeUpdate();
+
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+	}
+
+	@Override
+	public void deleteFilmById(int id, String lang) throws FilmDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(DELETE_FILM_LANG);
+			ps.setInt(1, id);
+			ps.setString(2, lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new FilmDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+	}
 
 }

@@ -51,6 +51,7 @@
 							<li><a href="Controller?command=add_film">${add_film}</a></li>
 							<li><a href="Controller?command=add_author">${add_author}</a></li>
 							<li><a href="Controller?command=newFilms&value=10&type=favorite">${favor_film}</a></li>
+							<li><a href="Controller?command=account_list&value=10">Акаунты</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
 					</c:when>
@@ -89,7 +90,7 @@
 	</div>
 </div>
 
-<div class="col-lg-3 col-md-3 col-sm-3 sidebar">
+<div class="col-lg-2 col-md-2 col-sm-3 sidebar">
 		<ul class="nav nav-sidebar ">
 			<li><a href="Controller?command=newFilms&value=10">${newFilm}</a></li>
 			<li><a href="Controller?command=newFilms&value=10">${rate}</a></li>

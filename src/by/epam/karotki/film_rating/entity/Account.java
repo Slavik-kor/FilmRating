@@ -18,7 +18,7 @@ public class Account implements Serializable {
 	private boolean active;
 	private String phone;
 	private String photo;
-	private Integer cityId;
+	private Integer countryId;
 
 	public String getFirstName() {
 		return firstName;
@@ -108,13 +108,6 @@ public class Account implements Serializable {
 		this.photo = photo;
 	}
 
-	public Integer getCityId() {
-		return cityId;
-	}
-
-	public void setCityId(Integer cityId) {
-		this.cityId = cityId;
-	}
 
 	public String getPhone() {
 		return phone;
@@ -124,12 +117,20 @@ public class Account implements Serializable {
 		this.phone = phone;
 	}
 
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay=" + birthDay
 				+ ", email=" + email + ", creationDate=" + creationDate + ", login=" + login + ", password=" + password
-				+ ", role=" + role + ", active=" + active + ", phone=" + phone + ", photo=" + photo + ", cityId="
-				+ cityId + "]";
+				+ ", role=" + role + ", active=" + active + ", phone=" + phone + ", photo=" + photo + ", countryId="
+				+ countryId + "]";
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class Account implements Serializable {
 		int result = 1;
 		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((birthDay == null) ? 0 : birthDay.hashCode());
-		result = prime * result + cityId;
+		result = prime * result + ((countryId == null) ? 0 : countryId.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
@@ -168,7 +169,10 @@ public class Account implements Serializable {
 				return false;
 		} else if (!birthDay.equals(other.birthDay))
 			return false;
-		if (cityId != other.cityId)
+		if (countryId == null) {
+			if (other.countryId != null)
+				return false;
+		} else if (!countryId.equals(other.countryId))
 			return false;
 		if (creationDate == null) {
 			if (other.creationDate != null)
@@ -221,7 +225,4 @@ public class Account implements Serializable {
 	}
 
 	
-	
-	
-
 }

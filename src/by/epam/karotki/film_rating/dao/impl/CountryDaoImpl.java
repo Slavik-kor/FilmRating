@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CountryDao;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
-import by.epam.karotki.film_rating.dao.exception.DaoException;
+import by.epam.karotki.film_rating.dao.exception.CountryDaoException;
+import by.epam.karotki.film_rating.dao.util.Criteria;
+import by.epam.karotki.film_rating.dao.util.DBColumnNames;
 import by.epam.karotki.film_rating.entity.Country;
 
 public class CountryDaoImpl implements CountryDao {
@@ -23,9 +24,25 @@ public class CountryDaoImpl implements CountryDao {
 	
 	private static final String COUNTRY_BY_ID = "SELECT idCountry, CountryName, CountryCode FROM Country "
 			+ "WHERE idCountry=?";
+	
+	private static final String COUNTRY = "SELECT idCountry, CountryName, CountryCode "
+			+ "FROM (SELECT g.idCountry idCountry, coalesce(t.CountryName,g.CountryName) CountryName, g.CountryCode CountryCode "
+			+ "FROM (Country as g LEFT JOIN (SELECT * FROM Country_lang WHERE lang = ?) t USING(idCountry))) Country ";
+	
+	private static final String ADD_COUNTRY = "INSERT INTO Country (CountryName, CountryCode) VALUES (?,?) ";
+
+	private static final String ADD_COUNTRY_LANG = "INSERT INTO Country_lang (idCountry, lang, CountryName) VALUES (?,?,?) ";
+
+	private static final String UPDATE_COUNTRY = "UPDATE Country SET CountryName = ?, CountryCode = ? WHERE idCountry = ?";
+
+	private static final String UPDATE_COUNTRY_LANG = "UPDATE Country_lang SET CountryName = ? WHERE (idCountry = ?) AND (lang = ?)";
+	
+	private static final String DELETE_COUNTRY = "DELETE FROM Country WHERE idCountry = ?";
+
+	private static final String DELETE_COUNTRY_LANG = "DELETE FROM Country_lang WHERE (idCountry = ?) AND (lang = ?)";
 
 	@Override
-	public List<Country> getCountryByFilm(int idFilm) throws DaoException {
+	public List<Country> getCountryByFilm(int idFilm) throws CountryDaoException {
 		List<Country> countryList = new ArrayList<Country>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -37,9 +54,9 @@ public class CountryDaoImpl implements CountryDao {
 			rs = ps.executeQuery();
 			countryList = getCountryList(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new CountryDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -57,7 +74,7 @@ public class CountryDaoImpl implements CountryDao {
 	}
 
 	@Override
-	public Country getCountryById(int idFilm) throws DaoException {
+	public Country getCountryById(int idCountry) throws CountryDaoException {
 		Country country = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -65,13 +82,13 @@ public class CountryDaoImpl implements CountryDao {
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(COUNTRY_BY_ID);
-			ps.setInt(1, idFilm);
+			ps.setInt(1, idCountry);
 			rs = ps.executeQuery();
 			country = getCountry(rs);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new CountryDaoException("Can't perform query", e);
 		} finally {
 			try {
 				rs.close();
@@ -110,6 +127,188 @@ public class CountryDaoImpl implements CountryDao {
 		}
 		return countryList;
 
+	}
+
+	@Override
+	public void addCountry(Country country) throws CountryDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ADD_COUNTRY);
+			ps.setString(1,country.getName());
+			ps.setString(2,country.getCode());
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+				
+	}
+
+	@Override
+	public void addCountry(Country country, String lang) throws CountryDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ADD_COUNTRY_LANG);
+			ps.setInt(1,country.getId());
+			ps.setString(2, lang);
+			ps.setString(3, country.getName());
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}		
+	}
+
+	@Override
+	public void deleteCountryById(int idCountry) throws CountryDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(DELETE_COUNTRY);
+			ps.setInt(1,idCountry);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		
+	}
+
+	@Override
+	public void deleteCountryById(int idCountry, String lang) throws CountryDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(DELETE_COUNTRY_LANG);
+			ps.setInt(1,idCountry);
+			ps.setString(2, lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}		
+		
+	}
+
+	@Override
+	public void updateCountry(Country country) throws CountryDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(UPDATE_COUNTRY);
+			ps.setString(1, country.getName());
+			ps.setString(2, country.getCode());
+			ps.setInt(3, country.getId());
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}		
+	}
+
+	@Override
+	public void updateCountry(Country country, String lang) throws CountryDaoException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(UPDATE_COUNTRY_LANG);
+			ps.setString(1, country.getName());
+			ps.setString(2, country.getCode());
+			ps.setInt(3, country.getId());
+			ps.setString(4, lang);
+			ps.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				ps.close();
+				} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+	}
+
+	@Override
+	public List<Country> getCountryByCriteria(Criteria criteria,String lang) throws CountryDaoException {
+		List<Country> countryList = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(COUNTRY+criteria.getClause());
+			ps.setString(1, lang);
+			rs = ps.executeQuery();
+			countryList = getCountryList(rs);
+		} catch (ConnectionPoolException e) {
+			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+		} catch (SQLException e) {
+			throw new CountryDaoException("Can't perform query", e);
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		return countryList;
 	}
 
 	

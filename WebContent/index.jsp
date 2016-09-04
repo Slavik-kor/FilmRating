@@ -12,7 +12,7 @@
 <title>Film rating</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1">  -->
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -23,8 +23,7 @@
 <body>
 
 	<%@include file="WEB-INF/jsp/inc/top-menu.jsp"%>
-
-<div class="container">
+<div class="container col-md-9 col-lg-9 col-sm-9">
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" align="center">
   <!-- Indicators -->
   <ol class="carousel-indicators">

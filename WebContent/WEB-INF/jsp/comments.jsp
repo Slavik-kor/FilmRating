@@ -8,7 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <title></title>
-<c:set var="prev_page"	value="/WEB-INF/jsp/comments.jsp" scope="session" />
+<c:set var="prev_page" value="Controller?command=comment_list"
+	scope="session" />
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -21,9 +22,12 @@
 </head>
 <body>
 	<%@include file="inc/top-menu.jsp"%>
-	
+<c:set var="comments" value="${requestScope.comment_list }"/>
+	<div class="container col-md-9 col-lg-9 col-sm-9">
+		<c:forEach items="${films}" var="film">
+		</c:forEach>
+	</div>
 
-	
 
 	<%@include file="inc/footer.jsp"%>
 

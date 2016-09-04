@@ -61,8 +61,8 @@
  </div>
         
         <div class="form-group">
-      <label for="city">${locality }</label>
-  <input type="text" class="form-control " name="city" placeholder="${locality }">
+      <label for="country">${locality }</label>
+  <input type="text" class="form-control " name="country" placeholder="${locality }">
       </div>
         
  <div class="form-group">

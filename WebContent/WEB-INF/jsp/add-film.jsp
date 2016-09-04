@@ -15,7 +15,7 @@
 <fmt:setBundle basename="localization.local" var="loc" />
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css"> 
+
 </head>
 <body>
 <%@include file="inc/top-menu.jsp"%>
