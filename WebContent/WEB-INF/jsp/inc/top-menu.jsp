@@ -20,6 +20,9 @@
 <fmt:message bundle="${loc}" key="locale.menu.side.genre" var="genre" />
 <fmt:message bundle="${loc}" key="locale.menu.side.years" var="years" />
 
+<link href="css/accordeon.css" rel="stylesheet">
+
+
 <div class="container-fluid">
 	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
 
@@ -28,9 +31,10 @@
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+			<!-- 		<span class="sr-only">Toggle navigation</span>  -->
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="index.jsp">${brand}</a>
 			</div>
@@ -51,7 +55,7 @@
 							<li><a href="Controller?command=add_film">${add_film}</a></li>
 							<li><a href="Controller?command=add_author">${add_author}</a></li>
 							<li><a href="Controller?command=newFilms&value=10&type=favorite">${favor_film}</a></li>
-							<li><a href="Controller?command=account_list&value=10">Акаунты</a></li>
+							<li><a href="Controller?command=account_list&value=10">Accounts</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
 					</c:when>
@@ -74,7 +78,7 @@
 				</c:choose>
 
 				<div class="container">
-					<form action="Controller" method="post">
+				<!-- 	<form action="Controller" method="post">
 						<input type="hidden" name="locale" value="ru" /> <input
 							type="hidden" name="command" value="localization" /> <input
 							type="submit" value="${ru_button}" />
@@ -83,7 +87,9 @@
 						<input type="hidden" name="locale" value="en" /> <input
 							type="hidden" name="command" value="localization" /> <input
 							type="submit" value="${en_button}" />
-					</form>
+					</form>    -->
+					<a href="Controller?command=Localization&locale=ru"><img alt="" src="images/RU.png" width="45"></a>
+					<a href="Controller?command=Localization&locale=en"><img alt="" src="images/GB.png" width="45"></a>
 				</div>
 			</div>
 		</div>
@@ -91,10 +97,106 @@
 </div>
 
 <div class="col-lg-2 col-md-2 col-sm-3 sidebar">
-		<ul class="nav nav-sidebar ">
+		<!--  <ul class="nav nav-sidebar ">
 			<li><a href="Controller?command=newFilms&value=10">${newFilm}</a></li>
 			<li><a href="Controller?command=newFilms&value=10">${rate}</a></li>
 			<li><a href="Controller?command=newFilms&value=10">${genre}</a></li>
 			<li><a href="Controller?command=newFilms&value=10">${years}</a></li>
-		</ul>
+		</ul>  -->
+		<div class="panel-group nav nav-sidebar" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-parent="#accordion" href="Controller?command=newFilms&value=10"><span class="glyphicon glyphicon-download-alt">
+                            </span>${newFilm }</a>
+                        </h4>
+                    </div>
+                   
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a  data-parent="#accordion" href="Controller?command=newFilms&value=10"><span class="glyphicon glyphicon-thumbs-up">
+                            </span>${rate }</a>
+                        </h4>
+                    </div>
+                
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-film">
+                            </span>${genre }</a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="#">Horror</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">Drama</a> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">Comedy</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">Sport</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-calendar">
+                            </span>${years }</a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <a href="#">2010</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">2011</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">2012</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="#">2013</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
 	</div>
+	
+	<div class="container col-md-10 col-lg-10 col-sm-9">
+	<ol class="breadcrumb">
+ 		 <li><a href="#">Home</a></li>
+ 		 <li><a href="#">Library</a></li>
+  			<li class="active">Data</li>
+   </ol>
+   </div>
