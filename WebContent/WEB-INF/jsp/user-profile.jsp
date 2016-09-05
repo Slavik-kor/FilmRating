@@ -23,6 +23,7 @@
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
 	<%@include file="inc/top-menu.jsp"%>
 	
 
@@ -61,7 +62,7 @@
 	</div>
 
 	<%@include file="inc/footer.jsp"%>
-
+</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

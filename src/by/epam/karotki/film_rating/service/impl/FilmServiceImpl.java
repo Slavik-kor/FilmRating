@@ -7,8 +7,6 @@ import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmDao;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.dao.util.Criteria;
-import by.epam.karotki.film_rating.dao.util.DBColumnNames;
-import by.epam.karotki.film_rating.dao.util.Operator;
 import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.FilmService;
 import by.epam.karotki.film_rating.service.exception.FilmServiceException;
@@ -26,7 +24,6 @@ public class FilmServiceImpl implements FilmService {
 		try {
 			Criteria criteria = new Criteria();
 			films = fDao.getFilmListByCriteria(criteria, lang);
-			System.out.println(films);
 		} catch (DaoException e) {
 			// log
 			throw new FilmServiceException("can't get newest films", e);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Criteria {
-	private static final String AND = "AND";
+	private static final String AND = " AND ";
 
 	List<String> criteriaList = new ArrayList<String>();
 	String logical = AND;

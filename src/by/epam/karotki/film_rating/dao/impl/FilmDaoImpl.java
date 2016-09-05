@@ -547,11 +547,9 @@ public class FilmDaoImpl implements FilmDao {
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(FILM + criteria.getClause());
-			System.out.println(FILM+ criteria.getClause());
 			ps.setString(1, lang);
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
-			System.out.println(filmList);
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {

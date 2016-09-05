@@ -32,28 +32,27 @@ public class AccountList implements Command {
 		Account account = null;
 		List<Account> accountList = null;
 		if ((session != null) && ((account = (Account) session.getAttribute(ACCOUNT)) != null)) {
-				String role = account.getRole();
-				if (role.equals(ADMIN)) {
-					try{
-						ServiceFactory factory = ServiceFactory.getInstance();
-						AccountService aService = factory.getAccountService();
-						accountList = aService.getAccountList(Integer.valueOf(request.getParameter(VALUE)));
-						request.setAttribute(ACCOUNT_LIST, accountList);
-					}catch(ServiceException e){
-						request.setAttribute(ERROR_MESSAGE, "internal error. Email to support service");
-						errorDispatcher.forward(request, response);
-					}
-					System.out.println(accountList);
+			String role = account.getRole();
+			if (role.equals(ADMIN)) {
+				try {
+					ServiceFactory factory = ServiceFactory.getInstance();
+					AccountService aService = factory.getAccountService();
+					accountList = aService.getAccountList(Integer.valueOf(request.getParameter(VALUE)));
+					request.setAttribute(ACCOUNT_LIST, accountList);
 					pageDispatcher.forward(request, response);
-				} else {
-					request.setAttribute(ERROR_MESSAGE, "Not enough rights to perform this action");
+				} catch (ServiceException e) {
+					request.setAttribute(ERROR_MESSAGE, "internal error. Email to support service");
 					errorDispatcher.forward(request, response);
 				}
+				
+			} else {
+				request.setAttribute(ERROR_MESSAGE, "Not enough rights to perform this action");
+				errorDispatcher.forward(request, response);
+			}
 		} else {
 			request.setAttribute(ERROR_MESSAGE, "It's needed authorization");
 			errorDispatcher.forward(request, response);
 		}
-		
 
 	}
 

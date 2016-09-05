@@ -61,7 +61,7 @@ public class Registration implements Command {
 		try {
 			Account account = aService.registration(reqParam);
 			HttpSession session = request.getSession(true);
-			session.setAttribute(ACCOUNT, account);
+			session.setAttribute(ACCOUNT, account); 
 			request.getRequestDispatcher(PROFILE_PAGE).forward(request, response);
 		} catch (ServiceException e) {
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);

@@ -27,7 +27,7 @@ public class NewFilms implements Command {
 		int value = Integer.valueOf(request.getParameter(VALUE));
 		HttpSession session = request.getSession(true);
 		String locale = (String)session.getAttribute(LOCALE);
-		if(locale == "" || locale.isEmpty()){
+		if(locale == null || locale.isEmpty()){
 			locale = RU;
 		}
 		ServiceFactory factory = ServiceFactory.getInstance();
@@ -37,7 +37,6 @@ public class NewFilms implements Command {
 			request.setAttribute(FILMS, films);
 			request.getRequestDispatcher(FILMS_PAGE).forward(request, response);
 		} catch (ServiceException e) {
-			e.printStackTrace();
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
 	}
