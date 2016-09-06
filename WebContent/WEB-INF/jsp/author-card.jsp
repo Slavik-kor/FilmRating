@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <c:set var="account" value="${sessionScope.account}" />
@@ -23,7 +24,9 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
+
 <body>
+<div class="container">
 	<%@include file="inc/top-menu.jsp"%>
 
 	<div class="container col-lg-9 col-md-9 col-sm-9">
@@ -110,7 +113,7 @@
 	</div>
 
 	<%@include file="inc/footer.jsp"%>
-
+</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

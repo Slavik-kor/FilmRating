@@ -32,6 +32,7 @@
 
 </head>
 <body>
+<div class="container">
 	<%@include file="inc/top-menu.jsp"%>
 	<div class="container col-md-9 col-lg-9 col-sm-9">
  <form action="Controller" method="post" role="form">
@@ -78,7 +79,7 @@
 
      <div class="form-group">
          <label for="file" class="input input-file">${choose_photo}
-         <div ><input type="file" name="file" onchange="this.parentNode.nextSibling.value = this.value"></div></label>
+         <div><input type="file" name="file" onchange="this.parentNode.nextSibling.value = this.value"></div></label>
          
          </div>
      <button type="submit" class="btn btn-success">${sign_up }</button>
@@ -89,7 +90,7 @@
 	</div>
 	
     <%@include file="inc/footer.jsp"%>
-
+</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

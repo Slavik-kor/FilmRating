@@ -9,5 +9,5 @@ public interface FilmService {
 	
 	List<Film> getFilmsByNewest(int value,String lang) throws FilmServiceException;
 
-	Film getFilmById(int value) throws FilmServiceException;
+	Film getFilmById(int value,String lang) throws FilmServiceException;
 }

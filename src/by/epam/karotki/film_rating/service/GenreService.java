@@ -7,6 +7,6 @@ import by.epam.karotki.film_rating.service.exception.GenreServiceException;
 
 public interface GenreService {
 	
-	List<Genre> getGenreListByFilm(int idFilm) throws GenreServiceException;
+	List<Genre> getGenreListByFilm(int idFilm, String lang) throws GenreServiceException;
 
 }

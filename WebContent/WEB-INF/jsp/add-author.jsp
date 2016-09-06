@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title>Добавить автора</title>
+<title>Add author</title>
 <c:set var="prev_page"	value="/WEB-INF/jsp/get-author.jsp" scope="session" />
 
 <fmt:setLocale value="${sessionScope.locale}" />
@@ -20,13 +20,15 @@
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
+
+<div class="container">
 	<%@include file="inc/top-menu.jsp"%>
 	
 
 	
 
 	<%@include file="inc/footer.jsp"%>
-
+</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

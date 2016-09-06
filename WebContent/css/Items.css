@@ -79,8 +79,8 @@ a {
 	color: #46D8D2;
 }
 
-.wb-red-bg {
-	background-color: #822433;
+.wb-gray-bg {
+	background-color: #dcd7d6;
 }
 
 .wb-red {
@@ -90,15 +90,17 @@ a {
 .white {
 	color: #fff !important;
 } /* Custom Layout */
+
 .view {
 	display: inline-block;
 	width: 33.0%;
 	overflow: hidden;
 }
 
-.view p {
-	margin-top: 20px;
-	margin-bottom: 0;
+.view img {
+	margin-top: 15px;
+	margin-left: 10px;
+	margin-bottom: 10px;
 }
 
 .caption {

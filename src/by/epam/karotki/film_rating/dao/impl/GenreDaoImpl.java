@@ -81,7 +81,7 @@ public class GenreDaoImpl implements GenreDao {
 		return genreList;
 	}
 	
-	private Genre getGenre(ResultSet rs) throws SQLException {
+	/*	private Genre getGenre(ResultSet rs) throws SQLException {
 		Genre genre = null;
 		while (rs.next()) {
 			genre = new Genre();
@@ -92,10 +92,10 @@ public class GenreDaoImpl implements GenreDao {
 		}
 		return genre;
 	}
-
+ */
 	@Override
-	public Genre getGenreByCriteria(Criteria cr, String lang) throws GenreDaoException {
-		Genre genre = null;
+	public List<Genre> getGenreByCriteria(Criteria cr, String lang) throws GenreDaoException {
+		List<Genre> genre = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -104,7 +104,7 @@ public class GenreDaoImpl implements GenreDao {
 			ps = con.prepareStatement(GENRES+cr.getClause());
 			ps.setString(1, lang);
 			rs = ps.executeQuery();
-			genre = getGenre(rs);
+			genre = getGenreList(rs);
 		} catch (ConnectionPoolException e) {
 			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
 		} catch (SQLException e) {

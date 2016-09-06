@@ -10,7 +10,7 @@ public interface GenreDao {
 	
 	List<Genre> getGenreListByFilm(int idFilm) throws GenreDaoException;
 	
-	Genre getGenreByCriteria(Criteria cr,String lang) throws GenreDaoException;
+	List<Genre> getGenreByCriteria(Criteria cr,String lang) throws GenreDaoException;
 	
 	void addGenre(Genre genre) throws GenreDaoException;
 	

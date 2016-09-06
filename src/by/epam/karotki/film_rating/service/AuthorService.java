@@ -6,11 +6,11 @@ import by.epam.karotki.film_rating.entity.Author;
 import by.epam.karotki.film_rating.service.exception.AuthorServiceException;
 
 public interface AuthorService {
-	List<Author> getDirectorsByFilm(int idFilm) throws AuthorServiceException;
+	List<Author> getDirectorsByFilm(int idFilm, String lang) throws AuthorServiceException;
 	
-	List<Author> getScenarioWritersByFilm(int idFilm) throws AuthorServiceException;
+	List<Author> getScenarioWritersByFilm(int idFilm,String lang) throws AuthorServiceException;
 	
-	List<Author> getActorByFilm(int idFilm) throws AuthorServiceException;
+	List<Author> getActorByFilm(int idFilm,String lang) throws AuthorServiceException;
 	
-	Author getAuthorById(int idAuthor) throws AuthorServiceException;
+	Author getAuthorById(int idAuthor,String lang) throws AuthorServiceException;
 }

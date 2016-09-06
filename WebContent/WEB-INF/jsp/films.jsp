@@ -75,16 +75,18 @@
 								<table class="table table-hover">
 									<tbody>
 										<tr> 
-											<td>Бюджет</td>
-											<td>11111</td>
+											<td>Год</td>
+											<td><fmt:formatDate value="${film.premierDate }"
+									pattern="yyyy" /></td>
 										</tr>
 										<tr>
 											<td>Бюджет</td>
-											<td>11111</td>
+											<td><fmt:formatNumber value="${film.budget}" type="currency"
+									currencySymbol="$" maxFractionDigits="0" /></td>
 										</tr>
 										<tr>
-											<td>Бюджет</td>
-											<td>11111</td>
+											<td>Зрители</td>
+											<td><fmt:formatNumber value="${film.audience }" /></td>
 										</tr>
 									</tbody>
 								</table>
@@ -95,9 +97,9 @@
 								</div>
 								
 							</div>
-							<div class="stats wb-red-bg">
-									<span class="fa fa-photo pull-right" rel="tooltip"
-										title="Photos"> <strong><a
+							<div class="stats wb-gray-bg">
+									<span class="fa fa-photo pull-right"
+										title="Film"> <strong><a
 											href="Controller?command=film_Card&film=${film.id}">Подробнее</a></strong>
 									</span>
 								</div> 

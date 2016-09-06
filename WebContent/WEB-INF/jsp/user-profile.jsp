@@ -27,35 +27,54 @@
 	<%@include file="inc/top-menu.jsp"%>
 	
 
-	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container">
+	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container" align="center">
 		<h3>Профиль пользователя</h3>
-		<div class="container col-md-3">
+		<div class="container col-lg-4 col-lg-offset-1">
 
 			<img src="${account.photo}" width="250" class="img-rounded"
 				onerror="this.src = 'images/author/noFoto.jpg'" alt="Аватар">
 		</div>
-		<div class="container col-lg-9 col-md-9 col-sm-9">
-
-			<p>
-				<c:out value="${account.firstName}" /> 
-				<c:out value="${account.lastName}" />
-			</p>
-			<p>
-				Логин:
-				<c:out value="${account.login}" />
-			</p>
-			<p>
-				Дата рождения:
-				<fmt:formatDate value="${account.birthDay}" />
-			</p>
-			<p>E-mail:</p>
-			<p>Родной город:</p>
-			<p>Телефон:</p>
-			<p>Статус:</p>
-
+			<div class="container col-lg-6">
+<table class="table table-hover">
+					<tbody>
+						<tr>
+							<th scope="row">Имя</th>
+							<td><c:out value="${account.firstName}" /></td>
+						</tr>
+						<tr>
+							<th scope="row">Фамилия</th>
+							<td><c:out value="${account.lastName}" /></td>
+						</tr>
+						<tr>
+							<th scope="row">Логин</th>
+							<td><c:out value="${account.login}" /></td>
+						</tr>
+						<tr>
+							<th scope="row">Дата рождения</th>
+							<td><fmt:formatDate value="${account.birthDay}" /></td>
+						</tr>
+						<tr>
+							<th scope="row">E-mail</th>
+							<td><c:out value="${account.email}" /></td>
+						</tr>
+						<tr>
+							<th scope="row">Страна</th>
+							<c:set var="country" value="${requestScope.country}" />
+							<td><c:out value="${country.name }"/></td>
+						</tr>
+						<tr>
+							<th scope="row">Телефон</th>
+							<td><c:out value="${account.phone}" /></td>
+						</tr>
+						<tr>
+							<th scope="row">Роль</th>
+							<td><c:out value="${account.role}" /></td>
+						</tr>
+					</tbody>
+				</table>
 		</div>
 	</div>
-	<div>
+	<div align="right">
 		<button type="submit" class="btn btn-success">Редактировать
 			профиль</button>
 		<button type="button" class="btn btn-danger">Отмена</button>
