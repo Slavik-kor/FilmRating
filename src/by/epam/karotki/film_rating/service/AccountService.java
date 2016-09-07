@@ -1,5 +1,6 @@
 package by.epam.karotki.film_rating.service;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public interface AccountService {
 	
 	Account autorization(String login,String pass) throws AccountServiceException;
 	
-	Account registration(Map<String,String> reqParam) throws AccountServiceException;
+	Account registration(Map<String,String> reqParam,InputStream is) throws AccountServiceException;
 	
 	List<Account> getAccountList(int value) throws AccountServiceException;
 

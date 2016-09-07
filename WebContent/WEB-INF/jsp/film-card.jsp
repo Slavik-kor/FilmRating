@@ -18,6 +18,7 @@
 <meta name="author" content="">
 
 <link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/Items.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
@@ -131,12 +132,56 @@
 				</table>
 			</div>
 		</div>
-		<div class="container col-lg-6">
+		<div class="container col-md-10 col-lg-10 col-sm-9">
 			<iframe width="560" height="315" src="${film.teaser}" frameborder="0"
 				allowfullscreen align="center"></iframe>
 		</div>
-
+<div class="container col-md-10 col-lg-10 col-sm-9">
+<h2 class="page-header">Описание</h2>
+<c:out value="${film.description}" />
+</div>
 	</div>
+	<c:set var="comments" value="${requestScope.comments}" />
+	<c:set var="accounts" value="${requestScope.accounts}" />
+	<div class="container col-md-10 col-lg-10 col-sm-9">
+			
+			<h2 class="page-header">Комментарии</h2>
+
+			<c:forEach items="${comments}" var="comment">
+				<div class="container-fluid  hide-text" >
+					
+					<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad" >
+						<div class="view">
+							<a href="Controller?command=film_Card&film=${film.id}"><img
+								src="${film.poster}" class="img-rounded"
+								onerror="this.src = 'images/poster/noFoto.jpg'"
+								alt="${film.title}" width="50"></a>
+
+						</div>
+						<div class="detail" >
+							<div >
+							<div class="title">
+							<a href="Controller?command=film_Card&film=${film.id}" ><strong><c:out value="${film.title}" /></strong></a>
+										</div>
+								<table class="table table-hover">
+									
+								<div>
+									<p class="small hidden-xs">
+										<c:out value="${comment.comment }" />
+									</p>
+								</div>
+								
+							</div>
+							
+						</div>
+								
+					</div>
+
+				</div>
+			</c:forEach>
+
+
+		</div>
 
 	<%@include file="inc/footer.jsp"%>
 </div>

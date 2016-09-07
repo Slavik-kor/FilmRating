@@ -31,32 +31,6 @@
 			<h2 class="page-header">Фильмы</h2>
 
 			<c:forEach items="${films}" var="film">
-				<!--  		<div class="container-fluid">
-					<div class="row-fluid">
-						<a href="Controller?command=film_Card&film=${film.id}"> <c:out
-								value="${film.title}" /></a>
-					</div>
-					<div class="container">
-						<div class="container">
-							<div class="col-sm-3">
-								<a href="Controller?command=film_Card&film=${film.id}"><img
-									src="${film.poster}" class="img-rounded"
-									onerror="this.src = 'images/poster/noFoto.jpg'"
-									alt="${film.title}" width="250"></a>
-							</div>
-							<div class="col-sm-7">
-								<p>
-									<c:out value="${film.description }" />
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<a href="Controller?command=film_Card&film=${film.id}">Подробнее</a>
-						</div>
-
-					</div>
-				</div> -->
-
 				<div class="container-fluid  hide-text" >
 					
 					<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad" >
@@ -70,7 +44,7 @@
 						<div class="detail" >
 							<div >
 							<div class="title">
-							<a href="Controller?command=film_Card&film=${film.id}" ><h3><c:out value="${film.title}" /></h3></a>
+							<a href="Controller?command=film_Card&film=${film.id}" ><strong><c:out value="${film.title}" /></strong></a>
 										</div>
 								<table class="table table-hover">
 									<tbody>
@@ -134,7 +108,7 @@
 </nav>
 </div>
 
-		<%@include file="inc/footer.jsp"%>
+	 	<%@include file="inc/footer.jsp"%>  
 
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>

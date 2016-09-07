@@ -31,7 +31,7 @@
 		<h3>Профиль пользователя</h3>
 		<div class="container col-lg-4 col-lg-offset-1">
 
-			<img src="${account.photo}" width="250" class="img-rounded"
+			<img src="${account.photo }" width="250" class="img-rounded"
 				onerror="this.src = 'images/author/noFoto.jpg'" alt="Аватар">
 		</div>
 			<div class="container col-lg-6">

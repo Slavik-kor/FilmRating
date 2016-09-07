@@ -65,17 +65,13 @@ public final class ConnectionPool {
 	public synchronized Connection takeConnection() throws ConnectionPoolException {
 		Connection con = null;
 		try {
-			if (!connectionQueue.isEmpty()) {
+		
 				con = connectionQueue.take();
 				givenAwayConQueue.add(con);
-			} else {
-				con = DriverManager.getConnection(url, user, password);
-			}
+			
 		} catch (InterruptedException e) {
 			throw new ConnectionPoolException("Error connecting to the data source.", e);
-		} catch (SQLException e) {
-			throw new ConnectionPoolException("Can't get new connection.", e);
-		}
+		} 
 		return con;
 	}
 

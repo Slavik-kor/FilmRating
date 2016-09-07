@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CountryDao;
+import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.DaoFactory;
-import by.epam.karotki.film_rating.dao.FilmDao;
+import by.epam.karotki.film_rating.dao.FilmCountryDao;
+import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
-import by.epam.karotki.film_rating.dao.util.Criteria;
-import by.epam.karotki.film_rating.dao.util.DBColumnNames;
-import by.epam.karotki.film_rating.dao.util.Operator;
+import by.epam.karotki.film_rating.dao.impl.CriteriaImpl;
 import by.epam.karotki.film_rating.entity.Country;
-import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.CountryService;
 import by.epam.karotki.film_rating.service.exception.CountryServiceException;
 
@@ -22,14 +21,16 @@ public class CountryServiceImpl implements CountryService {
 		List<Country> countryList = new ArrayList<Country>();
 		DaoFactory dao = DaoFactory.getInstance();
 		CountryDao cDao = dao.getCountryDao();
-		FilmDao fDao = dao.getFilmDao();
+		FilmCountryDao fCDao = dao.getFilmCountryDao();
 		try {
-			Criteria fCriteria = new Criteria();
-			fCriteria.addCriterion(Operator.EQUAL, DBColumnNames.FILM_ID, String.valueOf(idFilm));
-			Film film = fDao.getFilmListByCriteria(fCriteria, lang).get(0);
-			int id = film.getId();
-			Criteria criteria = new Criteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnNames.COUNTRY_ID,String.valueOf(id));
+			List<Integer> countryIds = fCDao.getCountriesByFilm(idFilm);
+			Object[] cMas = countryIds.toArray();
+			String[] strCMas= new String[cMas.length];
+			for(int i=0; i<strCMas.length;i++){
+				strCMas[i] = String.valueOf(cMas[i]);
+			}
+			CriteriaImpl criteria = new CriteriaImpl();
+			criteria.addCriterion(Operator.IN, DBColumnNames.COUNTRY_ID,strCMas);
 			countryList = cDao.getCountryByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -40,19 +41,22 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public Country getCountryById(int id,String lang) throws CountryServiceException {
-		List<Country> country = null;
+		Country country = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		CountryDao cDao = dao.getCountryDao();
 		try {
-			Criteria criteria = new Criteria();
+			CriteriaImpl criteria = new CriteriaImpl();
 			criteria.addCriterion(Operator.EQUAL, DBColumnNames.COUNTRY_ID,String.valueOf(id));
-			country = cDao.getCountryByCriteria(criteria, lang);
-			
+			List <Country> list = cDao.getCountryByCriteria(criteria, lang);
+			country = list.get(0);
 		} catch (DaoException e) {
 			// log
-			throw new CountryServiceException("can't get author country", e);
+			throw new CountryServiceException("can't get country", e);
+		} catch (IndexOutOfBoundsException e){
+			//log
+			country = null;
 		}
-		return country.get(0);
+		return country;
 	}
 
 

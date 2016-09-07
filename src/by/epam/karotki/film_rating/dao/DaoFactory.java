@@ -4,9 +4,12 @@ import by.epam.karotki.film_rating.dao.impl.AccountDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.AuthorDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.CommentDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.CountryDaoImpl;
+import by.epam.karotki.film_rating.dao.impl.CriteriaImpl;
+import by.epam.karotki.film_rating.dao.impl.FilmCountryDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.FilmDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.FilmGenreDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.GenreDaoImpl;
+import by.epam.karotki.film_rating.service.impl.InitDaoImpl;
 
 public class DaoFactory {
 	private static final DaoFactory instance = new DaoFactory();
@@ -17,6 +20,8 @@ public class DaoFactory {
 	private GenreDao genreDao = new GenreDaoImpl();
 	private CommentDao commentDao = new CommentDaoImpl();
 	private FilmGenreDao filmGenreDao = new FilmGenreDaoImpl();
+	private FilmCountryDao filmCountryDao = new FilmCountryDaoImpl();
+	private InitDao initDao = new InitDaoImpl();
 
 	private DaoFactory(){
 		
@@ -53,5 +58,18 @@ public class DaoFactory {
 	public FilmGenreDao getFilmGenreDao(){
 		return filmGenreDao;
 	}
+	
+	public FilmCountryDao getFilmCountryDao(){
+		return filmCountryDao;
+	}
+	
+	public InitDao getInitDao(){
+		return initDao;
+	}
+	
+	public Criteria createCriteria(){
+		return new CriteriaImpl();
+	}
+	
 
 }

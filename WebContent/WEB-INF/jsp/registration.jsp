@@ -35,7 +35,7 @@
 <div class="container">
 	<%@include file="inc/top-menu.jsp"%>
 	<div class="container col-md-9 col-lg-9 col-sm-9">
- <form action="Controller" method="post" role="form">
+ <form action="Controller" enctype="multipart/form-data"  method="post" role="form">
  <input type="hidden" name="command" value="registration" />
      <div class="form-group">
          <h2 class="form-signin-heading">${message}</h2>
@@ -79,7 +79,7 @@
 
      <div class="form-group">
          <label for="file" class="input input-file">${choose_photo}
-         <div><input type="file" name="file" onchange="this.parentNode.nextSibling.value = this.value"></div></label>
+         <input type="file" name="avatar" ></label>
          
          </div>
      <button type="submit" class="btn btn-success">${sign_up }</button>

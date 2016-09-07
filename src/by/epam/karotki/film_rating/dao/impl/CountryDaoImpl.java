@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CountryDao;
+import by.epam.karotki.film_rating.dao.Criteria;
+import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.CountryDaoException;
-import by.epam.karotki.film_rating.dao.util.Criteria;
-import by.epam.karotki.film_rating.dao.util.DBColumnNames;
 import by.epam.karotki.film_rating.entity.Country;
 
 public class CountryDaoImpl implements CountryDao {

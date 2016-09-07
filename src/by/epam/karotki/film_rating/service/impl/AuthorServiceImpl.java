@@ -3,11 +3,11 @@ package by.epam.karotki.film_rating.service.impl;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.AuthorDao;
+import by.epam.karotki.film_rating.dao.Criteria;
+import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.DaoFactory;
+import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
-import by.epam.karotki.film_rating.dao.util.Criteria;
-import by.epam.karotki.film_rating.dao.util.DBColumnNames;
-import by.epam.karotki.film_rating.dao.util.Operator;
 import by.epam.karotki.film_rating.entity.Author;
 import by.epam.karotki.film_rating.service.AuthorService;
 import by.epam.karotki.film_rating.service.exception.AuthorServiceException;
@@ -65,7 +65,7 @@ public class AuthorServiceImpl implements AuthorService {
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
 		try{
-			Criteria criteria = new Criteria();
+			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnNames.AUTHOR_ID, String.valueOf(idAuthor));
 			author = aDao.getAuthorByCriteria(criteria, lang);
 		}catch(DaoException e){

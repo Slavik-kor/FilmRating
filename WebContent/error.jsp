@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Error page</title>
 <c:set var="prev_page"
-	value="error.jsp"
+	value="index.jsp"
 	scope="session" />
 	<c:set var="errorMessage" value="${requestScope.errorMessage}" />
 
@@ -22,13 +22,14 @@
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
 	<%@include file="WEB-INF/jsp/inc/top-menu.jsp"%>
 
 <h2>Error</h2>
 <c:out value="${errorMessage}" />
 
 	<%@include file="WEB-INF/jsp/inc/footer.jsp"%>
-
+</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

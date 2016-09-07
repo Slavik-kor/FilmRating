@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.AccountDao;
+import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.AccountDaoException;
-import by.epam.karotki.film_rating.dao.util.DBColumnNames;
 import by.epam.karotki.film_rating.entity.Account;
 
 //import org.apache.logging.log4j.LogManager;

@@ -73,7 +73,7 @@ public class FilmCard implements Command {
 			
 			request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
 		} catch (ServiceException e) {
-			e.printStackTrace();
+			//log
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
 	}

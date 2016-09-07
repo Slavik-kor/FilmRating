@@ -3,12 +3,12 @@ package by.epam.karotki.film_rating.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmDao;
+import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
-import by.epam.karotki.film_rating.dao.util.Criteria;
-import by.epam.karotki.film_rating.dao.util.DBColumnNames;
-import by.epam.karotki.film_rating.dao.util.Operator;
+import by.epam.karotki.film_rating.dao.impl.CriteriaImpl;
 import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.FilmService;
 import by.epam.karotki.film_rating.service.exception.FilmServiceException;
@@ -24,7 +24,7 @@ public class FilmServiceImpl implements FilmService {
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		try {
-			Criteria criteria = new Criteria();
+			CriteriaImpl criteria = new CriteriaImpl();
 			films = fDao.getFilmListByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -37,16 +37,17 @@ public class FilmServiceImpl implements FilmService {
 	public Film getFilmById(int id, String lang) throws FilmServiceException {
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
-		List<Film> film = null;
+		Film film = null;
 		try {
-			Criteria criteria = new Criteria();
+			CriteriaImpl criteria = new CriteriaImpl();
 			criteria.addCriterion(Operator.EQUAL, DBColumnNames.FILM_ID, String.valueOf(id));
-			film = fDao.getFilmListByCriteria(criteria, lang);
+			List<Film> filmList = fDao.getFilmListByCriteria(criteria, lang);
+			film = filmList.get(0);
 		} catch (DaoException e) {
 			// log
 			throw new FilmServiceException("can't get film by id", e);
 		}
-		return film.get(0);
+		return film;
 	}
 
 }

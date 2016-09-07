@@ -3,6 +3,7 @@ package by.epam.karotki.film_rating.command.impl;
 //import java.io.ByteArrayOutputStream;
 //import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 //import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.entity.Account;
@@ -27,11 +29,11 @@ public class Registration implements Command {
 	private static final String COUNTRY = "country";
 	private static final String EMAIL = "email";
 	private static final String PHONE_NUMBER = "phone-number";
-	private static final String AVATAR = "file";
+	private static final String AVATAR = "avatar";
 	private static final String ERROR_PAGE = "error.jsp";
 	private static final String ACCOUNT = "account";
 	private static final String PROFILE_PAGE = "/WEB-INF/jsp/user-profile.jsp";
-	//private static final String INDEX_PAGE = "index.jsp";
+	private static final String PROJECT_PATH = "ProjectPath";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -44,22 +46,25 @@ public class Registration implements Command {
 		reqParam.put(COUNTRY,request.getParameter(COUNTRY));
 		reqParam.put(EMAIL,request.getParameter(EMAIL));
 		reqParam.put(PHONE_NUMBER,request.getParameter(PHONE_NUMBER));
-		reqParam.put(AVATAR,request.getParameter(AVATAR));
+		String path = request.getServletContext().getRealPath("");
+		reqParam.put(PROJECT_PATH,path);
 		
-/*	InputStream is = request.getPart(AVATAR).getInputStream();
-		ByteArrayOutputStream bAOS = new ByteArrayOutputStream();
-		 byte buf[] = new byte[8192];
-		    int qt = 0;
-		    while ((qt = is.read(buf)) != -1) {
-		      bAOS.write(buf, 0, qt);
-		    }
-		 FileOutputStream fos = new FileOutputStream("\\WebContent\\images\\avatar\\ava.jpg");
-		    */
+		InputStream is = null;
+		try{
+		Part part = request.getPart(AVATAR);
+		System.out.println(part);
+		if (part!=null){
+		is = part.getInputStream();
+		}
+		
+		}catch(ServletException e){
+			//log
+		}
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		AccountService aService = factory.getAccountService();
 		try {
-			Account account = aService.registration(reqParam);
+			Account account = aService.registration(reqParam,is);
 			HttpSession session = request.getSession(true);
 			session.setAttribute(ACCOUNT, account); 
 			request.getRequestDispatcher(PROFILE_PAGE).forward(request, response);

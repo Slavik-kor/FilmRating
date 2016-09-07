@@ -3,7 +3,6 @@ package by.epam.karotki.film_rating.dao;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.exception.AuthorDaoException;
-import by.epam.karotki.film_rating.dao.util.Criteria;
 import by.epam.karotki.film_rating.entity.Author;
 
 

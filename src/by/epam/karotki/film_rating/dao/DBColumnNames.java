@@ -1,4 +1,4 @@
-package by.epam.karotki.film_rating.dao.util;
+package by.epam.karotki.film_rating.dao;
 
 public class DBColumnNames {
 
@@ -51,4 +51,10 @@ public class DBColumnNames {
 	public static final String GENRE_ID = "idGenre";
 	public static final String GENRE_NAME = "Name";
 	public static final String GENRE_DESCRIPTION = "Description";
+	
+	public static final String FILM_COUNTRY_FILM_ID = "Film_id";
+	public static final String FILM_COUNTRY_COUNTRY_ID = "Country_id";
+	
+	public static final String FILM_GENRE_GENRE_ID = "Genre_id";
+	public static final String FILM_GENRE_FILM_ID = "Film_id";
 }
