@@ -134,24 +134,45 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <a href="#">Horror</a>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=1">Drama</a> 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="#">Drama</a> 
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=8">Comedy</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="#">Comedy</a>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=2">Sport</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="#">Sport</a>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=3">Biography</a>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=4">Action</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=5">Thriller</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=6">Adventure</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=7">Fantasy</a>
+                                    </td>
+                                </tr>
+                                
                             </table>
                         </div>
                     </div>

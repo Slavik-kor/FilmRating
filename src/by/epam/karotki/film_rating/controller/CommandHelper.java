@@ -6,11 +6,13 @@ import java.util.Map;
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.command.impl.AccountList;
 import by.epam.karotki.film_rating.command.impl.AddAuthor;
+import by.epam.karotki.film_rating.command.impl.AddComment;
 import by.epam.karotki.film_rating.command.impl.AddFilm;
 import by.epam.karotki.film_rating.command.impl.AuthorCard;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.CommentList;
 import by.epam.karotki.film_rating.command.impl.FilmCard;
+import by.epam.karotki.film_rating.command.impl.FilmsByGenre;
 import by.epam.karotki.film_rating.command.impl.Localization;
 import by.epam.karotki.film_rating.command.impl.NewFilms;
 import by.epam.karotki.film_rating.command.impl.Profile;
@@ -37,6 +39,8 @@ public class CommandHelper {
 		commands.put(CommandName.ADD_AUTHOR, new AddAuthor());
 		commands.put(CommandName.ACCOUNT_LIST, new AccountList());
 		commands.put(CommandName.COMMENT_LIST, new CommentList());
+		commands.put(CommandName.ADD_COMMENT, new AddComment());
+		commands.put(CommandName.FILMS_BY_GENRE, new FilmsByGenre());
 	}
 
 	public Command getCommand(String name) {

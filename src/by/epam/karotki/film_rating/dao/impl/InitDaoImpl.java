@@ -1,4 +1,4 @@
-package by.epam.karotki.film_rating.service.impl;
+package by.epam.karotki.film_rating.dao.impl;
 
 import by.epam.karotki.film_rating.dao.InitDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;

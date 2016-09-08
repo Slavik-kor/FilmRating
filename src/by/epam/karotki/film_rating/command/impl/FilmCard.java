@@ -11,10 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.entity.Author;
+import by.epam.karotki.film_rating.entity.Comment;
 import by.epam.karotki.film_rating.entity.Country;
 import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.entity.Genre;
 import by.epam.karotki.film_rating.service.AuthorService;
+import by.epam.karotki.film_rating.service.CommentService;
 import by.epam.karotki.film_rating.service.CountryService;
 import by.epam.karotki.film_rating.service.FilmService;
 import by.epam.karotki.film_rating.service.GenreService;
@@ -29,6 +31,7 @@ public class FilmCard implements Command {
 	private static final String DIRECTORS_LIST = "directors_list";
 	private static final String SCENARIO_WRITERS_LIST = "scenarioWriters_list";
 	private static final String ACTORS_LIST = "actors_list";
+	private static final String COMMENT_LIST = "comment_list";
 	private static final String FILM_CARD_PAGE = "/WEB-INF/jsp/film-card.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
 	private static final String LOCALE = "locale";
@@ -51,7 +54,7 @@ public class FilmCard implements Command {
 		CountryService cService = factory.getCountryService();
 		GenreService gService = factory.getGenreService();
 		AuthorService aService = factory.getAuthorService();
-		
+		CommentService comService = factory.getCommentService();
 		try {
 			Film film = fService.getFilmById(idFilm,locale);
 			request.setAttribute(FILM, film);
@@ -70,6 +73,9 @@ public class FilmCard implements Command {
 			
 			List<Author> actorsList = aService.getActorByFilm(idFilm, locale);
 			request.setAttribute(ACTORS_LIST, actorsList);
+			
+			List<Comment> commentList = comService.getCommentsByFilm(idFilm);
+			request.setAttribute(COMMENT_LIST, commentList);
 			
 			request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
 		} catch (ServiceException e) {

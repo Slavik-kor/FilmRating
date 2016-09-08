@@ -1,14 +1,14 @@
 package by.epam.karotki.film_rating.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import by.epam.karotki.film_rating.dao.Criteria;
 import by.epam.karotki.film_rating.dao.DBColumnNames;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmDao;
+import by.epam.karotki.film_rating.dao.FilmGenreDao;
 import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
-import by.epam.karotki.film_rating.dao.impl.CriteriaImpl;
 import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.FilmService;
 import by.epam.karotki.film_rating.service.exception.FilmServiceException;
@@ -20,11 +20,12 @@ public class FilmServiceImpl implements FilmService {
 		if (value == 0) {
 			throw new FilmServiceException("wrong value of film list");
 		}
-		List<Film> films = new ArrayList<Film>();
+		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		try {
-			CriteriaImpl criteria = new CriteriaImpl();
+			Criteria criteria = factory.createCriteria();
+			criteria.addOrderColumn(DBColumnNames.FILM_PREMIER_DATE, false);
 			films = fDao.getFilmListByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -35,11 +36,12 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public Film getFilmById(int id, String lang) throws FilmServiceException {
+		
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		Film film = null;
 		try {
-			CriteriaImpl criteria = new CriteriaImpl();
+			Criteria criteria = factory.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnNames.FILM_ID, String.valueOf(id));
 			List<Film> filmList = fDao.getFilmListByCriteria(criteria, lang);
 			film = filmList.get(0);
@@ -49,5 +51,35 @@ public class FilmServiceImpl implements FilmService {
 		}
 		return film;
 	}
+
+	@Override
+	public List<Film> getFilmsByGenre(int idGenre, int value, String lang) throws FilmServiceException {
+		if ((idGenre == 0) || (value == 0)) {
+			throw new FilmServiceException("wrong value of film list");
+		}
+		List<Film> films = null;
+		DaoFactory factory = DaoFactory.getInstance();
+		FilmDao fDao = factory.getFilmDao();
+		FilmGenreDao fGDao = factory.getFilmGenreDao();
+		try {
+			Criteria criteria = factory.createCriteria();
+			criteria.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_ID, String.valueOf(idGenre));
+			List<Integer> filmIds = fGDao.getFilmsByGenre(idGenre);
+			String[] filmsArray = new String[filmIds.size()];
+			for(int i=0;i<filmsArray.length;i++){
+				filmsArray[i] = String.valueOf(filmIds.get(i));
+			}
+			Criteria fCriteria = factory.createCriteria();
+			fCriteria.addCriterion(Operator.IN, DBColumnNames.FILM_ID, filmsArray);
+			criteria.addOrderColumn(DBColumnNames.FILM_PREMIER_DATE, false);
+			System.out.println(fCriteria.getClause());
+			films = fDao.getFilmListByCriteria(criteria, lang);
+		} catch (DaoException e) {
+			// log
+			throw new FilmServiceException("can't get newest films", e);
+		}
+		return films;
+	}
+
 
 }

@@ -12,6 +12,7 @@ public class CriteriaImpl implements Criteria {
 	List<String> criteriaList = new ArrayList<String>();
 	String logical = AND;
 	List<String> orderColumns = new ArrayList<String>();
+	boolean straightOrder=true;
 
 	public void addCriterion(Operator op, String column, String... value) {
 		String exp = "";
@@ -56,6 +57,15 @@ public class CriteriaImpl implements Criteria {
 
 	public String getClause() {
 		String exp = "";
+		
+		if (criteriaList.size() > 0) {
+			exp += " WHERE ";
+		}
+		for (int i = 0; i < criteriaList.size(); i++) {
+			exp = exp + " (" + criteriaList.get(i) + ") ";
+			if (i < (criteriaList.size() - 1))
+				exp += logical;
+		}
 		if(orderColumns.size()>0){
 			exp += " ORDER BY ";
 		}
@@ -64,13 +74,8 @@ public class CriteriaImpl implements Criteria {
 			if (i < (orderColumns.size() - 1))
 				exp += ",";
 		}
-		if (criteriaList.size() > 0) {
-			exp += " WHERE ";
-		}
-		for (int i = 0; i < criteriaList.size(); i++) {
-			exp = exp + " (" + criteriaList.get(i) + ") ";
-			if (i < (criteriaList.size() - 1))
-				exp += logical;
+		if (!straightOrder){
+			exp += " DESC ";
 		}
 		return exp;
 	}
@@ -84,8 +89,9 @@ public class CriteriaImpl implements Criteria {
 	}
 
 	@Override
-	public void addOrderColumn(String col) {
+	public void addOrderColumn(String col,boolean order) {
 		orderColumns.add(col);
+		straightOrder = order;
 	}
 
 }

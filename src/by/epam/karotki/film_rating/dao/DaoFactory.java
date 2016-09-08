@@ -9,7 +9,7 @@ import by.epam.karotki.film_rating.dao.impl.FilmCountryDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.FilmDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.FilmGenreDaoImpl;
 import by.epam.karotki.film_rating.dao.impl.GenreDaoImpl;
-import by.epam.karotki.film_rating.service.impl.InitDaoImpl;
+import by.epam.karotki.film_rating.dao.impl.InitDaoImpl;
 
 public class DaoFactory {
 	private static final DaoFactory instance = new DaoFactory();
@@ -70,6 +70,5 @@ public class DaoFactory {
 	public Criteria createCriteria(){
 		return new CriteriaImpl();
 	}
-	
 
 }

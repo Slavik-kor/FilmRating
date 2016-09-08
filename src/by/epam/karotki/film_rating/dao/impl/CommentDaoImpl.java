@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +68,11 @@ public class CommentDaoImpl implements CommentDao {
 			ps.setInt(1,comment.getAccountId());
 			ps.setInt(2,comment.getFilmId());
 			ps.setString(3,comment.getComment());
-			ps.setInt(4,comment.getRate());
+			if(comment.getRate() != 0){
+				ps.setInt(4,comment.getRate());
+			}else{
+				ps.setNull(4, Types.INTEGER);
+			}
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
 			throw new CommentDaoException("Can't get connection from ConnectionPool", e);

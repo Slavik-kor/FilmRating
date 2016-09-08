@@ -4,7 +4,14 @@ public interface Criteria {
 	
 	void addCriterion(Operator op, String column,String... value);
 	
-	void addOrderColumn(String col);
+	/**
+	 * 
+	 * @param col - Name of order column
+	 * @param inverse - parameter indicating straight or inverse order:
+	 * true - from smallest to largest
+	 * false - from largest to smallest
+	 */
+	void addOrderColumn(String col,boolean order);
 	
 	String getClause();
 

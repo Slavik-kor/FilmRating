@@ -6,7 +6,7 @@
 	session.setAttribute("prev_page", "Controller?command=newfilms&value=10");
 %>
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
 <meta charset="utf-8">
 <c:set var="account" value="${sessionScope.account}" />

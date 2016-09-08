@@ -10,5 +10,7 @@ public interface CommentService {
 	List<Comment> getCommentsByAccount(int idAccount) throws CommentServiceException;
 	
 	List<Comment> getCommentsByFilm(int idFilm) throws CommentServiceException;
+	
+	void addComment(Comment comment) throws CommentServiceException;
 
 }
