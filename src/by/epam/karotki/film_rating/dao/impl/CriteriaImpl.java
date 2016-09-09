@@ -12,9 +12,10 @@ public class CriteriaImpl implements Criteria {
 	List<String> criteriaList = new ArrayList<String>();
 	String logical = AND;
 	List<String> orderColumns = new ArrayList<String>();
-	boolean straightOrder=true;
+	boolean straightOrder = true;
 
 	public void addCriterion(Operator op, String column, String... value) {
+		
 		String exp = "";
 		switch (op) {
 		case EQUAL:
@@ -39,25 +40,28 @@ public class CriteriaImpl implements Criteria {
 			exp = column + " BETWEEN '" + value[0] + "' AND '" + value[1] + "'";
 			break;
 		case IN:
-			exp = column + " IN (";
-			for (int i = 0; i < value.length; i++) {
-				exp += value[i];
-				if (i < (value.length - 1)) {
-					exp += ",";
-				} else {
-					exp += ")";
+			
+				exp = column + " IN (";
+				for (int i = 0; i < value.length; i++) {
+					exp += value[i];
+					if (i < (value.length - 1)) {
+						exp += ",";
+					} else {
+						exp += ")";
+					}
 				}
-			}
 			break;
 		default:
 			exp = "";
 		}
 		criteriaList.add(exp);
+		
+		
 	}
 
 	public String getClause() {
 		String exp = "";
-		
+
 		if (criteriaList.size() > 0) {
 			exp += " WHERE ";
 		}
@@ -66,7 +70,7 @@ public class CriteriaImpl implements Criteria {
 			if (i < (criteriaList.size() - 1))
 				exp += logical;
 		}
-		if(orderColumns.size()>0){
+		if (orderColumns.size() > 0) {
 			exp += " ORDER BY ";
 		}
 		for (int i = 0; i < orderColumns.size(); i++) {
@@ -74,7 +78,7 @@ public class CriteriaImpl implements Criteria {
 			if (i < (orderColumns.size() - 1))
 				exp += ",";
 		}
-		if (!straightOrder){
+		if (!straightOrder) {
 			exp += " DESC ";
 		}
 		return exp;
@@ -89,7 +93,7 @@ public class CriteriaImpl implements Criteria {
 	}
 
 	@Override
-	public void addOrderColumn(String col,boolean order) {
+	public void addOrderColumn(String col, boolean order) {
 		orderColumns.add(col);
 		straightOrder = order;
 	}

@@ -60,9 +60,7 @@ public class AccountDaoTest {
 			fail("DaoException");
 		}
 		assertNull(accountTest);
-	
-		
-		
+
 		cp.dispose();
 	}
 

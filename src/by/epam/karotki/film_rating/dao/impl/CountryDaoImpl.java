@@ -9,7 +9,7 @@ import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CountryDao;
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.CountryDaoException;
@@ -111,9 +111,9 @@ public class CountryDaoImpl implements CountryDao {
 		Country country = null;
 		while (rs.next()) {
 			country = new Country();
-			country.setId(rs.getInt(DBColumnNames.COUNTRY_ID));
-			country.setName(rs.getString(DBColumnNames.COUNTRY_NAME));
-			country.setCode(rs.getString(DBColumnNames.COUNTRY_CODE));
+			country.setId(rs.getInt(DBColumnName.COUNTRY_ID));
+			country.setName(rs.getString(DBColumnName.COUNTRY_NAME));
+			country.setCode(rs.getString(DBColumnName.COUNTRY_CODE));
 		}
 		return country;
 		}
@@ -122,9 +122,9 @@ public class CountryDaoImpl implements CountryDao {
 		List<Country> countryList = new ArrayList<Country>();
 		while (rs.next()) {
 			Country country = new Country();
-			country.setId(rs.getInt(DBColumnNames.COUNTRY_ID));
-			country.setName(rs.getString(DBColumnNames.COUNTRY_NAME));
-			country.setCode(rs.getString(DBColumnNames.COUNTRY_CODE));
+			country.setId(rs.getInt(DBColumnName.COUNTRY_ID));
+			country.setName(rs.getString(DBColumnName.COUNTRY_NAME));
+			country.setCode(rs.getString(DBColumnName.COUNTRY_CODE));
 			countryList.add(country);
 		}
 		return countryList;

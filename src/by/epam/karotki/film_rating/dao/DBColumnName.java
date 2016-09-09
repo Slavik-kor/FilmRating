@@ -1,8 +1,8 @@
 package by.epam.karotki.film_rating.dao;
 
-public class DBColumnNames {
+public class DBColumnName {
 
-	private DBColumnNames() {
+	private DBColumnName() {
 	}
 	
 	public static final String ACCOUNT_ID = "idAccount";

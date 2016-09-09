@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.FilmDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
@@ -379,17 +379,17 @@ public class FilmDaoImpl implements FilmDao {
 	private Film getFilm(ResultSet rs) throws SQLException {
 		while (rs.next()) {
 			Film film = new Film();
-			film.setId(rs.getInt(DBColumnNames.FILM_ID));
-			film.setTitle(rs.getString(DBColumnNames.FILM_TITLE));
-			film.setDescription(rs.getString(DBColumnNames.FILM_DESCRIPTION));
-			film.setBudget(rs.getDouble(DBColumnNames.FILM_BUDGET));
-			film.setBoxOfficeCash(rs.getDouble(DBColumnNames.FILM_BOX_OFFICE_CASH));
-			film.setAudience(rs.getInt(DBColumnNames.FILM_AUDIENCE));
-			film.setPremierDate(rs.getDate(DBColumnNames.FILM_PREMIER_DATE));
-			film.setDuration(rs.getTime(DBColumnNames.FILM_DURATION));
-			film.setWebSite(rs.getString(DBColumnNames.FILM_SITE));
-			film.setPoster(rs.getString(DBColumnNames.FILM_POSTER));
-			film.setTeaser(rs.getString(DBColumnNames.FILM_TEASER));
+			film.setId(rs.getInt(DBColumnName.FILM_ID));
+			film.setTitle(rs.getString(DBColumnName.FILM_TITLE));
+			film.setDescription(rs.getString(DBColumnName.FILM_DESCRIPTION));
+			film.setBudget(rs.getDouble(DBColumnName.FILM_BUDGET));
+			film.setBoxOfficeCash(rs.getDouble(DBColumnName.FILM_BOX_OFFICE_CASH));
+			film.setAudience(rs.getInt(DBColumnName.FILM_AUDIENCE));
+			film.setPremierDate(rs.getDate(DBColumnName.FILM_PREMIER_DATE));
+			film.setDuration(rs.getTime(DBColumnName.FILM_DURATION));
+			film.setWebSite(rs.getString(DBColumnName.FILM_SITE));
+			film.setPoster(rs.getString(DBColumnName.FILM_POSTER));
+			film.setTeaser(rs.getString(DBColumnName.FILM_TEASER));
 			return film;
 		}
 		return null;
@@ -399,17 +399,17 @@ public class FilmDaoImpl implements FilmDao {
 		List<Film> filmList = new ArrayList<Film>();
 		while (rs.next()) {
 			Film film = new Film();
-			film.setId(rs.getInt(DBColumnNames.FILM_ID));
-			film.setTitle(rs.getString(DBColumnNames.FILM_TITLE));
-			film.setDescription(rs.getString(DBColumnNames.FILM_DESCRIPTION));
-			film.setBudget(rs.getDouble(DBColumnNames.FILM_BUDGET));
-			film.setBoxOfficeCash(rs.getDouble(DBColumnNames.FILM_BOX_OFFICE_CASH));
-			film.setAudience(rs.getInt(DBColumnNames.FILM_AUDIENCE));
-			film.setPremierDate(rs.getDate(DBColumnNames.FILM_PREMIER_DATE));
-			film.setDuration(rs.getTime(DBColumnNames.FILM_DURATION));
-			film.setWebSite(rs.getString(DBColumnNames.FILM_SITE));
-			film.setPoster(rs.getString(DBColumnNames.FILM_POSTER));
-			film.setTeaser(rs.getString(DBColumnNames.FILM_TEASER));
+			film.setId(rs.getInt(DBColumnName.FILM_ID));
+			film.setTitle(rs.getString(DBColumnName.FILM_TITLE));
+			film.setDescription(rs.getString(DBColumnName.FILM_DESCRIPTION));
+			film.setBudget(rs.getDouble(DBColumnName.FILM_BUDGET));
+			film.setBoxOfficeCash(rs.getDouble(DBColumnName.FILM_BOX_OFFICE_CASH));
+			film.setAudience(rs.getInt(DBColumnName.FILM_AUDIENCE));
+			film.setPremierDate(rs.getDate(DBColumnName.FILM_PREMIER_DATE));
+			film.setDuration(rs.getTime(DBColumnName.FILM_DURATION));
+			film.setWebSite(rs.getString(DBColumnName.FILM_SITE));
+			film.setPoster(rs.getString(DBColumnName.FILM_POSTER));
+			film.setTeaser(rs.getString(DBColumnName.FILM_TEASER));
 			filmList.add(film);
 		}
 		return filmList;

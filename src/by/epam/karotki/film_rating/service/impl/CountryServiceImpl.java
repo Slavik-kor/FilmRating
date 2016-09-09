@@ -5,7 +5,7 @@ import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CountryDao;
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmCountryDao;
 import by.epam.karotki.film_rating.dao.Operator;
@@ -30,7 +30,7 @@ public class CountryServiceImpl implements CountryService {
 				strCMas[i] = String.valueOf(countryIds.get(i));
 			}
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.IN, DBColumnNames.COUNTRY_ID,strCMas);
+			criteria.addCriterion(Operator.IN, DBColumnName.COUNTRY_ID,strCMas);
 			countryList = cDao.getCountryByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -46,7 +46,7 @@ public class CountryServiceImpl implements CountryService {
 		CountryDao cDao = dao.getCountryDao();
 		try {
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnNames.COUNTRY_ID,String.valueOf(id));
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.COUNTRY_ID,String.valueOf(id));
 			List <Country> list = cDao.getCountryByCriteria(criteria, lang);
 			country = list.get(0);
 		} catch (DaoException e) {

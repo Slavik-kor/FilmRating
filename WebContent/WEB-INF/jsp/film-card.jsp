@@ -192,47 +192,51 @@
 						</div>
 					</c:forEach>
 				</c:if>
-				<c:if test="${not empty account}">
-					<h2 class="page-header">Добавить комментарий</h2>
-					<div class="container-fluid  hide-text">
-						<div class="row">
-							<c:out value="${account.login }" />
-							
-						</div>
-						<form action="Controller" method="post" role="form">
-							<input type="hidden" name="command" value="add_comment">
-							<input type="hidden" name="account" value="${account.id}">
-							<input type="hidden" name="film" value="${film.id }">
-							<fieldset class="form-group">
-								<label for="rate">Оценка</label>
-								 <select class="form-control" id="rate" name="rate" >
-									<option>0</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-									<option>8</option>
-									<option>9</option>
-									<option>10</option>
-								</select>
-							</fieldset>
-							<div class="form-group">
-								<label for="comment">Комментарий</label>
-								<textarea class="form-control" name="comment"
-									placeholder="Название фильма"></textarea>
+				<c:choose>
+					<c:when test="${not empty account}">
+						<h2 class="page-header">Добавить комментарий</h2>
+						<div class="container-fluid  hide-text">
+							<div class="row">
+								<c:out value="${account.login }" />
+
 							</div>
-							<button type="submit" class="btn btn-success">Отправить</button>
-							<button type="reset" class="btn btn-warning">Очистить</button>
-						</form>
+							<form action="Controller" method="post" role="form">
+								<input type="hidden" name="command" value="add_comment">
+								<input type="hidden" name="account" value="${account.id}">
+								<input type="hidden" name="film" value="${film.id }">
+								<fieldset class="form-group">
+									<label for="rate">Оценка</label> <select class="form-control"
+										id="rate" name="rate">
+										<option>0</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>10</option>
+									</select>
+								</fieldset>
+								<div class="form-group">
+									<label for="comment">Комментарий</label>
+									<textarea class="form-control" name="comment"
+										placeholder="Название фильма"></textarea>
+								</div>
+								<button type="submit" class="btn btn-success">Отправить</button>
+								<button type="reset" class="btn btn-warning">Очистить</button>
+							</form>
 
-					</div>
+						</div>
 
 
-				</c:if>
-
+					</c:when>
+					<c:otherwise>
+						<h5>Для добавления комментария необходима авторизация</h5>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<%@include file="inc/footer.jsp"%>

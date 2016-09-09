@@ -18,7 +18,7 @@ import by.epam.karotki.film_rating.command.Command;
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String COMMAND = "command";
-	private static final String INDEX_PAGE = "index.jsp";
+	private static final String ERROR_PAGE = "error.jsp";
 	
 
 	/**
@@ -48,7 +48,7 @@ public class Controller extends HttpServlet {
 			Command command = CommandHelper.getInstance().getCommand(commandName);
 				command.execute(request, response);
 		} else {
-			request.getRequestDispatcher(INDEX_PAGE).forward(request, response);
+			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
 	}
 

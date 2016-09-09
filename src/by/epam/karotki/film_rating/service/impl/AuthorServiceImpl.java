@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.epam.karotki.film_rating.dao.AuthorDao;
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
@@ -70,7 +70,7 @@ public class AuthorServiceImpl implements AuthorService {
 		AuthorDao aDao = dao.getAuthorDao();
 		try{
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnNames.AUTHOR_ID, String.valueOf(idAuthor));
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_ID, String.valueOf(idAuthor));
 			author = aDao.getAuthorByCriteria(criteria, lang);
 		}catch(DaoException e){
 			// log

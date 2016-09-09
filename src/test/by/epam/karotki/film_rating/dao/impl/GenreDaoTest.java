@@ -6,7 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.GenreDao;
 import by.epam.karotki.film_rating.dao.Operator;
@@ -52,8 +52,8 @@ public class GenreDaoTest {
 		try {
 			aDao.addGenre(ru_genre);
 			CriteriaImpl cr = new CriteriaImpl();
-			cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, RU_NAME);
-			cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_DESCRIPTION, RU_DESC);
+			cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, RU_NAME);
+			cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_DESCRIPTION, RU_DESC);
 			ru_genre = aDao.getGenreByCriteria(cr, RU).get(0);
 			en_genre.setId(ru_genre.getId());
 			aDao.addGenre(en_genre, EN);
@@ -70,17 +70,17 @@ public class GenreDaoTest {
 		Genre genre = null;
 		try {
 			CriteriaImpl ru_cr = new CriteriaImpl();
-			ru_cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, RU_NAME);
+			ru_cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, RU_NAME);
 			ru_genre = aDao.getGenreByCriteria(ru_cr, RU).get(0);
 			aDao.deleteGenreById(ru_genre.getId(), RU);
 
 			CriteriaImpl en_cr = new CriteriaImpl();
-			en_cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, NEW_EN_NAME);
+			en_cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, NEW_EN_NAME);
 			en_genre = aDao.getGenreByCriteria(en_cr, EN).get(0);
 			aDao.deleteGenreById(en_genre.getId(), EN);
 
 			CriteriaImpl cr = new CriteriaImpl();
-			cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, NEW_RU_NAME);
+			cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, NEW_RU_NAME);
 			genre = aDao.getGenreByCriteria(cr, RU).get(0);
 			aDao.deleteGenreById(genre.getId());
 
@@ -95,7 +95,7 @@ public class GenreDaoTest {
 		Genre genre = null;
 		try {
 			CriteriaImpl cr = new CriteriaImpl();
-			cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, RU_NAME);
+			cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, RU_NAME);
 			genre = aDao.getGenreByCriteria(cr, RU).get(0);
 			
 			assertNotNull(genre);
@@ -105,7 +105,7 @@ public class GenreDaoTest {
 			
 			aDao.updateGenre(genre);
 			CriteriaImpl newCr = new CriteriaImpl();
-			newCr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, NEW_RU_NAME);
+			newCr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, NEW_RU_NAME);
 			genre = aDao.getGenreByCriteria(newCr, RU).get(0);
 			
 			assertEquals(genre.getName(), NEW_RU_NAME);
@@ -116,7 +116,7 @@ public class GenreDaoTest {
 
 		try {
 			CriteriaImpl cr = new CriteriaImpl();
-			cr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, EN_NAME);
+			cr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, EN_NAME);
 			genre = aDao.getGenreByCriteria(cr, EN).get(0);
 			
 			assertNotNull(genre);
@@ -126,7 +126,7 @@ public class GenreDaoTest {
 			
 			aDao.updateGenre(genre,EN);
 			CriteriaImpl newCr = new CriteriaImpl();
-			newCr.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_NAME, NEW_EN_NAME);
+			newCr.addCriterion(Operator.EQUAL, DBColumnName.GENRE_NAME, NEW_EN_NAME);
 			genre = aDao.getGenreByCriteria(newCr, EN).get(0);
 			
 			assertEquals(genre.getName(), NEW_EN_NAME);

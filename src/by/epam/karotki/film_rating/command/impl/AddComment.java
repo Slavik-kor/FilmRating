@@ -21,7 +21,7 @@ public class AddComment implements Command {
 	private static final String ERROR_PAGE = "error.jsp";
 	private static final String PREV_PAGE = "prev_page";
 	private static final String INDEX_PAGE = "index.jsp";
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Integer rate = Integer.valueOf(request.getParameter(RATE));
@@ -29,29 +29,27 @@ public class AddComment implements Command {
 		Integer film_id = Integer.valueOf(request.getParameter(FILM_ID));
 		Integer account_id = Integer.valueOf(request.getParameter(ACCOUNT_ID));
 		Comment comment = new Comment();
-		System.out.println(rate);
 		comment.setRate(rate);
 		comment.setAccountId(account_id);
 		comment.setComment(commentText);
 		comment.setFilmId(film_id);
-		
+
 		ServiceFactory sFactory = ServiceFactory.getInstance();
 		CommentService cService = sFactory.getCommentService();
-		try{
+		try {
 			cService.addComment(comment);
 			HttpSession session = request.getSession(false);
 			String prevPage = (String) session.getAttribute(PREV_PAGE);
-			if (prevPage != null) {	
-			response.sendRedirect(prevPage);
-			}else{
+			if (prevPage != null) {
+				response.sendRedirect(prevPage);
+			} else {
 				request.getRequestDispatcher(INDEX_PAGE).forward(request, response);
 			}
-		}catch(ServiceException e){
-			
+		} catch (ServiceException e) {
+
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
-		
-		
+
 	}
 
 }

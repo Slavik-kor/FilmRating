@@ -3,7 +3,7 @@ package by.epam.karotki.film_rating.service.impl;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmDao;
 import by.epam.karotki.film_rating.dao.FilmGenreDao;
@@ -18,7 +18,7 @@ public class FilmServiceImpl implements FilmService {
 	private static final String ERROR_MESSAGE_VALIDATE = "value field equal zero of film list";
 
 	@Override
-	public List<Film> getFilmsByNewest(int value,String lang) throws FilmServiceException {
+	public List<Film> getFilmsByNewest(int value, String lang) throws FilmServiceException {
 		if (value == 0) {
 			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
 		}
@@ -27,7 +27,7 @@ public class FilmServiceImpl implements FilmService {
 		FilmDao fDao = factory.getFilmDao();
 		try {
 			Criteria criteria = factory.createCriteria();
-			criteria.addOrderColumn(DBColumnNames.FILM_PREMIER_DATE, false);
+			criteria.addOrderColumn(DBColumnName.FILM_PREMIER_DATE, false);
 			films = fDao.getFilmListByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -38,13 +38,13 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public Film getFilmById(int id, String lang) throws FilmServiceException {
-		
+
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		Film film = null;
 		try {
 			Criteria criteria = factory.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnNames.FILM_ID, String.valueOf(id));
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.FILM_ID, String.valueOf(id));
 			List<Film> filmList = fDao.getFilmListByCriteria(criteria, lang);
 			film = filmList.get(0);
 		} catch (DaoException e) {
@@ -65,23 +65,26 @@ public class FilmServiceImpl implements FilmService {
 		FilmGenreDao fGDao = factory.getFilmGenreDao();
 		try {
 			Criteria criteria = factory.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnNames.GENRE_ID, String.valueOf(idGenre));
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.GENRE_ID, String.valueOf(idGenre));
+			
 			List<Integer> filmIds = fGDao.getFilmsByGenre(idGenre);
+			if(filmIds.size()==0){
+				return null;
+						}
 			String[] filmsArray = new String[filmIds.size()];
-			for(int i=0;i<filmsArray.length;i++){
+			for (int i = 0; i < filmsArray.length; i++) {
 				filmsArray[i] = String.valueOf(filmIds.get(i));
 			}
+			
 			Criteria fCriteria = factory.createCriteria();
-			fCriteria.addCriterion(Operator.IN, DBColumnNames.FILM_ID, filmsArray);
-			criteria.addOrderColumn(DBColumnNames.FILM_PREMIER_DATE, false);
-			System.out.println(fCriteria.getClause());
-			films = fDao.getFilmListByCriteria(criteria, lang);
+			fCriteria.addCriterion(Operator.IN, DBColumnName.FILM_ID, filmsArray);
+			fCriteria.addOrderColumn(DBColumnName.FILM_PREMIER_DATE, false);
+			films = fDao.getFilmListByCriteria(fCriteria, lang);
 		} catch (DaoException e) {
 			// log
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		return films;
 	}
-
 
 }

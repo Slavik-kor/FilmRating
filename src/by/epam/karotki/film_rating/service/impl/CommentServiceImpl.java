@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CommentDao;
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
@@ -22,8 +22,8 @@ public class CommentServiceImpl implements CommentService {
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
 		Criteria criteria = factory.createCriteria();
-		criteria.addCriterion(Operator.EQUAL, DBColumnNames.COMMENT_ACCOUNT_ID, String.valueOf(idAccount));
-		criteria.addOrderColumn(DBColumnNames.COMMENT_DATE,false);
+		criteria.addCriterion(Operator.EQUAL, DBColumnName.COMMENT_ACCOUNT_ID, String.valueOf(idAccount));
+		criteria.addOrderColumn(DBColumnName.COMMENT_DATE,false);
 		
 		try{
 			commentList = cDao.getCommentsByCriteria(criteria);
@@ -40,8 +40,8 @@ public class CommentServiceImpl implements CommentService {
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
 		Criteria criteria = factory.createCriteria();
-		criteria.addCriterion(Operator.EQUAL, DBColumnNames.COMMENT_FILM_ID, String.valueOf(idFilm));
-		criteria.addOrderColumn(DBColumnNames.COMMENT_DATE,false);
+		criteria.addCriterion(Operator.EQUAL, DBColumnName.COMMENT_FILM_ID, String.valueOf(idFilm));
+		criteria.addOrderColumn(DBColumnName.COMMENT_DATE,true);
 		try{
 			commentList = cDao.getCommentsByCriteria(criteria);
 		}catch(DaoException e){

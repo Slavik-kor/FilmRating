@@ -9,7 +9,7 @@ import java.util.List;
 
 import by.epam.karotki.film_rating.dao.AuthorDao;
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.AuthorDaoException;
@@ -194,12 +194,12 @@ public class AuthorDaoImpl implements AuthorDao {
 	private Author getAuthor(ResultSet rs) throws SQLException {
 		while (rs.next()) {
 			Author author = new Author();
-			author.setId(rs.getInt(DBColumnNames.AUTHOR_ID));
-			author.setFirstName(rs.getString(DBColumnNames.AUTHOR_FIRST_NAME));
-			author.setLastName(rs.getString(DBColumnNames.AUTHOR_LAST_NAME));
-			author.setBirthDay(rs.getDate(DBColumnNames.AUTHOR_BIRTHDAY));
-			author.setPhoto(rs.getString(DBColumnNames.AUTHOR_PHOTO));
-			author.setCountryOfBirthId(rs.getInt(DBColumnNames.AUTHOR_COUNTRY));
+			author.setId(rs.getInt(DBColumnName.AUTHOR_ID));
+			author.setFirstName(rs.getString(DBColumnName.AUTHOR_FIRST_NAME));
+			author.setLastName(rs.getString(DBColumnName.AUTHOR_LAST_NAME));
+			author.setBirthDay(rs.getDate(DBColumnName.AUTHOR_BIRTHDAY));
+			author.setPhoto(rs.getString(DBColumnName.AUTHOR_PHOTO));
+			author.setCountryOfBirthId(rs.getInt(DBColumnName.AUTHOR_COUNTRY));
 			return author;
 		}
 		return null;
@@ -209,12 +209,12 @@ public class AuthorDaoImpl implements AuthorDao {
 		List<Author> authorList = new ArrayList<Author>();
 		while (rs.next()) {
 			Author author = new Author();
-			author.setId(rs.getInt(DBColumnNames.AUTHOR_ID));
-			author.setFirstName(rs.getString(DBColumnNames.AUTHOR_FIRST_NAME));
-			author.setLastName(rs.getString(DBColumnNames.AUTHOR_LAST_NAME));
-			author.setBirthDay(rs.getDate(DBColumnNames.AUTHOR_BIRTHDAY));
-			author.setPhoto(rs.getString(DBColumnNames.AUTHOR_PHOTO));
-			author.setCountryOfBirthId(rs.getInt(DBColumnNames.AUTHOR_COUNTRY));
+			author.setId(rs.getInt(DBColumnName.AUTHOR_ID));
+			author.setFirstName(rs.getString(DBColumnName.AUTHOR_FIRST_NAME));
+			author.setLastName(rs.getString(DBColumnName.AUTHOR_LAST_NAME));
+			author.setBirthDay(rs.getDate(DBColumnName.AUTHOR_BIRTHDAY));
+			author.setPhoto(rs.getString(DBColumnName.AUTHOR_PHOTO));
+			author.setCountryOfBirthId(rs.getInt(DBColumnName.AUTHOR_COUNTRY));
 			authorList.add(author);
 		}
 		return authorList;

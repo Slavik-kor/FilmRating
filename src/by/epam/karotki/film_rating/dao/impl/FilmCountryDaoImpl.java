@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.FilmCountryDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
@@ -88,7 +88,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 			rs = ps.executeQuery();
 			filmIds = new ArrayList<Integer>();
 			while(rs.next()){
-				filmIds.add(rs.getInt(DBColumnNames.FILM_COUNTRY_FILM_ID));
+				filmIds.add(rs.getInt(DBColumnName.FILM_COUNTRY_FILM_ID));
 			}
 		} catch (ConnectionPoolException e) {
 			throw new DaoException(ERROR_MESSAGE_CP, e);
@@ -118,7 +118,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 			rs = ps.executeQuery();
 			countryIds = new ArrayList<Integer>();
 			while(rs.next()){
-				countryIds.add(rs.getInt(DBColumnNames.FILM_COUNTRY_COUNTRY_ID));
+				countryIds.add(rs.getInt(DBColumnName.FILM_COUNTRY_COUNTRY_ID));
 			}
 		} catch (ConnectionPoolException e) {
 			throw new DaoException(ERROR_MESSAGE_CP, e);

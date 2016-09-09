@@ -10,7 +10,7 @@ import java.util.List;
 
 import by.epam.karotki.film_rating.dao.CommentDao;
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.CommentDaoException;
@@ -144,11 +144,11 @@ public class CommentDaoImpl implements CommentDao {
 		List<Comment> commentList = new ArrayList<Comment>();
 		while (rs.next()) {
 			Comment comment = new Comment();
-			comment.setAccountId(rs.getInt(DBColumnNames.COMMENT_ACCOUNT_ID));
-			comment.setFilmId(rs.getInt(DBColumnNames.COMMENT_FILM_ID));
-			comment.setComment(rs.getString(DBColumnNames.COMMENT_TEXT));
-			comment.setCommentDate(rs.getDate(DBColumnNames.COMMENT_DATE));
-			comment.setRate(rs.getInt(DBColumnNames.COMMENT_RATE));
+			comment.setAccountId(rs.getInt(DBColumnName.COMMENT_ACCOUNT_ID));
+			comment.setFilmId(rs.getInt(DBColumnName.COMMENT_FILM_ID));
+			comment.setComment(rs.getString(DBColumnName.COMMENT_TEXT));
+			comment.setCommentDate(rs.getDate(DBColumnName.COMMENT_DATE));
+			comment.setRate(rs.getInt(DBColumnName.COMMENT_RATE));
 			commentList.add(comment);
 		}
 		return commentList;

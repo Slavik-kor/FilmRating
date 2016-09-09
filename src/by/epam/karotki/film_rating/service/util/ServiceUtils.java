@@ -18,7 +18,7 @@ public class ServiceUtils {
 			}
 			
 		}catch (IOException e){
-			System.out.println("IOException during save file ");
+			//log System.out.println("IOException during save file ");
 		}finally{
 			try {
 				os.close();

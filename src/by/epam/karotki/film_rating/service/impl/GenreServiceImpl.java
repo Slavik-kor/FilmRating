@@ -3,7 +3,7 @@ package by.epam.karotki.film_rating.service.impl;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.Criteria;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmGenreDao;
 import by.epam.karotki.film_rating.dao.GenreDao;
@@ -30,7 +30,7 @@ public class GenreServiceImpl implements GenreService {
 			}
 			
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.IN, DBColumnNames.GENRE_ID, strGMas);
+			criteria.addCriterion(Operator.IN, DBColumnName.GENRE_ID, strGMas);
 			genreList = gDao.getGenreByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log

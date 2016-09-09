@@ -27,7 +27,6 @@ public class FilmsByGenre implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		int value = Integer.valueOf(request.getParameter(VALUE));
 		int idGenre = Integer.valueOf(request.getParameter(ID_GENRE));
-		System.out.println(idGenre);
 		HttpSession session = request.getSession(true);
 		String locale = (String) session.getAttribute(LOCALE);
 		if (locale == null || locale.isEmpty()) {

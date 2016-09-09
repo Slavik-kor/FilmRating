@@ -24,7 +24,6 @@ import by.epam.karotki.film_rating.service.ServiceFactory;
 import by.epam.karotki.film_rating.service.exception.ServiceException;
 
 public class FilmCard implements Command {
-	// private static final String LOCALE = "locale";
 	private static final String FILM = "film";
 	private static final String COUNTRY_LIST = "country_list";
 	private static final String GENRE_LIST = "genre_list";
@@ -39,10 +38,8 @@ public class FilmCard implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		// HttpSession session = request.getSession(true);
-		// String locale = (String) session.getAttribute(LOCALE);
-		int idFilm = Integer.valueOf(request.getParameter(FILM));
 		
+		int idFilm = Integer.valueOf(request.getParameter(FILM));
 		HttpSession session = request.getSession(true);
 		String locale = (String)session.getAttribute(LOCALE);
 		if(locale == null || locale.isEmpty()){

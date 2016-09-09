@@ -29,86 +29,87 @@
 		<c:set var="films" value="${requestScope.films}" />
 		<div class="container col-md-10 col-lg-10 col-sm-9">
 			<h2 class="page-header">Фильмы</h2>
+			<c:choose>
+				<c:when test="${not empty films}">
+					<c:forEach items="${films}" var="film">
+						<div class="container-fluid  hide-text">
 
-			<c:forEach items="${films}" var="film">
-				<div class="container-fluid  hide-text" >
-					
-					<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad" >
-						<div class="view">
-							<a href="Controller?command=film_Card&film=${film.id}"><img
-								src="${film.poster}" class="img-rounded"
-								onerror="this.src = 'images/poster/noFoto.jpg'"
-								alt="${film.title}" width="200"></a>
+							<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad">
+								<div class="view">
+									<a href="Controller?command=film_Card&film=${film.id}"><img
+										src="${film.poster}" class="img-rounded"
+										onerror="this.src = 'images/poster/noFoto.jpg'"
+										alt="${film.title}" width="200"></a>
 
-						</div>
-						<div class="detail" >
-							<div >
-							<div class="title">
-							<a href="Controller?command=film_Card&film=${film.id}" ><strong><c:out value="${film.title}" /></strong></a>
-										</div>
-								<table class="table table-hover">
-									<tbody>
-										<tr> 
-											<td>Год</td>
-											<td><fmt:formatDate value="${film.premierDate }"
-									pattern="yyyy" /></td>
-										</tr>
-										<tr>
-											<td>Бюджет</td>
-											<td><fmt:formatNumber value="${film.budget}" type="currency"
-									currencySymbol="$" maxFractionDigits="0" /></td>
-										</tr>
-										<tr>
-											<td>Зрители</td>
-											<td><fmt:formatNumber value="${film.audience }" /></td>
-										</tr>
-									</tbody>
-								</table>
-								<div>
-									<p class="small hidden-xs">
-										<c:out value="${film.description }" />
-									</p>
 								</div>
-								
+								<div class="detail">
+									<div>
+										<div class="title">
+											<a href="Controller?command=film_Card&film=${film.id}"><strong><c:out
+														value="${film.title}" /></strong></a>
+										</div>
+										<table class="table table-hover">
+											<tbody>
+												<tr>
+													<td>Год</td>
+													<td><fmt:formatDate value="${film.premierDate }"
+															pattern="yyyy" /></td>
+												</tr>
+												<tr>
+													<td>Бюджет</td>
+													<td><fmt:formatNumber value="${film.budget}"
+															type="currency" currencySymbol="$" maxFractionDigits="0" /></td>
+												</tr>
+												<tr>
+													<td>Зрители</td>
+													<td><fmt:formatNumber value="${film.audience }" /></td>
+												</tr>
+											</tbody>
+										</table>
+										<div>
+											<p class="small hidden-xs">
+												<c:out value="${film.description }" />
+											</p>
+										</div>
+
+									</div>
+									<div class="stats wb-gray-bg">
+										<span class="fa fa-photo pull-right" title="Film"> <strong><a
+												href="Controller?command=film_Card&film=${film.id}">Подробнее</a></strong>
+										</span>
+									</div>
+								</div>
+
 							</div>
-							<div class="stats wb-gray-bg">
-									<span class="fa fa-photo pull-right"
-										title="Film"> <strong><a
-											href="Controller?command=film_Card&film=${film.id}">Подробнее</a></strong>
-									</span>
-								</div> 
+
 						</div>
-								
-					</div>
-
-				</div>
-			</c:forEach>
-
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+				<h5>По вашему запросу ничего не найдено</h5>
+				</c:otherwise>
+			</c:choose>
 
 		</div>
-<div class="container col-md-10 col-lg-10 col-sm-9">
-<nav aria-label="Page navigation" style="text-align: center;">
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-</div>
+		<div class="container col-md-10 col-lg-10 col-sm-9">
+			<nav aria-label="Page navigation" style="text-align: center;">
+				<ul class="pagination">
+					<li><a href="#" aria-label="Previous"> <span
+							aria-hidden="true">&laquo;</span>
+					</a></li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
 
-	 	<%@include file="inc/footer.jsp"%>  
+		<%@include file="inc/footer.jsp"%>
 
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>

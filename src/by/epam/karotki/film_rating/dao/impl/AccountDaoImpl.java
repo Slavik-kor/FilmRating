@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.AccountDao;
-import by.epam.karotki.film_rating.dao.DBColumnNames;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.AccountDaoException;
@@ -160,19 +160,19 @@ public class AccountDaoImpl implements AccountDao {
 	private Account getAccount(ResultSet rs) throws SQLException {
 		if (rs.next()) {
 			Account user = new Account();
-			user.setId(rs.getInt(DBColumnNames.ACCOUNT_ID));
-			user.setFirstName(rs.getString(DBColumnNames.ACCOUNT_FIRST_NAME));
-			user.setLastName(rs.getString(DBColumnNames.ACCOUNT_LAST_NAME));
-			user.setBirthDay(rs.getDate(DBColumnNames.ACCOUNT_BIRTH_DAY));
-			user.setEmail(rs.getString(DBColumnNames.ACCOUNT_EMAIL));
-			user.setCreationDate(rs.getDate(DBColumnNames.ACCOUNT_CREATION_DATE));
-			user.setLogin(rs.getString(DBColumnNames.ACCOUNT_LOGIN));
-			user.setPassword(rs.getString(DBColumnNames.ACCOUNT_PASSWORD));
-			user.setRole(rs.getString(DBColumnNames.ACCOUNT_ROLE));
-			user.setActive(rs.getBoolean(DBColumnNames.ACCOUNT_IS_ACTIVE));
-			user.setPhone(rs.getString(DBColumnNames.ACCOUNT_PHONE));
-			user.setPhoto(rs.getString(DBColumnNames.ACCOUNT_PHOTO));
-			user.setCountryId(rs.getInt(DBColumnNames.ACCOUNT_COUNTRY_ID));
+			user.setId(rs.getInt(DBColumnName.ACCOUNT_ID));
+			user.setFirstName(rs.getString(DBColumnName.ACCOUNT_FIRST_NAME));
+			user.setLastName(rs.getString(DBColumnName.ACCOUNT_LAST_NAME));
+			user.setBirthDay(rs.getDate(DBColumnName.ACCOUNT_BIRTH_DAY));
+			user.setEmail(rs.getString(DBColumnName.ACCOUNT_EMAIL));
+			user.setCreationDate(rs.getDate(DBColumnName.ACCOUNT_CREATION_DATE));
+			user.setLogin(rs.getString(DBColumnName.ACCOUNT_LOGIN));
+			user.setPassword(rs.getString(DBColumnName.ACCOUNT_PASSWORD));
+			user.setRole(rs.getString(DBColumnName.ACCOUNT_ROLE));
+			user.setActive(rs.getBoolean(DBColumnName.ACCOUNT_IS_ACTIVE));
+			user.setPhone(rs.getString(DBColumnName.ACCOUNT_PHONE));
+			user.setPhoto(rs.getString(DBColumnName.ACCOUNT_PHOTO));
+			user.setCountryId(rs.getInt(DBColumnName.ACCOUNT_COUNTRY_ID));
 			return user;
 		}
 
@@ -183,19 +183,19 @@ public class AccountDaoImpl implements AccountDao {
 		List<Account> userList = new ArrayList<Account>();
 		while (rs.next()) {
 			Account user = new Account();
-			user.setId(rs.getInt(DBColumnNames.ACCOUNT_ID));
-			user.setFirstName(rs.getString(DBColumnNames.ACCOUNT_FIRST_NAME));
-			user.setLastName(rs.getString(DBColumnNames.ACCOUNT_LAST_NAME));
-			user.setBirthDay(rs.getDate(DBColumnNames.ACCOUNT_BIRTH_DAY));
-			user.setEmail(rs.getString(DBColumnNames.ACCOUNT_EMAIL));
-			user.setCreationDate(rs.getDate(DBColumnNames.ACCOUNT_CREATION_DATE));
-			user.setLogin(rs.getString(DBColumnNames.ACCOUNT_LOGIN));
-			user.setPassword(rs.getString(DBColumnNames.ACCOUNT_PASSWORD));
-			user.setRole(rs.getString(DBColumnNames.ACCOUNT_ROLE));
-			user.setActive(rs.getBoolean(DBColumnNames.ACCOUNT_IS_ACTIVE));
-			user.setPhone(rs.getString(DBColumnNames.ACCOUNT_PHONE));
-			user.setPhoto(rs.getString(DBColumnNames.ACCOUNT_PHOTO));
-			user.setCountryId(rs.getInt(DBColumnNames.ACCOUNT_COUNTRY_ID));
+			user.setId(rs.getInt(DBColumnName.ACCOUNT_ID));
+			user.setFirstName(rs.getString(DBColumnName.ACCOUNT_FIRST_NAME));
+			user.setLastName(rs.getString(DBColumnName.ACCOUNT_LAST_NAME));
+			user.setBirthDay(rs.getDate(DBColumnName.ACCOUNT_BIRTH_DAY));
+			user.setEmail(rs.getString(DBColumnName.ACCOUNT_EMAIL));
+			user.setCreationDate(rs.getDate(DBColumnName.ACCOUNT_CREATION_DATE));
+			user.setLogin(rs.getString(DBColumnName.ACCOUNT_LOGIN));
+			user.setPassword(rs.getString(DBColumnName.ACCOUNT_PASSWORD));
+			user.setRole(rs.getString(DBColumnName.ACCOUNT_ROLE));
+			user.setActive(rs.getBoolean(DBColumnName.ACCOUNT_IS_ACTIVE));
+			user.setPhone(rs.getString(DBColumnName.ACCOUNT_PHONE));
+			user.setPhoto(rs.getString(DBColumnName.ACCOUNT_PHOTO));
+			user.setCountryId(rs.getInt(DBColumnName.ACCOUNT_COUNTRY_ID));
 			userList.add(user);
 		}
 		return userList;
