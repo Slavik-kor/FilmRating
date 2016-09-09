@@ -15,6 +15,8 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 
 public class FilmGenreDaoImpl implements FilmGenreDao {
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 	
 	private static final String ADD_FILM_GENRE = "INSERT INTO Film_Genre (Film_id,Genre_id) VALUES (?,?) ";
 	
@@ -35,9 +37,9 @@ public class FilmGenreDaoImpl implements FilmGenreDao {
 			ps.setInt(2, idGenre);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -60,9 +62,9 @@ public class FilmGenreDaoImpl implements FilmGenreDao {
 			ps.setInt(2,idGenre);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -89,9 +91,9 @@ public class FilmGenreDaoImpl implements FilmGenreDao {
 				filmIds.add(rs.getInt(DBColumnNames.FILM_GENRE_FILM_ID));
 			}
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -119,9 +121,9 @@ public class FilmGenreDaoImpl implements FilmGenreDao {
 				genreIds.add(rs.getInt(DBColumnNames.FILM_GENRE_GENRE_ID));
 			}
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();

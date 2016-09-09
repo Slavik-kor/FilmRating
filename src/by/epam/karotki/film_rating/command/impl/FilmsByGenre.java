@@ -22,15 +22,15 @@ public class FilmsByGenre implements Command {
 	private static final String FILMS = "films";
 	private static final String FILMS_PAGE = "/WEB-INF/jsp/films.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		int value = Integer.valueOf(request.getParameter(VALUE));
 		int idGenre = Integer.valueOf(request.getParameter(ID_GENRE));
 		System.out.println(idGenre);
 		HttpSession session = request.getSession(true);
-		String locale = (String)session.getAttribute(LOCALE);
-		if(locale == null || locale.isEmpty()){
+		String locale = (String) session.getAttribute(LOCALE);
+		if (locale == null || locale.isEmpty()) {
 			locale = RU;
 		}
 		ServiceFactory factory = ServiceFactory.getInstance();
@@ -43,6 +43,5 @@ public class FilmsByGenre implements Command {
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
 	}
-
 
 }

@@ -5,6 +5,8 @@ import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 
 public class InitDaoImpl implements InitDao {
+	private static final String ERROR_MESSAGE = "JDBC Driver error";
+	
 	private ConnectionPool pool;
 
 	@Override
@@ -13,7 +15,7 @@ public class InitDaoImpl implements InitDao {
 			pool = ConnectionPool.getInstance();
 			pool.initPoolData();
 		} catch (ConnectionPoolException e) {
-			throw new RuntimeException("JDBC Driver error", e);
+			throw new RuntimeException(ERROR_MESSAGE, e);
 		}
 
 	}

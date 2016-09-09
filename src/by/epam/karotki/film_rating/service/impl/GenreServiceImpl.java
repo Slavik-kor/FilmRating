@@ -14,6 +14,7 @@ import by.epam.karotki.film_rating.service.GenreService;
 import by.epam.karotki.film_rating.service.exception.GenreServiceException;
 
 public class GenreServiceImpl implements GenreService {
+	private static final String ERROR_MESSAGE = "can't get film genres";
 
 	@Override
 	public List<Genre> getGenreListByFilm(int idFilm, String lang) throws GenreServiceException {
@@ -23,13 +24,17 @@ public class GenreServiceImpl implements GenreService {
 		FilmGenreDao fGDao = dao.getFilmGenreDao();
 		try {
 			List<Integer> genreIds = fGDao.getGenresByFilm(idFilm);
-			String[] cMas = (String[])genreIds.toArray();
+			String[] strGMas = new String[genreIds.size()];
+			for(int i=0; i<strGMas.length;i++){
+				strGMas[i] = String.valueOf(genreIds.get(i));
+			}
+			
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.IN, DBColumnNames.GENRE_ID, cMas);
+			criteria.addCriterion(Operator.IN, DBColumnNames.GENRE_ID, strGMas);
 			genreList = gDao.getGenreByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
-			throw new GenreServiceException("can't get film genres", e);
+			throw new GenreServiceException(ERROR_MESSAGE, e);
 		}
 		return genreList;
 	}

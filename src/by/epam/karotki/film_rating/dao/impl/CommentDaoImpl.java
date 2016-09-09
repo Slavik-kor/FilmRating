@@ -18,6 +18,8 @@ import by.epam.karotki.film_rating.entity.Comment;
 
 public class CommentDaoImpl implements CommentDao {
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 	
 	private static final String GET_COMMENT = "SELECT Account_id, Film_id, CommentText, CommentDate, Rate FROM Comment";
 	
@@ -39,9 +41,9 @@ public class CommentDaoImpl implements CommentDao {
 			rs = ps.executeQuery();
 			commentList = getCommentList(rs);
 		} catch (ConnectionPoolException e) {
-			throw new CommentDaoException("Can't get connection from ConnectionPool", e);
+			throw new CommentDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CommentDaoException("Can't perform query", e);
+			throw new CommentDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -75,9 +77,9 @@ public class CommentDaoImpl implements CommentDao {
 			}
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CommentDaoException("Can't get connection from ConnectionPool", e);
+			throw new CommentDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CommentDaoException("Can't perform query", e);
+			throw new CommentDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -99,9 +101,9 @@ public class CommentDaoImpl implements CommentDao {
 			ps.setInt(2, idFilm);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CommentDaoException("Can't get connection from ConnectionPool", e);
+			throw new CommentDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CommentDaoException("Can't perform query", e);
+			throw new CommentDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -125,9 +127,9 @@ public class CommentDaoImpl implements CommentDao {
 			ps.setInt(4, comment.getFilmId());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CommentDaoException("Can't get connection from ConnectionPool", e);
+			throw new CommentDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CommentDaoException("Can't perform query", e);
+			throw new CommentDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();

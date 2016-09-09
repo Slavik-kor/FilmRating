@@ -17,6 +17,8 @@ import by.epam.karotki.film_rating.entity.Country;
 
 public class CountryDaoImpl implements CountryDao {
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String COUNTRIES_BY_FILM = "SELECT idCountry, CountryName, CountryCode FROM Country "
 			+ "JOIN FilmOriginCountry film ON Country.idCountry = film.Country_id "
@@ -54,9 +56,9 @@ public class CountryDaoImpl implements CountryDao {
 			rs = ps.executeQuery();
 			countryList = getCountryList(rs);
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -86,9 +88,9 @@ public class CountryDaoImpl implements CountryDao {
 			rs = ps.executeQuery();
 			country = getCountry(rs);
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -140,9 +142,9 @@ public class CountryDaoImpl implements CountryDao {
 			ps.setString(2,country.getCode());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -166,9 +168,9 @@ public class CountryDaoImpl implements CountryDao {
 			ps.setString(3, country.getName());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -189,9 +191,9 @@ public class CountryDaoImpl implements CountryDao {
 			ps.setInt(1,idCountry);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -214,9 +216,9 @@ public class CountryDaoImpl implements CountryDao {
 			ps.setString(2, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -240,9 +242,9 @@ public class CountryDaoImpl implements CountryDao {
 			ps.setInt(3, country.getId());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -266,9 +268,9 @@ public class CountryDaoImpl implements CountryDao {
 			ps.setString(4, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -292,9 +294,9 @@ public class CountryDaoImpl implements CountryDao {
 			rs = ps.executeQuery();
 			countryList = getCountryList(rs);
 		} catch (ConnectionPoolException e) {
-			throw new CountryDaoException("Can't get connection from ConnectionPool", e);
+			throw new CountryDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new CountryDaoException("Can't perform query", e);
+			throw new CountryDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();

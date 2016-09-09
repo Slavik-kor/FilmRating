@@ -11,6 +11,8 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 
 public class FilmAuthorDaoImpl implements FilmAuthorDao {
 private ConnectionPool conPool = ConnectionPool.getInstance();
+private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 	
 	private static final String ADD_FILM_AUTHOR = "INSERT INTO Film_has_Authors (Film_id,Authors_idAuthors,Role) VALUES (?,?,?) ";
 	
@@ -28,9 +30,9 @@ private ConnectionPool conPool = ConnectionPool.getInstance();
 			ps.setString(3, role);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -53,9 +55,9 @@ private ConnectionPool conPool = ConnectionPool.getInstance();
 			ps.setString(3, role);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();

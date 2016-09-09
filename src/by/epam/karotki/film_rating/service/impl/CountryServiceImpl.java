@@ -15,6 +15,7 @@ import by.epam.karotki.film_rating.service.CountryService;
 import by.epam.karotki.film_rating.service.exception.CountryServiceException;
 
 public class CountryServiceImpl implements CountryService {
+	private static final String ERROR_MESSAGE = "can't get countries";
 
 	@Override
 	public List<Country> getCountriesByFilm(int idFilm,String lang) throws CountryServiceException {
@@ -33,7 +34,7 @@ public class CountryServiceImpl implements CountryService {
 			countryList = cDao.getCountryByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
-			throw new CountryServiceException("can't get film countries", e);
+			throw new CountryServiceException(ERROR_MESSAGE, e);
 		}
 		return countryList;
 	}
@@ -50,7 +51,7 @@ public class CountryServiceImpl implements CountryService {
 			country = list.get(0);
 		} catch (DaoException e) {
 			// log
-			throw new CountryServiceException("can't get country", e);
+			throw new CountryServiceException(ERROR_MESSAGE, e);
 		} catch (IndexOutOfBoundsException e){
 			//log
 			country = null;

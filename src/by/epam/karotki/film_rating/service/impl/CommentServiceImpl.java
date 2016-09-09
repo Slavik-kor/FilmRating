@@ -13,7 +13,9 @@ import by.epam.karotki.film_rating.service.CommentService;
 import by.epam.karotki.film_rating.service.exception.CommentServiceException;
 
 public class CommentServiceImpl implements CommentService {
-
+	private static final String ERROR_MESSAGE_GET = "can't get comment list ";
+	private static final String ERROR_MESSAGE_ADD = "can't add comment list to DataBase ";
+	
 	@Override
 	public List<Comment> getCommentsByAccount(int idAccount) throws CommentServiceException {
 		List<Comment> commentList = null;
@@ -27,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
 			commentList = cDao.getCommentsByCriteria(criteria);
 		}catch(DaoException e){
 			//log
-			throw new CommentServiceException("can't get comment list by account",e);
+			throw new CommentServiceException(ERROR_MESSAGE_GET,e);
 		}
 		return commentList;
 	}
@@ -44,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
 			commentList = cDao.getCommentsByCriteria(criteria);
 		}catch(DaoException e){
 			//log
-			throw new CommentServiceException("can't get comment list by film",e);
+			throw new CommentServiceException(ERROR_MESSAGE_GET,e);
 		}
 		return commentList;
 	}
@@ -57,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
 			cDao.addComment(comment);
 		}catch(DaoException e){
 			//log
-			throw new CommentServiceException("can't add comment list to DataBase",e);
+			throw new CommentServiceException(ERROR_MESSAGE_ADD,e);
 		}
 	}
 

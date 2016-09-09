@@ -24,11 +24,17 @@ public class AccountServiceImpl implements AccountService {
 	private static final String COUNTRY = "country";
 	private static final String EMAIL = "email";
 	private static final String PHONE_NUMBER = "phone-number";
-	// private static final String AVATAR = "file";
 	private static final String USER = "User";
 	private static final String PATH_AVATAR = "images\\avatar\\avatar";
 	private static final String JPG = ".jpg";
 	private static final String PROJECT_PATH = "ProjectPath";
+	private static final String ERROR_MESSAGE_LP = "Wrong login or password!";
+	private static final String ERROR_MESSAGE_VAL = "Error during validation!";
+	private static final String ERROR_MESSAGE_REG = "error in source during registration";
+	private static final String ERROR_MESSAGE_EXIST_LOGIN = "login already exist";
+	private static final String ERROR_MESSAGE_EMPTY_LOGIN = "Empty login field!";
+	private static final String ERROR_MESSAGE_EMPTY_PAS = "Empty password field!";
+	private static final String ERROR_MESSAGE_ACC = "Error during query account list";
 
 	@Override
 	public Account autorization(String login, String pass) throws AccountServiceException {
@@ -42,12 +48,12 @@ public class AccountServiceImpl implements AccountService {
 			account = aDao.authorization(login, pass);
 
 			if (account == null) {
-				throw new AuthServiceException("Wrong login or password!");
+				throw new AuthServiceException(ERROR_MESSAGE_LP);
 			}
 
 		} catch (DaoException e) {
 
-			throw new AccountServiceException("Error in source!", e);
+			throw new AccountServiceException(ERROR_MESSAGE_VAL, e);
 
 		}
 		return account;
@@ -64,14 +70,14 @@ public class AccountServiceImpl implements AccountService {
 			aDao.addAccount(account);
 		} catch (DaoException e) {
 			//log
-			throw new AccountServiceException("error in source during registration", e);
+			throw new AccountServiceException(ERROR_MESSAGE_REG, e);
 		}
 
 		try {
 			newAccount = aDao.getAccountByLogin(reqParam.get(LOGIN));
 		} catch (DaoException e) {
 			//
-			throw new AccountServiceException("error in source during registration", e);
+			throw new AccountServiceException(ERROR_MESSAGE_REG, e);
 		}
 		return newAccount;
 	}
@@ -84,19 +90,19 @@ public class AccountServiceImpl implements AccountService {
 		try {
 			existAccount = aDao.getAccountByLogin(reqParam.get(LOGIN));
 		} catch (DaoException e) {
-			throw new AccountServiceException("error in source during validating login");
+			throw new AccountServiceException(ERROR_MESSAGE_VAL);
 		}
 		if (existAccount != null) {
-			throw new AccountServiceException("login already exist");
+			throw new AccountServiceException(ERROR_MESSAGE_EXIST_LOGIN);
 		}
 	}
 
 	private void validateLogPas(String login, String pass) throws AuthServiceException {
 		if (login == null || login.isEmpty()) {
-			throw new AuthServiceException("Empty login field!");
+			throw new AuthServiceException(ERROR_MESSAGE_EMPTY_LOGIN);
 		}
 		if (pass == null || pass.isEmpty()) {
-			throw new AuthServiceException("Empty password field!");
+			throw new AuthServiceException(ERROR_MESSAGE_EMPTY_PAS);
 		}
 	}
 
@@ -143,7 +149,7 @@ public class AccountServiceImpl implements AccountService {
 			accountList = aDao.getAccountList(value);
 		} catch (DaoException e) {
 
-			throw new AccountServiceException("Error in source!", e);
+			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
 
 		}
 		return accountList;

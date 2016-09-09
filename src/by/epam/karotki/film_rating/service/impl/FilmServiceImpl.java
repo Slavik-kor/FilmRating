@@ -14,11 +14,13 @@ import by.epam.karotki.film_rating.service.FilmService;
 import by.epam.karotki.film_rating.service.exception.FilmServiceException;
 
 public class FilmServiceImpl implements FilmService {
+	private static final String ERROR_MESSAGE = "can't get films";
+	private static final String ERROR_MESSAGE_VALIDATE = "value field equal zero of film list";
 
 	@Override
 	public List<Film> getFilmsByNewest(int value,String lang) throws FilmServiceException {
 		if (value == 0) {
-			throw new FilmServiceException("wrong value of film list");
+			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
 		}
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
@@ -29,7 +31,7 @@ public class FilmServiceImpl implements FilmService {
 			films = fDao.getFilmListByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
-			throw new FilmServiceException("can't get newest films", e);
+			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		return films;
 	}
@@ -47,7 +49,7 @@ public class FilmServiceImpl implements FilmService {
 			film = filmList.get(0);
 		} catch (DaoException e) {
 			// log
-			throw new FilmServiceException("can't get film by id", e);
+			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		return film;
 	}
@@ -76,7 +78,7 @@ public class FilmServiceImpl implements FilmService {
 			films = fDao.getFilmListByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
-			throw new FilmServiceException("can't get newest films", e);
+			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		return films;
 	}

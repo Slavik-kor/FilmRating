@@ -15,8 +15,9 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 
 public class FilmCountryDaoImpl implements FilmCountryDao {
 private ConnectionPool conPool = ConnectionPool.getInstance();
+private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
-	
 	private static final String ADD_FILM_COUNTRY = "INSERT INTO FilmOriginCountry (Film_id,Country_id) VALUES (?,?) ";
 	
 	private static final String DELETE_FILM_COUNTRY = "DELETE FROM FilmOriginCountry WHERE (Film_id = ?) AND (Country_id = ?)";
@@ -36,9 +37,9 @@ private ConnectionPool conPool = ConnectionPool.getInstance();
 			ps.setInt(2, idCountry);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -60,9 +61,9 @@ private ConnectionPool conPool = ConnectionPool.getInstance();
 			ps.setInt(2, idCountry);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -90,9 +91,9 @@ private ConnectionPool conPool = ConnectionPool.getInstance();
 				filmIds.add(rs.getInt(DBColumnNames.FILM_COUNTRY_FILM_ID));
 			}
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -120,9 +121,9 @@ private ConnectionPool conPool = ConnectionPool.getInstance();
 				countryIds.add(rs.getInt(DBColumnNames.FILM_COUNTRY_COUNTRY_ID));
 			}
 		} catch (ConnectionPoolException e) {
-			throw new DaoException("Can't get connection from ConnectionPool", e);
+			throw new DaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new DaoException("Can't perform query", e);
+			throw new DaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();

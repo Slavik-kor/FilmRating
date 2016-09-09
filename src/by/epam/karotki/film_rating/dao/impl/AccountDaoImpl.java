@@ -21,6 +21,8 @@ import by.epam.karotki.film_rating.entity.Account;
 public class AccountDaoImpl implements AccountDao {
 	// private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String AUTHORIZATION = "SELECT idAccount, AccountFirstName, AccountLastName, AccountBirthday, AccountEmail,"
 			+ "AccountCreationDate, AccountLogin, AccountPassword, AccountRole, AccountActive, Country_id, Phone, Photo "
@@ -72,9 +74,9 @@ public class AccountDaoImpl implements AccountDao {
 			rs = ps.executeQuery();
 			userList = getAccounts(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -103,9 +105,9 @@ public class AccountDaoImpl implements AccountDao {
 			rs = ps.executeQuery();
 			userList = getAccounts(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -136,9 +138,9 @@ public class AccountDaoImpl implements AccountDao {
 			rs = ps.executeQuery();
 			userList = getAccounts(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -213,9 +215,9 @@ public class AccountDaoImpl implements AccountDao {
 			rs = ps.executeQuery();
 			account = getAccount(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -254,9 +256,9 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -293,9 +295,9 @@ public class AccountDaoImpl implements AccountDao {
 			ps.setInt(13, account.getId());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -317,14 +319,12 @@ public class AccountDaoImpl implements AccountDao {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(GET_ACCOUNT_BY_LOGIN);
 			ps.setString(1, login);
-			System.out.println("before performing query");
 			rs = ps.executeQuery();
-			System.out.println("after performing query");
 			account = getAccount(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -352,9 +352,9 @@ public class AccountDaoImpl implements AccountDao {
 			ps.setInt(1,id);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -379,9 +379,9 @@ public class AccountDaoImpl implements AccountDao {
 			rs = ps.executeQuery();
 			accountList = getAccounts(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AccountDaoException("Can't get connection from ConnectionPool", e);
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AccountDaoException("Can't perform query", e);
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();

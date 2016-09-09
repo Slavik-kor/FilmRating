@@ -16,6 +16,10 @@ public class AuthorServiceImpl implements AuthorService {
 	private static final String DIRECTOR = "Director";
 	private static final String SCENARIO_WRITER = "ScenarioWriter";
 	private static final String ACTOR = "Actor";
+	private static final String ERROR_MESSAGE_DIR = "can't get directors by film id";
+	private static final String ERROR_MESSAGE_SC = "can't get scenariowriters by film id";
+	private static final String ERROR_MESSAGE_ACT = "can't get actors by film id";
+	private static final String ERROR_MESSAGE_AUT = "can't get author by id";
 
 	@Override
 	public List<Author> getDirectorsByFilm(int idFilm,String lang) throws AuthorServiceException {
@@ -26,7 +30,7 @@ public class AuthorServiceImpl implements AuthorService {
 			authorList = aDao.getAuthorListByFilm(idFilm,	DIRECTOR);
 		} catch (DaoException e) {
 			// log
-			throw new AuthorServiceException("can't get directors by film id", e);
+			throw new AuthorServiceException(ERROR_MESSAGE_DIR, e);
 		}
 		return authorList;
 	}
@@ -40,7 +44,7 @@ public class AuthorServiceImpl implements AuthorService {
 			authorList = aDao.getAuthorListByFilm(idFilm,	SCENARIO_WRITER);
 		} catch (DaoException e) {
 			// log
-			throw new AuthorServiceException("can't get scenariowriters by film id", e);
+			throw new AuthorServiceException(ERROR_MESSAGE_SC, e);
 		}
 		return authorList;
 	}
@@ -54,7 +58,7 @@ public class AuthorServiceImpl implements AuthorService {
 			authorList = aDao.getAuthorListByFilm(idFilm,	ACTOR);
 		} catch (DaoException e) {
 			// log
-			throw new AuthorServiceException("can't get actors by film id", e);
+			throw new AuthorServiceException(ERROR_MESSAGE_ACT, e);
 		}
 		return authorList;
 	}
@@ -70,7 +74,7 @@ public class AuthorServiceImpl implements AuthorService {
 			author = aDao.getAuthorByCriteria(criteria, lang);
 		}catch(DaoException e){
 			// log
-			throw new AuthorServiceException("can't get author by id", e);
+			throw new AuthorServiceException(ERROR_MESSAGE_AUT, e);
 		}
 		return author.get(0);
 	}

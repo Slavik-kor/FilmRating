@@ -21,6 +21,8 @@ import by.epam.karotki.film_rating.entity.Author;
 public class AuthorDaoImpl implements AuthorDao {
 	// private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String AUTHOR_BY_COUNTRY = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id FROM Author "
 			+ "JOIN Country ON Country.idCountry = Author.CountryOfBirth_id WHERE CountryName = ? ";
@@ -73,9 +75,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} finally {
 			try {
 				rs.close();
@@ -105,9 +107,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} finally {
 			try {
 				rs.close();
@@ -138,9 +140,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} finally {
 			try {
 				rs.close();
@@ -170,9 +172,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			author = getAuthor(rs);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} finally {
 			try {
 				rs.close();
@@ -232,9 +234,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps.setInt(5, author.getCountryOfBirthId());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -261,9 +263,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps.setInt(6, author.getId());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -284,9 +286,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -311,9 +313,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			author = getAuthor(rs);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} finally {
 			try {
 				rs.close();
@@ -343,9 +345,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			rs = ps.executeQuery();
 			authorList = getAuthors(rs);
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -375,9 +377,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps.setString(4, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -402,9 +404,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps.setString(4, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -426,9 +428,9 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps.setString(2, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new AuthorDaoException("Can't get connection from ConnectionPool", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new AuthorDaoException("Can't perform query", e);
+			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();

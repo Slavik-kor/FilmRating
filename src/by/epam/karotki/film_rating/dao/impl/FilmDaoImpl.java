@@ -21,6 +21,8 @@ import by.epam.karotki.film_rating.entity.Film;
 public class FilmDaoImpl implements FilmDao {
 	// private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String FILM_BY_RATING = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser, ROUND(AVG(Rate),2) Rating "
 			+ "from(select g.idFilm idFilm, coalesce(t.title,g.title) title, coalesce(t.description,g.description) description "
@@ -93,9 +95,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -126,9 +128,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -159,9 +161,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -192,9 +194,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -225,9 +227,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -257,9 +259,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -289,9 +291,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -321,9 +323,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -354,9 +356,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			film = getFilm(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -432,9 +434,9 @@ public class FilmDaoImpl implements FilmDao {
 			ps.setString(10, film.getTeaser());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -467,9 +469,9 @@ public class FilmDaoImpl implements FilmDao {
 			ps.executeUpdate();
 
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -491,9 +493,9 @@ public class FilmDaoImpl implements FilmDao {
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -518,9 +520,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			film = getFilm(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -551,9 +553,9 @@ public class FilmDaoImpl implements FilmDao {
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -583,9 +585,9 @@ public class FilmDaoImpl implements FilmDao {
 			ps.setString(4,lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -610,9 +612,9 @@ public class FilmDaoImpl implements FilmDao {
 			ps.executeUpdate();
 
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -634,9 +636,9 @@ public class FilmDaoImpl implements FilmDao {
 			ps.setString(2, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new FilmDaoException("Can't get connection from ConnectionPool", e);
+			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new FilmDaoException("Can't perform query", e);
+			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();

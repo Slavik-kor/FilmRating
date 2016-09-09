@@ -17,6 +17,9 @@ import by.epam.karotki.film_rating.entity.Genre;
 
 public class GenreDaoImpl implements GenreDao {
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
+	
 
 	private static final String GENRES_BY_FILM = "SELECT idGenre, Name, Description FROM Genre "
 			+ "JOIN Film_Genre film ON Genre.idGenre = film.Genre_id WHERE film.Film_id=?";
@@ -50,9 +53,9 @@ public class GenreDaoImpl implements GenreDao {
 			rs = ps.executeQuery();
 			genreList = getGenreList(rs);
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -106,9 +109,9 @@ public class GenreDaoImpl implements GenreDao {
 			rs = ps.executeQuery();
 			genre = getGenreList(rs);
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				rs.close();
@@ -136,9 +139,9 @@ public class GenreDaoImpl implements GenreDao {
 			ps.setString(2,genre.getDescription());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -163,9 +166,9 @@ public class GenreDaoImpl implements GenreDao {
 			ps.setString(4, genre.getDescription());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -189,9 +192,9 @@ public class GenreDaoImpl implements GenreDao {
 			ps.setInt(3, genre.getId());
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -216,9 +219,9 @@ public class GenreDaoImpl implements GenreDao {
 			ps.setString(4, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -240,9 +243,9 @@ public class GenreDaoImpl implements GenreDao {
 			ps.setInt(1,id);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
@@ -265,9 +268,9 @@ public class GenreDaoImpl implements GenreDao {
 			ps.setString(2, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
-			throw new GenreDaoException("Can't get connection from ConnectionPool", e);
+			throw new GenreDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
-			throw new GenreDaoException("Can't perform query", e);
+			throw new GenreDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {
 				ps.close();
