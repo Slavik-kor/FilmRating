@@ -15,7 +15,6 @@ import by.epam.karotki.film_rating.service.ServiceFactory;
 import by.epam.karotki.film_rating.service.exception.ServiceException;
 
 public class FilmsByGenre implements Command {
-	private static final String VALUE = "value";
 	private static final String ID_GENRE = "idGenre";
 	private static final String LOCALE = "locale";
 	private static final String RU = "ru";
@@ -25,7 +24,6 @@ public class FilmsByGenre implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		int value = Integer.valueOf(request.getParameter(VALUE));
 		int idGenre = Integer.valueOf(request.getParameter(ID_GENRE));
 		HttpSession session = request.getSession(true);
 		String locale = (String) session.getAttribute(LOCALE);
@@ -35,7 +33,7 @@ public class FilmsByGenre implements Command {
 		ServiceFactory factory = ServiceFactory.getInstance();
 		FilmService fService = factory.getFilmService();
 		try {
-			List<Film> films = fService.getFilmsByGenre(idGenre, value, locale);
+			List<Film> films = fService.getFilmsByGenre(idGenre, locale);
 			request.setAttribute(FILMS, films);
 			request.getRequestDispatcher(FILMS_PAGE).forward(request, response);
 		} catch (ServiceException e) {

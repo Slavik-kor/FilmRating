@@ -37,7 +37,8 @@ public class Registration implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Map<String,String> reqParam = new HashMap<String,String>();
+       System.out.println("in reg");
+		Map<String,String> reqParam = new HashMap<String,String>();
 		reqParam.put(LOGIN, request.getParameter(LOGIN));
 		reqParam.put(PASSWORD, request.getParameter(PASSWORD));
 		reqParam.put(FIRST_NAME, request.getParameter(FIRST_NAME));

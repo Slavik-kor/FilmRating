@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -24,7 +23,7 @@
 </head>
 <body>
 <div class="container">
-	<%@include file="WEB-INF/jsp/inc/top-menu.jsp"%>
+ <%@include file="WEB-INF/jsp/inc/top-menu.jsp"%>  
 	
 	<div class="container col-md-10 col-lg-10 col-sm-9">
 		<div id="carousel" class="carousel slide"
@@ -64,7 +63,7 @@
 		</div>
 	</div>
 
-	<%@include file="WEB-INF/jsp/inc/footer.jsp"%>
+	<%@include file="WEB-INF/jsp/inc/footer.jsp"%>  
 </div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>

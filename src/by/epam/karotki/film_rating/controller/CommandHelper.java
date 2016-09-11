@@ -15,10 +15,12 @@ import by.epam.karotki.film_rating.command.impl.FilmCard;
 import by.epam.karotki.film_rating.command.impl.FilmsByGenre;
 import by.epam.karotki.film_rating.command.impl.Localization;
 import by.epam.karotki.film_rating.command.impl.NewFilms;
+import by.epam.karotki.film_rating.command.impl.UpdateProfilePage;
 import by.epam.karotki.film_rating.command.impl.Profile;
 import by.epam.karotki.film_rating.command.impl.Registration;
 import by.epam.karotki.film_rating.command.impl.SignOut;
 import by.epam.karotki.film_rating.command.impl.UnknownCommand;
+import by.epam.karotki.film_rating.command.impl.UpdateAccount;
 
 public class CommandHelper {
 
@@ -41,6 +43,8 @@ public class CommandHelper {
 		commands.put(CommandName.COMMENT_LIST, new CommentList());
 		commands.put(CommandName.ADD_COMMENT, new AddComment());
 		commands.put(CommandName.FILMS_BY_GENRE, new FilmsByGenre());
+		commands.put(CommandName.UPDATE_ACCOUNT_PAGE, new UpdateProfilePage());
+		commands.put(CommandName.UPDATE_ACCOUNT, new UpdateAccount());
 	}
 
 	public Command getCommand(String name) {

@@ -93,7 +93,7 @@
 					</tbody>
 				</table>
 				<p>Актер</p>
-				<c:set var="actorFilms" value="${requestScope.actorFilm }" />
+				<c:set var="actorFilms" value="${requestScope.actorFilms }" />
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>

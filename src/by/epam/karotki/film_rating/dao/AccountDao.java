@@ -15,6 +15,8 @@ public interface AccountDao {
 	List<Account> getActiveUsersByComment(int value) throws AccountDaoException;
 	
 	List<Account> getAccountList(int value) throws AccountDaoException;	
+	
+	List<Account> getAccountByCriteria(Criteria criteria) throws AccountDaoException;	
 
 	Account authorization(String login, String password) throws AccountDaoException;
 	

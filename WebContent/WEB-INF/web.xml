@@ -14,4 +14,5 @@
     <servlet-name>Registration</servlet-name>
     <url-pattern>/reg</url-pattern>
   </servlet-mapping>
+
 </web-app>

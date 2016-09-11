@@ -7,9 +7,15 @@ import by.epam.karotki.film_rating.service.exception.FilmServiceException;
 
 public interface FilmService {
 	
-	List<Film> getFilmsByNewest(int value,String lang) throws FilmServiceException;
+	List<Film> getFilmsByNewest(String lang) throws FilmServiceException;
 	
-	List<Film> getFilmsByGenre(int idGenre, int value,String lang) throws FilmServiceException;
+	List<Film> getFilmsByGenre(int idGenre,String lang) throws FilmServiceException;
 	
-	Film getFilmById(int value,String lang) throws FilmServiceException;
+	List<Film> getFilmsByDirector(int idAuthor,String lang) throws FilmServiceException;
+	
+	List<Film> getFilmsByScenarioWriter(int idAuthor,String lang) throws FilmServiceException;
+	
+	List<Film> getFilmsByActor(int idAuthor,String lang) throws FilmServiceException;
+	
+	Film getFilmById(int idFilm,String lang) throws FilmServiceException;
 }

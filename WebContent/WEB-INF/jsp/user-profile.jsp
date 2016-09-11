@@ -23,19 +23,20 @@
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-	<%@include file="inc/top-menu.jsp"%>
-	
+	<div class="container">
+		<%@include file="inc/top-menu.jsp"%>
 
-	<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container" align="center">
-		<h3>Профиль пользователя</h3>
-		<div class="container col-lg-4 col-lg-offset-1">
 
-			<img src="${account.photo }" width="250" class="img-rounded"
-				onerror="this.src = 'images/author/noFoto.jpg'" alt="Аватар">
-		</div>
+		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container"
+			align="center">
+			<h3>Профиль пользователя</h3>
+			<div class="container col-lg-4 col-lg-offset-1">
+
+				<img src="${account.photo }" width="250" class="img-rounded"
+					onerror="this.src = 'images/author/noFoto.jpg'" alt="Аватар">
+			</div>
 			<div class="container col-lg-6">
-<table class="table table-hover">
+				<table class="table table-hover">
 					<tbody>
 						<tr>
 							<th scope="row">Имя</th>
@@ -60,7 +61,7 @@
 						<tr>
 							<th scope="row">Страна</th>
 							<c:set var="country" value="${requestScope.country}" />
-							<td><c:out value="${country.name }"/></td>
+							<td><c:out value="${country.name }" /></td>
 						</tr>
 						<tr>
 							<th scope="row">Телефон</th>
@@ -72,16 +73,19 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
 		</div>
-	</div>
-	<div align="right">
-		<button type="submit" class="btn btn-success">Редактировать
-			профиль</button>
-		<button type="button" class="btn btn-danger">Отмена</button>
-	</div>
+		<div align="right">
+			<form action="Controller">
+				<input type="hidden" name="command" value="update_account_page" />
+				<button type="submit" class="btn btn-success">Редактировать
+					профиль</button>
+			</form>
+			<button type="button" class="btn btn-danger">Отмена</button>
+		</div>
 
-	<%@include file="inc/footer.jsp"%>
-</div>
+		<%@include file="inc/footer.jsp"%>
+	</div>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

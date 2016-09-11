@@ -19,6 +19,8 @@ public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String COMMAND = "command";
 	private static final String ERROR_PAGE = "error.jsp";
+	private static final String ERROR_MESSAGE_CONTENT = "No command";
+	private static final String ERROR_MESSAGE = "errorMessage";
 	
 
 	/**
@@ -48,6 +50,7 @@ public class Controller extends HttpServlet {
 			Command command = CommandHelper.getInstance().getCommand(commandName);
 				command.execute(request, response);
 		} else {
+			request.setAttribute(ERROR_MESSAGE, ERROR_MESSAGE_CONTENT);
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
 	}

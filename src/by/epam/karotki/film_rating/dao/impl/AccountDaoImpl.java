@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.karotki.film_rating.dao.AccountDao;
+import by.epam.karotki.film_rating.dao.Criteria;
 import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
@@ -50,16 +51,21 @@ public class AccountDaoImpl implements AccountDao {
 			+ "AccountCreationDate, AccountLogin, AccountPassword, AccountRole, Phone, Photo, Country_id) "
 			+ "VALUES (?, ?, ?, ?, NOW(), ?, ?, 'User', ?, ?, ?);";
 	
-	private static final String UPDATE_ACCOUNT = "UPDATE Account SET AccountFirstName=?, AccountLastName=?, "
-			+ "AccountBirthday=?, AccountEmail=?, AccountCreationDate=?, AccountLogin=?, AccountPassword=?, "
-			+ "AccountRole=?, AccountActive=?, Country_id=?, Phone=?, Photo=?  "
-			+ " WHERE idAccount=?;";
+	private static final String UPDATE_ACCOUNT="UPDATE Account SET AccountFirstName=?, AccountLastName=?, "
+	+ "AccountBirthday=?, AccountEmail=?, AccountCreationDate=?, AccountLogin=?, AccountPassword=?, "
+	+ "AccountRole=?,  Country_id=?, Phone=?, Photo=?  "
+	+ " WHERE idAccount=?;";
+	/*AccountActive=?, */
 	
 	private static final String DELETE_ACCOUNT = "DELETE FROM Account WHERE idAccount=?;";
 
 	private static final String ACCOUNTS = "SELECT idAccount,AccountFirstName, AccountLastName, AccountBirthday, AccountEmail,"
 			+ "AccountCreationDate, AccountLogin, AccountPassword, AccountRole, AccountActive, Country_id, Phone, Photo"
 			+ "  FROM Account LIMIT ? ";
+	
+	private static final String ACCOUNT = "SELECT idAccount,AccountFirstName, AccountLastName, AccountBirthday, AccountEmail,"
+			+ "AccountCreationDate, AccountLogin, AccountPassword, AccountRole, AccountActive, Country_id, Phone, Photo"
+			+ "  FROM Account ";
 
 	@Override
 	public List<Account> getUsersByCountry(String country) throws AccountDaoException {
@@ -276,24 +282,52 @@ public class AccountDaoImpl implements AccountDao {
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(UPDATE_ACCOUNT);
+			if(account.getFirstName()!=null){
 			ps.setString(1, account.getFirstName());
+			}else{
+				ps.setNull(1, Types.VARCHAR);
+			}
+			if(account.getLastName()!=null){
 			ps.setString(2, account.getLastName());
+			}else{
+				ps.setNull(2, Types.VARCHAR);
+			}
+
+			if(account.getBirthDay()!=null){
 			ps.setDate(3, account.getBirthDay());
+			}else{
+				ps.setNull(3, Types.DATE);
+			}
+			if(account.getEmail()!=null){
 			ps.setString(4, account.getEmail());
+			}else{
+				ps.setNull(4, Types.VARCHAR);
+			}
+			
 			ps.setDate(5, account.getCreationDate());
 			ps.setString(6, account.getLogin());
 			ps.setString(7, account.getPassword());
 			ps.setString(8, account.getRole());
-			ps.setBoolean(9, account.isActive());
-			if(account.getCountryId()!=null){
-			ps.setInt(10, account.getCountryId());
+			//ps.setBoolean(9,account.isActive());
+			if(account.getCountryId()!=0){
+			ps.setInt(9, account.getCountryId());
 			}else{
-				ps.setNull(10, Types.INTEGER);
+				ps.setNull(9, Types.INTEGER);
 			}
-			ps.setString(11, account.getPhone());
-			ps.setString(12, account.getPhoto());
-			ps.setInt(13, account.getId());
+			if(account.getPhone()!=null){
+			ps.setString(10, account.getPhone());
+			}else{
+				ps.setNull(10, Types.VARCHAR);
+			}
+			if(account.getPhoto()!=null){
+			ps.setString(11, account.getPhoto());
+			}else{
+				ps.setNull(11, Types.VARCHAR);
+			}   
+			ps.setInt(12, account.getId());
+			
 			ps.executeUpdate();
+			
 		} catch (ConnectionPoolException e) {
 			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
@@ -376,6 +410,37 @@ public class AccountDaoImpl implements AccountDao {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(ACCOUNTS);
 			ps.setInt(1, value);
+			rs = ps.executeQuery();
+			accountList = getAccounts(rs);
+		} catch (ConnectionPoolException e) {
+			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
+		} catch (SQLException e) {
+			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
+			}
+			conPool.returnConnection(con);
+		}
+		return accountList;
+	}
+
+	@Override
+	public List<Account> getAccountByCriteria(Criteria criteria) throws AccountDaoException {
+		List<Account> accountList = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			con = conPool.takeConnection();
+			ps = con.prepareStatement(ACCOUNT + criteria.getClause());
 			rs = ps.executeQuery();
 			accountList = getAccounts(rs);
 		} catch (ConnectionPoolException e) {

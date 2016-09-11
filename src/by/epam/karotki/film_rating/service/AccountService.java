@@ -13,6 +13,10 @@ public interface AccountService {
 	
 	Account registration(Map<String,String> reqParam,InputStream is) throws AccountServiceException;
 	
+	Account updateAccount(Map<String,String> reqParam,InputStream is) throws AccountServiceException;
+	
 	List<Account> getAccountList(int value) throws AccountServiceException;
+	
+	Account getAccountById(int idAccount) throws AccountServiceException;
 
 }

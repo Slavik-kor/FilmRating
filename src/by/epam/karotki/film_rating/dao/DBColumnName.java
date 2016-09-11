@@ -57,4 +57,12 @@ public class DBColumnName {
 	
 	public static final String FILM_GENRE_GENRE_ID = "Genre_id";
 	public static final String FILM_GENRE_FILM_ID = "Film_id";
+	
+	public static final String FILM_AUTHOR_FILM_ID = "Film_id";
+	public static final String FILM_AUTHOR_AUTHOR_ID = "Authors_idAuthors";
+	public static final String FILM_AUTHOR_ROLE = "Role";
+	
+	public static final String AUTHOR_ROLE_DIRECTOR = "Director";
+	public static final String AUTHOR_ROLE_SCENARIOWRITER = "ScenarioWriter";
+	public static final String AUTHOR_ROLE_ACTOR = "Actor";
 }

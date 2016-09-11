@@ -1,13 +1,10 @@
-<fmt:message bundle="${loc}" key="locale.locbutton.name.ru"
-	var="ru_button" />
-<fmt:message bundle="${loc}" key="locale.locbutton.name.en"
-	var="en_button" />
+<fmt:message bundle="${loc}" key="locale.locbutton.name.ru"	var="ru_button" />
+<fmt:message bundle="${loc}" key="locale.locbutton.name.en"	var="en_button" />
 <fmt:message bundle="${loc}" key="locale.brand" var="brand" />
 <fmt:message bundle="${loc}" key="locale.menu.top.reg" var="reg" />
 <fmt:message bundle="${loc}" key="locale.menu.top.sign_in" var="signIn" />
 <fmt:message bundle="${loc}" key="locale.menu.top.login" var="login" />
-<fmt:message bundle="${loc}" key="locale.menu.top.password"
-	var="password" />
+<fmt:message bundle="${loc}" key="locale.menu.top.password"	var="password" />
 <fmt:message bundle="${loc}" key="locale.menu.top.profile" var="profile" />
 <fmt:message bundle="${loc}" key="locale.menu.top.comment" var="comment" />
 <fmt:message bundle="${loc}" key="locale.menu.top.add_film" var="add_film" />

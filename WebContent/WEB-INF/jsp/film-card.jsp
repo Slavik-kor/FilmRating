@@ -154,43 +154,43 @@
 			</div>
 
 			<c:set var="comments" value="${requestScope.comment_list}" />
-			<c:set var="accounts" value="${requestScope.accounts}" />
+			<c:set var="accounts" value="${requestScope.account_comment_list}" />
 			<div class="container col-md-10 col-lg-10 col-sm-9">
 
 				<c:if test="${not empty comments }">
 					<h2 class="page-header">Комментарии</h2>
-
-					<c:forEach items="${comments}" var="comment">
+					
+					<c:forEach  var="index" begin = "0" end="${fn:length(comments)-1}">   
 						<div class="container-fluid  hide-text">
 							<div class="row">
-								<c:out value="${comment.accountId }" />
+								<c:out value="${accounts[index].login}" />
 								|
-								<fmt:formatDate value="${comment.commentDate}" />
+								<fmt:formatDate value="${comments[index].commentDate}" />
 								|
-								<c:out value="${comment.rate }" />
+								<c:out value="${comments[index].rate }" />
 							</div>
 							<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad">
 								<div class="view">
-									<img src="images\author\noFoto.jpg" width="50"
-										class="img-rounded" alt="постер">
+									<img src="${accounts[index].photo }"  width="50"
+										class="img-rounded" onerror="this.src = 'images/author/noFoto.jpg'" alt="постер">
 								</div>
 								<div class="detail">
 
 									<p>
-										<c:out value="${comment.comment }" />
+										<c:out value="${comments[index].comment }" />
 									</p>
 
 								</div>
 								<div class="row">
-									<c:if test="${comment.accountId==account.id }">
+									<c:if test="${comments[index].accountId==account.id }">
 										<button class="btn btn-success">Редактировать</button>
 										<button class="btn btn-danger">Удалить</button>
 									</c:if>
 								</div>
 							</div>
 
-						</div>
-					</c:forEach>
+						</div> 
+					</c:forEach>   
 				</c:if>
 				<c:choose>
 					<c:when test="${not empty account}">

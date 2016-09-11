@@ -1,6 +1,7 @@
 package by.epam.karotki.film_rating.service.impl;
 
 import by.epam.karotki.film_rating.dao.DaoFactory;
+import by.epam.karotki.film_rating.dao.Operator;
 
 import java.io.InputStream;
 import java.sql.Date;
@@ -8,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import by.epam.karotki.film_rating.dao.AccountDao;
+import by.epam.karotki.film_rating.dao.Criteria;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Account;
 import by.epam.karotki.film_rating.service.AccountService;
 import by.epam.karotki.film_rating.service.exception.AccountServiceException;
 import by.epam.karotki.film_rating.service.exception.AuthServiceException;
-import by.epam.karotki.film_rating.service.util.ServiceUtils;
+import by.epam.karotki.film_rating.service.util.ServiceUtil;
 
 public class AccountServiceImpl implements AccountService {
 	private static final String LOGIN = "login";
@@ -23,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
 	private static final String BIRTHDAY = "birthday";
 	private static final String COUNTRY = "country";
 	private static final String EMAIL = "email";
+	private static final String ROLE = "role";
 	private static final String PHONE_NUMBER = "phone-number";
 	private static final String USER = "User";
 	private static final String PATH_AVATAR = "images\\avatar\\avatar";
@@ -135,7 +139,7 @@ public class AccountServiceImpl implements AccountService {
 		String rootPath = reqParam.get(PROJECT_PATH);
 		String photoPath = PATH_AVATAR + account.getLogin() + JPG;
 		String fullPhotoPath = rootPath + "\\" + photoPath;
-		ServiceUtils.saveFromRequestFile(is, fullPhotoPath);
+		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
 		account.setPhoto(photoPath);
 		return account;
 	}
@@ -153,6 +157,90 @@ public class AccountServiceImpl implements AccountService {
 
 		}
 		return accountList;
+	}
+
+	@Override
+	public Account updateAccount(Map<String, String> reqParam, InputStream is) throws AccountServiceException {
+		
+		DaoFactory dao = DaoFactory.getInstance();
+		AccountDao aDao = dao.getAccountDao();
+		Account account = null;
+		String login = reqParam.get(LOGIN);
+		try{
+			account = aDao.getAccountByLogin(login);
+		}catch(DaoException e){
+			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
+		}
+		
+		if(account == null){
+			throw new AccountServiceException(ERROR_MESSAGE_ACC);
+		}
+		
+		account.setLogin(login);
+		account.setPassword(reqParam.get(PASSWORD));
+		account.setFirstName(reqParam.get(FIRST_NAME));
+		account.setLastName(reqParam.get(LAST_NAME));
+		account.setEmail(reqParam.get(EMAIL));
+		account.setPhone(reqParam.get(PHONE_NUMBER));
+		String role = reqParam.get(ROLE);
+		if(role!=null){
+		account.setRole(role);
+		}
+		
+		Date birthday = null;
+		try {
+			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
+		} catch (IllegalArgumentException e) {
+			birthday = null;
+		}
+		account.setBirthDay(birthday);
+
+		Integer countryId = null;
+		try {
+			countryId = Integer.valueOf(reqParam.get(COUNTRY));
+		} catch (IllegalArgumentException | NullPointerException e) {
+			countryId = null;
+		}
+		account.setCountryId(countryId);
+		
+		if(is!=null){
+		String rootPath = reqParam.get(PROJECT_PATH);
+		String photoPath = PATH_AVATAR + account.getLogin() + JPG;
+		String fullPhotoPath = rootPath + "\\" + photoPath;
+		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+		account.setPhoto(photoPath);
+		}
+		System.out.println(account);
+		Account newAccount = null;
+		try{
+			aDao.updateAccount(account);
+			Criteria criteria = dao.createCriteria();
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.ACCOUNT_ID, String.valueOf(account.getId()));
+			newAccount = aDao.getAccountByCriteria(criteria).get(0);
+			System.out.println(newAccount);
+		}catch(DaoException e){
+			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
+		}
+
+		return newAccount;
+	}
+
+	@Override
+	public Account getAccountById(int idAccount) throws AccountServiceException {
+		Account account = null;
+		DaoFactory dao = DaoFactory.getInstance();
+		AccountDao aDao = dao.getAccountDao();
+		try {
+			
+			Criteria criteria = dao.createCriteria();
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.ACCOUNT_ID,String.valueOf(idAccount) );
+			account = aDao.getAccountByCriteria(criteria).get(0);
+		} catch (DaoException e) {
+
+			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
+
+		}
+		return account;
 	}
 
 }

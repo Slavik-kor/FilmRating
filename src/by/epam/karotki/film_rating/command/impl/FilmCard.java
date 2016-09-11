@@ -1,6 +1,7 @@
 package by.epam.karotki.film_rating.command.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,11 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import by.epam.karotki.film_rating.command.Command;
+import by.epam.karotki.film_rating.entity.Account;
 import by.epam.karotki.film_rating.entity.Author;
 import by.epam.karotki.film_rating.entity.Comment;
 import by.epam.karotki.film_rating.entity.Country;
 import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.entity.Genre;
+import by.epam.karotki.film_rating.service.AccountService;
 import by.epam.karotki.film_rating.service.AuthorService;
 import by.epam.karotki.film_rating.service.CommentService;
 import by.epam.karotki.film_rating.service.CountryService;
@@ -31,6 +34,7 @@ public class FilmCard implements Command {
 	private static final String SCENARIO_WRITERS_LIST = "scenarioWriters_list";
 	private static final String ACTORS_LIST = "actors_list";
 	private static final String COMMENT_LIST = "comment_list";
+	private static final String ACCOUNT_COMMENT_LIST = "account_comment_list";
 	private static final String FILM_CARD_PAGE = "/WEB-INF/jsp/film-card.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
 	private static final String LOCALE = "locale";
@@ -52,6 +56,7 @@ public class FilmCard implements Command {
 		GenreService gService = factory.getGenreService();
 		AuthorService aService = factory.getAuthorService();
 		CommentService comService = factory.getCommentService();
+		AccountService accService = factory.getAccountService();
 		try {
 			Film film = fService.getFilmById(idFilm,locale);
 			request.setAttribute(FILM, film);
@@ -73,6 +78,23 @@ public class FilmCard implements Command {
 			
 			List<Comment> commentList = comService.getCommentsByFilm(idFilm);
 			request.setAttribute(COMMENT_LIST, commentList);
+			
+			List<Integer> idAccountList = new ArrayList<Integer>();
+			if (commentList!=null){
+				
+				for(int i=0;i<commentList.size();i++){
+					Comment comment = commentList.get(i);
+					idAccountList.add(comment.getAccountId());
+				}
+				
+			}
+			
+			List<Account> commentAccountList = new ArrayList<Account>();
+			for(int i=0;i<idAccountList.size();i++){
+				Account acc = accService.getAccountById(idAccountList.get(i));
+				commentAccountList.add(acc);
+			}
+			request.setAttribute(ACCOUNT_COMMENT_LIST, commentAccountList);
 			
 			request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
 		} catch (ServiceException e) {
