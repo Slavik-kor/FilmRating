@@ -62,24 +62,24 @@ public class FilmDaoImpl implements FilmDao {
 
 	private static final String FILM = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser "
 			+ "from(select g.idFilm idFilm, coalesce(t.title,g.title) title, coalesce(t.description,g.description) description,Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser "
-			+ "from (film as g left join (select * from film_lang where lang = ?)  t using(idFilm))) films ";
+			+ "from (Film as g left join (select * from Film_lang where lang = ?)  t using(idFilm))) films ";
 
-	private static final String FILM_BY_TITLE = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
+	private static final String FILM_BY_TITLE = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM Film "
 			+ "WHERE Title = ?";
 
-	private static final String ADD_FILM = "INSERT INTO film (Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser) "
+	private static final String ADD_FILM = "INSERT INTO Film (Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
 	
-	private static final String ADD_FILM_LANG = "INSERT INTO film_lang (Title, Description, idFilm, lang) "
+	private static final String ADD_FILM_LANG = "INSERT INTO Film_lang (Title, Description, idFilm, lang) "
 			+ "VALUES(?,?,?,?)";
 
-	private static final String UPDATE_FILM = "UPDATE film SET Title=?, Description=?, Budget=?, BoxOfficeCash=?, Audience=?, PremierDate=?, Duration=?, WebSite=?, Poster=?, Teaser=? WHERE idFilm=? ";
+	private static final String UPDATE_FILM = "UPDATE Film SET Title=?, Description=?, Budget=?, BoxOfficeCash=?, Audience=?, PremierDate=?, Duration=?, WebSite=?, Poster=?, Teaser=? WHERE idFilm=? ";
 
-	private static final String UPDATE_FILM_LANG = "UPDATE film_lang SET Title = ?, Description = ? WHERE (idFilm = ?) AND (lang = ?) ";
+	private static final String UPDATE_FILM_LANG = "UPDATE Film_lang SET Title = ?, Description = ? WHERE (idFilm = ?) AND (lang = ?) ";
 	
-	private static final String DELETE_FILM = "DELETE FROM film WHERE idFilm = ? ";
+	private static final String DELETE_FILM = "DELETE FROM Film WHERE idFilm = ? ";
 
-	private static final String DELETE_FILM_LANG = "DELETE FROM film_lang WHERE (idFilm = ?) AND (lang = ?)";
+	private static final String DELETE_FILM_LANG = "DELETE FROM Film_lang WHERE (idFilm = ?) AND (lang = ?)";
 
 	@Override
 	public List<Film> getTopFilmsByRating(int value, String lang) throws FilmDaoException {

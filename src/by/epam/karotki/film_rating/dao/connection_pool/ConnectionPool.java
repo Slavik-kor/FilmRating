@@ -65,7 +65,6 @@ public final class ConnectionPool {
 	public synchronized Connection takeConnection() throws ConnectionPoolException {
 		Connection con = null;
 		try {
-		
 				con = connectionQueue.take();
 				givenAwayConQueue.add(con);
 			

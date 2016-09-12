@@ -60,7 +60,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	private static final String AUTHOR = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id "
 			+ "FROM (SELECT g.idAuthor idAuthor, coalesce(t.AuthorFirstName,g.AuthorFirstName) AuthorFirstName, "
 			+ "coalesce(t.AuthorLastName,g.AuthorLastName) AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id "
-			+ "FROM (author g LEFT JOIN (SELECT * FROM author_lang WHERE lang = ?) t USING(idAuthor))) Author ";
+			+ "FROM (Author g LEFT JOIN (SELECT * FROM Author_lang WHERE lang = ?) t USING(idAuthor))) Authors ";
 	@Override
 	public List<Author> getAuthorListByCountry(String country) throws AuthorDaoException {
 
