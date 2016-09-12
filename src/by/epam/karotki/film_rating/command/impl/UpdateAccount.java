@@ -44,6 +44,7 @@ public class UpdateAccount implements Command {
 		String login = request.getParameter(LOGIN);
 		String pass = request.getParameter(PASSWORD);
 		
+		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		AccountService aService = factory.getAccountService();
 		Account account = null;
@@ -63,6 +64,7 @@ public class UpdateAccount implements Command {
 		
 		Map<String, String> reqParam = new HashMap<String, String>();
 		reqParam.put(LOGIN, login);
+		reqParam.put(PASSWORD, pass);
 		reqParam.put(FIRST_NAME, request.getParameter(FIRST_NAME));
 		reqParam.put(LAST_NAME, request.getParameter(LAST_NAME));
 		reqParam.put(BIRTHDAY, request.getParameter(BIRTHDAY));
@@ -74,7 +76,7 @@ public class UpdateAccount implements Command {
 
 			try {
 				Part part = request.getPart(AVATAR);
-			//	System.out.println(part);
+			
 				if (part != null) {
 					is = part.getInputStream();
 					String path = request.getServletContext().getRealPath("");
@@ -83,11 +85,8 @@ public class UpdateAccount implements Command {
 
 			} catch (ServletException e) {
 				// log
-				System.out.println("exception");
 			}
 		
-			
-		System.out.println("before update");
 		
 		try{
 			account = aService.updateAccount(reqParam, is);
@@ -96,8 +95,6 @@ public class UpdateAccount implements Command {
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 				return;
 		}
-		System.out.println("after update");
-		System.out.println(account);
 		session.setAttribute(ACCOUNT, account);
 		response.sendRedirect(PROFILE_PAGE);
 		

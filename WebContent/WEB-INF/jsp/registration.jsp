@@ -6,7 +6,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<c:set var="prev_page" value="/WEB-INF/jsp/registration.jsp"
+<c:set var="prev_page" value="/FilmRating/reg"
 	scope="session" />
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -28,11 +28,13 @@
 <fmt:message bundle="${loc}" key="locale.registration.clear" var="clear" />
 <fmt:message bundle="${loc}" key="locale.registration.cancel"
 	var="cancel" />
+<fmt:message bundle="${loc}" key="locale.registration.change"
+	var="change" />
 <c:set var="mode" value="${requestScope.mode}" />
 <c:set var="account" value="${sessionScope.account}" />
 <c:choose>
 	<c:when test="${mode=='update'}">
-		<title>Изменить аккаунт</title>
+		<title>${change }</title>
 	</c:when>
 	<c:otherwise>
 		<title>${reg}</title>

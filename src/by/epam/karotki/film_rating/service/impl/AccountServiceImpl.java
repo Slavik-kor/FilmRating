@@ -167,6 +167,7 @@ public class AccountServiceImpl implements AccountService {
 		Account account = null;
 		String login = reqParam.get(LOGIN);
 		try{
+			
 			account = aDao.getAccountByLogin(login);
 		}catch(DaoException e){
 			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
@@ -210,15 +211,17 @@ public class AccountServiceImpl implements AccountService {
 		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
 		account.setPhoto(photoPath);
 		}
-		System.out.println(account);
+
 		Account newAccount = null;
 		try{
 			aDao.updateAccount(account);
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.ACCOUNT_ID, String.valueOf(account.getId()));
 			newAccount = aDao.getAccountByCriteria(criteria).get(0);
-			System.out.println(newAccount);
-		}catch(DaoException e){
+		}catch(NullPointerException e){
+			newAccount = null;
+		}
+		catch(DaoException e){
 			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
 		}
 

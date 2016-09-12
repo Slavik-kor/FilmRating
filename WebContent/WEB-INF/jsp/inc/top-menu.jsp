@@ -16,6 +16,15 @@
 <fmt:message bundle="${loc}" key="locale.menu.side.rate" var="rate" />
 <fmt:message bundle="${loc}" key="locale.menu.side.genre" var="genre" />
 <fmt:message bundle="${loc}" key="locale.menu.side.years" var="years" />
+<fmt:message bundle="${loc}" key="locale.menu.side.drama" var="drama" />
+<fmt:message bundle="${loc}" key="locale.menu.side.comedy" var="comedy" />
+<fmt:message bundle="${loc}" key="locale.menu.side.sport" var="sport" />
+<fmt:message bundle="${loc}" key="locale.menu.side.biography" var="biography" />
+<fmt:message bundle="${loc}" key="locale.menu.side.action" var="action" />
+<fmt:message bundle="${loc}" key="locale.menu.side.thriller" var="thriller" />
+<fmt:message bundle="${loc}" key="locale.menu.side.adventure" var="adventure" />
+<fmt:message bundle="${loc}" key="locale.menu.side.fantasy" var="fantasy" />
+
 
 <link href="css/accordeon.css" rel="stylesheet">
 
@@ -41,7 +50,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="Controller?command=profile">${profile}</a></li>
 							<li><a href="Controller?command=comment_list">${comment}</a></li>
-							<li><a href="Controller?command=newFilms&value=10&type=favorite">${favor_film}</a></li>
+							<li><a href="Controller?command=newFilms&type=favorite">${favor_film}</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
 					</c:when>
@@ -51,8 +60,8 @@
 							<li><a href="Controller?command=comment_list">${comment}</a></li>
 							<li><a href="Controller?command=add_film">${add_film}</a></li>
 							<li><a href="Controller?command=add_author">${add_author}</a></li>
-							<li><a href="Controller?command=newFilms&value=10&type=favorite">${favor_film}</a></li>
-							<li><a href="Controller?command=account_list&value=10">Accounts</a></li>
+							<li><a href="Controller?command=newFilms&type=favorite">${favor_film}</a></li>
+							<li><a href="Controller?command=account_list">Accounts</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
 					</c:when>
@@ -104,7 +113,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-parent="#accordion" href="Controller?command=newFilms&value=10"><span class="glyphicon glyphicon-download-alt">
+                            <a data-parent="#accordion" href="Controller?command=newFilms"><span class="glyphicon glyphicon-download-alt">
                             </span>${newFilm }</a>
                         </h4>
                     </div>
@@ -113,7 +122,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a  data-parent="#accordion" href="Controller?command=newFilms&value=10"><span class="glyphicon glyphicon-thumbs-up">
+                            <a  data-parent="#accordion" href="Controller?command=newFilms"><span class="glyphicon glyphicon-thumbs-up">
                             </span>${rate }</a>
                         </h4>
                     </div>
@@ -131,42 +140,42 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=1">Drama</a> 
+                                        <a href="Controller?command=films_By_Genre&idGenre=1">${drama }</a> 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=8">Comedy</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=8">${comedy}</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=2">Sport</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=2">${sport}</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=3">Biography</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=3">${biography}</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=4">Action</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=4">${action}</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=5">Thriller</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=5">${thriller }</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=6">Adventure</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=6">${adventure }</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="Controller?command=films_By_Genre&value=10&idGenre=7">Fantasy</a>
+                                        <a href="Controller?command=films_By_Genre&idGenre=7">${fantasy }</a>
                                     </td>
                                 </tr>
                                 

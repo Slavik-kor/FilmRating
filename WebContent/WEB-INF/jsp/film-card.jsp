@@ -16,6 +16,27 @@
 <title>Film</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="locale.film.year" var="year" />
+<fmt:message bundle="${loc}" key="locale.film.country" var="country" />
+<fmt:message bundle="${loc}" key="locale.film.genre" var="genreTitle" />
+<fmt:message bundle="${loc}" key="locale.film.boxOffice" var="boxOffice" />
+<fmt:message bundle="${loc}" key="locale.film.release" var="release" />
+<fmt:message bundle="${loc}" key="locale.film.directors" var="directorsTitle" />
+<fmt:message bundle="${loc}" key="locale.film.scenario" var="scenarioTitle" />
+<fmt:message bundle="${loc}" key="locale.film.actors" var="actorsTitle" />
+<fmt:message bundle="${loc}" key="locale.film.teaser" var="teaser" />
+<fmt:message bundle="${loc}" key="locale.film.description" var="description" />
+<fmt:message bundle="${loc}" key="locale.film.comments" var="userComments" />
+<fmt:message bundle="${loc}" key="locale.film.authMessage" var="authMessage" />
+<fmt:message bundle="${loc}" key="locale.filmList.budget" var="budget" />
+<fmt:message bundle="${loc}" key="locale.filmList.audience" var="audience" />
+<fmt:message bundle="${loc}" key="locale.film.red" var="editComment" />
+<fmt:message bundle="${loc}" key="locale.film.delete" var="delComment" />
+<fmt:message bundle="${loc}" key="locale.film.addComment" var="addComment" />
+<fmt:message bundle="${loc}" key="locale.film.rate" var="userRate" />
+<fmt:message bundle="${loc}" key="locale.film.comment" var="textComment" />
+<fmt:message bundle="${loc}" key="locale.film.submit" var="submit" />
+<fmt:message bundle="${loc}" key="locale.film.clear" var="clear" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -44,12 +65,12 @@
 					<table class="table table-hover">
 						<tbody>
 							<tr>
-								<th scope="row">Год</th>
+								<th scope="row">${year }</th>
 								<td><fmt:formatDate value="${film.premierDate }"
 										pattern="yyyy" /></td>
 							</tr>
 							<tr>
-								<th scope="row">Страна</th>
+								<th scope="row">${country }</th>
 								<td><c:set var="countries"
 										value="${requestScope.country_list}" /> <c:forEach
 										items="${countries}" var="country" varStatus="loopStatus">
@@ -58,7 +79,7 @@
 									</c:forEach></td>
 							</tr>
 							<tr>
-								<th scope="row">Жанр</th>
+								<th scope="row">${genreTitle }</th>
 								<td><c:set var="genres" value="${requestScope.genre_list}" />
 									<c:forEach items="${genres}" var="genre" varStatus="loopStatus">
 										<c:out value="${genre.name} " />
@@ -66,35 +87,39 @@
 									</c:forEach></td>
 							</tr>
 							<tr>
-								<th scope="row">Бюджет</th>
+								<th scope="row">${budget }</th>
 								<td><fmt:formatNumber value="${film.budget}"
 										type="currency" currencySymbol="$" maxFractionDigits="0" /></td>
 							</tr>
 							<tr>
-								<th scope="row">Кассовые сборы</th>
+								<th scope="row">${boxOffice }</th>
 								<td><fmt:formatNumber value="${film.boxOfficeCash}"
 										type="currency" currencySymbol="$" maxFractionDigits="0" /></td>
 							</tr>
 							<tr>
-								<th scope="row">Зрители</th>
+								<th scope="row">${audience }</th>
 								<td><fmt:formatNumber value="${film.audience }" /></td>
 							</tr>
 							<tr>
-								<th scope="row">Премьера</th>
+								<th scope="row">${release }</th>
 								<td><fmt:formatDate value="${film.premierDate }" /></td>
 							</tr>
 						</tbody>
 					</table>
 					<c:set var="directors" value="${requestScope.directors_list }" />
 					<c:if test="${not empty directors }">
-						<p>Режисеры</p>
+						<p>${directorsTitle }</p>
 
 						<c:set var="count" value="1" />
 						<table class="table table-hover">
 							<tbody>
 								<c:forEach items="${directors}" var="director">
 									<tr>
-										<th scope="row">${count}</th>
+										<th scope="row">
+										<c:if test="${fn:length(directors)>1 }">
+										${count}
+										</c:if>
+										</th>
 										<c:set var="count" value="${count + 1}" />
 										<td><a
 											href="Controller?command=author_card&author_id=${director.id}"><c:out
@@ -107,14 +132,18 @@
 					<c:set var="scWriters"
 						value="${requestScope.scenarioWriters_list }" />
 					<c:if test="${not empty scWriters }">
-						<p>Сценаристы</p>
+						<p>${scenarioTitle }</p>
 
 						<c:set var="count" value="1" />
 						<table class="table table-hover">
 							<tbody>
 								<c:forEach items="${scWriters}" var="scWriter">
 									<tr>
-										<th scope="row">${count}</th>
+									<th scope="row">
+									<c:if test="${fn:length(scWriters)>1 }">
+										${count}
+									</c:if>
+									</th>
 										<c:set var="count" value="${count + 1}" />
 										<td><a
 											href="Controller?command=author_card&author_id=${scWriter.id}"><c:out
@@ -125,14 +154,18 @@
 						</table>
 					</c:if>
 					<c:set var="actors" value="${requestScope.actors_list }" />
-					<c:if test="${not empty scWriters }">
-						<p>Актеры</p>
+					<c:if test="${not empty actors }">
+						<p>${actorsTitle }</p>
 						<c:set var="count" value="1" />
 						<table class="table table-hover">
 							<tbody>
 								<c:forEach items="${actors}" var="actor">
 									<tr>
-										<th scope="row">${count}</th>
+										<th scope="row">
+										<c:if test="${fn:length(actors)>1 }">
+										${count}
+										</c:if>
+										</th>
 										<c:set var="count" value="${count + 1}" />
 										<td><a
 											href="Controller?command=author_card&author_id=${actor.id}"><c:out
@@ -144,21 +177,25 @@
 					</c:if>
 				</div>
 			</div>
+			<c:if test="${not empty film.teaser }">
 			<div class="container col-md-10 col-lg-10 col-sm-9">
+			<h2 class="page-header">${teaser }</h2>
 				<iframe width="560" height="315" src="${film.teaser}"
 					frameborder="0" allowfullscreen align="center"></iframe>
 			</div>
+			</c:if>
+			<c:if test="${not empty film.description }">
 			<div class="container col-md-10 col-lg-10 col-sm-9">
-				<h2 class="page-header">Описание</h2>
+				<h2 class="page-header">${description }</h2>
 				<c:out value="${film.description}" />
 			</div>
-
+			</c:if>
 			<c:set var="comments" value="${requestScope.comment_list}" />
 			<c:set var="accounts" value="${requestScope.account_comment_list}" />
 			<div class="container col-md-10 col-lg-10 col-sm-9">
 
 				<c:if test="${not empty comments }">
-					<h2 class="page-header">Комментарии</h2>
+					<h2 class="page-header">${userComments }</h2>
 					
 					<c:forEach  var="index" begin = "0" end="${fn:length(comments)-1}">   
 						<div class="container-fluid  hide-text">
@@ -183,8 +220,8 @@
 								</div>
 								<div class="row">
 									<c:if test="${comments[index].accountId==account.id }">
-										<button class="btn btn-success">Редактировать</button>
-										<button class="btn btn-danger">Удалить</button>
+										<button class="btn btn-success">${editComment }</button>
+										<button class="btn btn-danger">${delComment }</button>
 									</c:if>
 								</div>
 							</div>
@@ -194,7 +231,7 @@
 				</c:if>
 				<c:choose>
 					<c:when test="${not empty account}">
-						<h2 class="page-header">Добавить комментарий</h2>
+						<h2 class="page-header">${addComment }</h2>
 						<div class="container-fluid  hide-text">
 							<div class="row">
 								<c:out value="${account.login }" />
@@ -205,7 +242,7 @@
 								<input type="hidden" name="account" value="${account.id}">
 								<input type="hidden" name="film" value="${film.id }">
 								<fieldset class="form-group">
-									<label for="rate">Оценка</label> <select class="form-control"
+									<label for="rate">${userRate }</label> <select class="form-control"
 										id="rate" name="rate">
 										<option>0</option>
 										<option>1</option>
@@ -221,12 +258,12 @@
 									</select>
 								</fieldset>
 								<div class="form-group">
-									<label for="comment">Комментарий</label>
+									<label for="comment">${textComment }</label>
 									<textarea class="form-control" name="comment"
 										placeholder="Название фильма"></textarea>
 								</div>
-								<button type="submit" class="btn btn-success">Отправить</button>
-								<button type="reset" class="btn btn-warning">Очистить</button>
+								<button type="submit" class="btn btn-success">${submit }</button>
+								<button type="reset" class="btn btn-warning">${clear }</button>
 							</form>
 
 						</div>
@@ -234,7 +271,7 @@
 
 					</c:when>
 					<c:otherwise>
-						<h5>Для добавления комментария необходима авторизация</h5>
+						<h5>${authMessage }</h5>
 					</c:otherwise>
 				</c:choose>
 			</div>

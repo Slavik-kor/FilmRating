@@ -13,7 +13,12 @@
 <title>Films</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
-
+<fmt:message bundle="${loc}" key="locale.filmList.films" var="filmList" />
+<fmt:message bundle="${loc}" key="locale.filmList.release" var="release" />
+<fmt:message bundle="${loc}" key="locale.filmList.budget" var="budget" />
+<fmt:message bundle="${loc}" key="locale.filmList.audience" var="audience" />
+<fmt:message bundle="${loc}" key="locale.filmList.more" var="more" />
+<fmt:message bundle="${loc}" key="locale.filmList.notFound" var="notFound" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -28,7 +33,7 @@
 		<%@include file="inc/top-menu.jsp"%>
 		<c:set var="films" value="${requestScope.films}" />
 		<div class="container col-md-10 col-lg-10 col-sm-9">
-			<h2 class="page-header">Фильмы</h2>
+			<h2 class="page-header">${filmList}</h2>
 			<c:choose>
 				<c:when test="${not empty films}">
 					<c:forEach items="${films}" var="film">
@@ -51,17 +56,17 @@
 										<table class="table table-hover">
 											<tbody>
 												<tr>
-													<td>Год</td>
+													<td>${release }</td>
 													<td><fmt:formatDate value="${film.premierDate }"
 															pattern="yyyy" /></td>
 												</tr>
 												<tr>
-													<td>Бюджет</td>
+													<td>${budget }</td>
 													<td><fmt:formatNumber value="${film.budget}"
 															type="currency" currencySymbol="$" maxFractionDigits="0" /></td>
 												</tr>
 												<tr>
-													<td>Зрители</td>
+													<td>${audience }</td>
 													<td><fmt:formatNumber value="${film.audience }" /></td>
 												</tr>
 											</tbody>
@@ -75,21 +80,18 @@
 									</div>
 									<div class="stats wb-gray-bg">
 										<span class="fa fa-photo pull-right" title="Film"> <strong><a
-												href="Controller?command=film_Card&film=${film.id}">Подробнее</a></strong>
+												href="Controller?command=film_Card&film=${film.id}">${more }</a></strong>
 										</span>
 									</div>
 								</div>
-
 							</div>
-
 						</div>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-				<h5>По вашему запросу ничего не найдено</h5>
+				<h5>${notFound }</h5>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 		<div class="container col-md-10 col-lg-10 col-sm-9">
 			<nav aria-label="Page navigation" style="text-align: center;">

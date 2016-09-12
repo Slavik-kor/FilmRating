@@ -36,7 +36,7 @@ public class AuthorServiceImpl implements AuthorService {
 			}
 			String[] authorArray = ServiceUtil.intListToStringArray(authorIdList);
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_ID, authorArray);
+			criteria.addCriterion(Operator.IN, DBColumnName.AUTHOR_ID, authorArray);
 			authorList = aDao.getAuthorByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -58,7 +58,7 @@ public class AuthorServiceImpl implements AuthorService {
 			}
 			String[] authorArray = ServiceUtil.intListToStringArray(authorIdList);
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_ID, authorArray);
+			criteria.addCriterion(Operator.IN, DBColumnName.AUTHOR_ID, authorArray);
 			authorList = aDao.getAuthorByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log
@@ -80,7 +80,7 @@ public class AuthorServiceImpl implements AuthorService {
 			}
 			String[] authorArray = ServiceUtil.intListToStringArray(authorIdList);
 			Criteria criteria = dao.createCriteria();
-			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_ID, authorArray);
+			criteria.addCriterion(Operator.IN, DBColumnName.AUTHOR_ID, authorArray);
 			authorList = aDao.getAuthorByCriteria(criteria, lang);
 		} catch (DaoException e) {
 			// log

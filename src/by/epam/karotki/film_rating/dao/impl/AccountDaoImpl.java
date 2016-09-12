@@ -53,9 +53,9 @@ public class AccountDaoImpl implements AccountDao {
 	
 	private static final String UPDATE_ACCOUNT="UPDATE Account SET AccountFirstName=?, AccountLastName=?, "
 	+ "AccountBirthday=?, AccountEmail=?, AccountCreationDate=?, AccountLogin=?, AccountPassword=?, "
-	+ "AccountRole=?,  Country_id=?, Phone=?, Photo=?  "
+	+ "AccountRole=?,AccountActive=?,   Country_id=?, Phone=?, Photo=?  "
 	+ " WHERE idAccount=?;";
-	/*AccountActive=?, */
+	
 	
 	private static final String DELETE_ACCOUNT = "DELETE FROM Account WHERE idAccount=?;";
 
@@ -308,23 +308,23 @@ public class AccountDaoImpl implements AccountDao {
 			ps.setString(6, account.getLogin());
 			ps.setString(7, account.getPassword());
 			ps.setString(8, account.getRole());
-			//ps.setBoolean(9,account.isActive());
+			ps.setBoolean(9,account.isActive());
 			if(account.getCountryId()!=0){
-			ps.setInt(9, account.getCountryId());
+			ps.setInt(10, account.getCountryId());
 			}else{
-				ps.setNull(9, Types.INTEGER);
+				ps.setNull(10, Types.INTEGER);
 			}
 			if(account.getPhone()!=null){
-			ps.setString(10, account.getPhone());
-			}else{
-				ps.setNull(10, Types.VARCHAR);
-			}
-			if(account.getPhoto()!=null){
-			ps.setString(11, account.getPhoto());
+			ps.setString(11, account.getPhone());
 			}else{
 				ps.setNull(11, Types.VARCHAR);
+			}
+			if(account.getPhoto()!=null){
+			ps.setString(12, account.getPhoto());
+			}else{
+				ps.setNull(12, Types.VARCHAR);
 			}   
-			ps.setInt(12, account.getId());
+			ps.setInt(13, account.getId());
 			
 			ps.executeUpdate();
 			
