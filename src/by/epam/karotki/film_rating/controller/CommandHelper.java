@@ -12,7 +12,10 @@ import by.epam.karotki.film_rating.command.impl.AuthorCard;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.CommentList;
 import by.epam.karotki.film_rating.command.impl.FilmCard;
+import by.epam.karotki.film_rating.command.impl.FilmFavorite;
 import by.epam.karotki.film_rating.command.impl.FilmsByGenre;
+import by.epam.karotki.film_rating.command.impl.FilmsByRating;
+import by.epam.karotki.film_rating.command.impl.FilmsByYear;
 import by.epam.karotki.film_rating.command.impl.Localization;
 import by.epam.karotki.film_rating.command.impl.NewFilms;
 import by.epam.karotki.film_rating.command.impl.UpdateProfilePage;
@@ -47,6 +50,9 @@ public class CommandHelper {
 		commands.put(CommandName.UPDATE_ACCOUNT_PAGE, new UpdateProfilePage());
 		commands.put(CommandName.UPDATE_ACCOUNT, new UpdateAccount());
 		commands.put(CommandName.REG_PAGE, new RegistrationPage());
+		commands.put(CommandName.FILMS_BY_YEAR, new FilmsByYear());
+		commands.put(CommandName.FILMS_BY_RATE, new FilmsByRating());
+		commands.put(CommandName.FILM_FAVORITE, new FilmFavorite());
 	}
 
 	public Command getCommand(String name) {

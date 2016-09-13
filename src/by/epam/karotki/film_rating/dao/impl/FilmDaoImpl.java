@@ -24,10 +24,9 @@ public class FilmDaoImpl implements FilmDao {
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
-	private static final String FILM_BY_RATING = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser, ROUND(AVG(Rate),2) Rating "
-			+ "from(select g.idFilm idFilm, coalesce(t.title,g.title) title, coalesce(t.description,g.description) description "
-			+ "from (film as g left join (select * from film_lang where lang = '?')  t using(idFilm))) films "
-			+ "JOIN rate ON rate.Film_id = films.idFilm GROUP BY title ORDER BY Rating Desc LIMIT ?;";
+	private static final String FILM_BY_RATING = "SELECT * FROM (SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser, ROUND(AVG(Rate),2) Rating"
+			+ " from(select g.idFilm idFilm, coalesce(t.Title,g.Title) Title, coalesce(t.Description,g.Description) Description,  Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser "
+			+ "from (Film as g left join (select * from Film_lang where lang = ?)  t using(idFilm))) films JOIN Comment ON Comment.Film_id = Films.idFilm GROUP BY idFilm) films ORDER BY Rating desc";
 
 	private static final String FILM_BY_ACTOR = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
 			+ "JOIN Film_has_Authors ON Film_has_Authors.Film_id = film.idFilm "
@@ -82,18 +81,23 @@ public class FilmDaoImpl implements FilmDao {
 	private static final String DELETE_FILM_LANG = "DELETE FROM Film_lang WHERE (idFilm = ?) AND (lang = ?)";
 
 	@Override
-	public List<Film> getTopFilmsByRating(int value, String lang) throws FilmDaoException {
+	public List<Film> getTopFilmsByRating(String lang) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			con = conPool.takeConnection();
+			System.out.println("before statement");
 			ps = con.prepareStatement(FILM_BY_RATING);
+			System.out.println("after statement");
 			ps.setString(1, lang);
-			ps.setInt(2, value);
+			System.out.println("before");
 			rs = ps.executeQuery();
+			System.out.println("after");
+
 			filmList = getFilms(rs);
+			
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {

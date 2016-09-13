@@ -18,4 +18,14 @@ public interface FilmService {
 	List<Film> getFilmsByActor(int idAuthor,String lang) throws FilmServiceException;
 	
 	Film getFilmById(int idFilm,String lang) throws FilmServiceException;
+
+	List<Film> getFilmsByYear(int year,String lang) throws FilmServiceException;
+	
+	List<Film> getFilmsByRating(String lang) throws FilmServiceException;
+
+	List<Film> getFilmsByComments(int idAccount, String lang) throws FilmServiceException;
+
+	List<Film> getFilmsByAccountRate(int idAccount, String lang) throws FilmServiceException;
+
+	
 }

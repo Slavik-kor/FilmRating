@@ -19,22 +19,22 @@ public class CriteriaImpl implements Criteria {
 		String exp = "";
 		switch (op) {
 		case EQUAL:
-			exp = column + " = '" + value[0] + "'";
+			exp = " ("+column + " = '" + value[0] + "')";
 			break;
 		case NOT_EQUAL:
-			exp = column + " <> '" + value[0] + "'";
+			exp = "("+column + " <> '" + value[0] + "')";
 			break;
 		case GREATER:
-			exp = column + " > '" + value[0] + "'";
+			exp = "("+column + " > '" + value[0] + "')";
 			break;
 		case GREATER_OR_EQUAL:
-			exp = column + " >= '" + value[0] + "'";
+			exp = "("+column + " >= '" + value[0] + "')";
 			break;
 		case LESS:
-			exp = column + " < '" + value[0] + "'";
+			exp = "("+column + " < '" + value[0] + "')";
 			break;
 		case LESS_OR_EQUAL:
-			exp = column + " <= '" + value[0] + "'";
+			exp ="("+column + " <= '" + value[0] + "')";
 			break;
 		case BETWEEN:
 			exp = column + " BETWEEN '" + value[0] + "' AND '" + value[1] + "'";
@@ -66,7 +66,7 @@ public class CriteriaImpl implements Criteria {
 			exp += " WHERE ";
 		}
 		for (int i = 0; i < criteriaList.size(); i++) {
-			exp = exp + " (" + criteriaList.get(i) + ") ";
+			exp = exp + " " + criteriaList.get(i) + " ";
 			if (i < (criteriaList.size() - 1))
 				exp += logical;
 		}

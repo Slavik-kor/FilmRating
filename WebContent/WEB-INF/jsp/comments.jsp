@@ -2,6 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +21,7 @@
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
+<link href="css/Items.css" rel="stylesheet">
 </head>
 <body>
 
@@ -26,8 +29,50 @@
 	<%@include file="inc/top-menu.jsp"%>
 <c:set var="comments" value="${requestScope.comment_list }"/>
 	<div class="container col-md-9 col-lg-9 col-sm-9">
-		<c:forEach items="${films}" var="film">
-		</c:forEach>
+	<h2 class="page-header">Мои отзывы:</h2>
+	<c:set var="comments" value="${requestScope.comment_list}" />
+	<c:set var="films" value="${requestScope.film_list}" />
+	<div class="container col-lg-12 col-md-12 col-sm-12">
+	<c:choose>
+	<c:when test="${not empty comments }">
+		<c:forEach var="index" begin = "0" end="${fn:length(comments)-1}">
+			
+				<div class="container-fluid  hide-text">
+							<div class="row">
+								<a href="Controller?command=film_Card&film=${films[index].id}"><c:out value="${films[index].title}"/></a>
+								|
+								<fmt:formatDate value="${comments[index].commentDate}" />
+								|Оценка:
+								<c:out value="${comments[index].rate }" />
+							</div>
+							<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad">
+								<div class="view">
+									<a href="Controller?command=film_Card&film=${films[index].id}"><img src="${films[index].poster }"  width="150"
+										class="img-rounded" onerror="this.src = 'images/poster/noFoto.jpg'" alt="постер"></a>
+								</div>
+								<div class="detail">
+
+									<p>
+										<c:out value="${comments[index].comment }" />
+									</p>
+
+								</div>
+								<div class="row">
+									
+										<button class="btn btn-success">Редактировать</button>
+										<button class="btn btn-danger">Удалить</button>
+									
+								</div>
+							</div>
+
+						</div> 
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<h5>У Вас пока нет отзывов</h5>
+			</c:otherwise>
+			</c:choose>
+		</div>
 	</div>
 
 

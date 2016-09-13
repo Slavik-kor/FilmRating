@@ -8,7 +8,7 @@ import by.epam.karotki.film_rating.entity.Film;
 
 public interface FilmDao {
 
-	List<Film> getTopFilmsByRating(int value, String lang) throws FilmDaoException;
+	List<Film> getTopFilmsByRating(String lang) throws FilmDaoException;
 
 	List<Film> getFilmsByActors(String firstName, String lastName) throws FilmDaoException;
 

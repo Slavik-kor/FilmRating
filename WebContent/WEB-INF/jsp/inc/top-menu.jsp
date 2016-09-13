@@ -50,7 +50,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="Controller?command=profile">${profile}</a></li>
 							<li><a href="Controller?command=comment_list">${comment}</a></li>
-							<li><a href="Controller?command=newFilms&type=favorite">${favor_film}</a></li>
+							<li><a href="Controller?command=film_favorite">${favor_film}</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
 					</c:when>
@@ -60,7 +60,7 @@
 							<li><a href="Controller?command=comment_list">${comment}</a></li>
 							<li><a href="Controller?command=add_film">${add_film}</a></li>
 							<li><a href="Controller?command=add_author">${add_author}</a></li>
-							<li><a href="Controller?command=newFilms&type=favorite">${favor_film}</a></li>
+							<li><a href="Controller?command=film_favorite">${favor_film}</a></li>
 							<li><a href="Controller?command=account_list">Accounts</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
@@ -122,7 +122,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a  data-parent="#accordion" href="Controller?command=newFilms"><span class="glyphicon glyphicon-thumbs-up">
+                            <a  data-parent="#accordion" href="Controller?command=films_by_rate"><span class="glyphicon glyphicon-thumbs-up">
                             </span>${rate }</a>
                         </h4>
                     </div>
@@ -193,24 +193,25 @@
                     <div id="collapseFour" class="panel-collapse collapse">
                         <div class="panel-body">
                             <table class="table">
+                    
                                 <tr>
                                     <td>
-                                        <a href="#">2010</a>
+                                        <a href="Controller?command=films_By_Year&year=2013">2013</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="#">2011</a>
+                                        <a href="Controller?command=films_By_Year&year=2014">2014</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="#">2012</a>
+                                        <a href="Controller?command=films_By_Year&year=2015">2015</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <a href="#">2013</a>
+                                        <a href="Controller?command=films_By_Year&year=2016">2016</a>
                                     </td>
                                 </tr>
                             </table>
@@ -220,10 +221,5 @@
         </div>
 	</div>
 	
-	<div class="container col-md-10 col-lg-10 col-sm-9">
-	<ol class="breadcrumb">
- 		 <li><a href="#">Home</a></li>
- 		 <li><a href="#">Library</a></li>
-  			<li class="active">Data</li>
-   </ol>
-   </div>
+	
+  
