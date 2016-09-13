@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
-	session.setAttribute("prev_page", "Controller?command=newfilms&value=10");
+	session.setAttribute("prev_page", "Controller?command=newfilms");
 %>
 <!DOCTYPE html>
 <html>

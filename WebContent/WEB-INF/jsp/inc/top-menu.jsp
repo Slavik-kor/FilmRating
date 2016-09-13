@@ -78,7 +78,7 @@
 									placeholder="${password}" value="">
 							</div>
 							<button type="submit" class="btn btn-primary">${signIn}</button>
-							<a href="reg" type="button">${reg}</a>
+							<a href="Controller?command=reg_page" type="button">${reg}</a>
 						</form>
 					</c:otherwise>
 				</c:choose>

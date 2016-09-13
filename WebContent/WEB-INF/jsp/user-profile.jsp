@@ -35,7 +35,7 @@
 				<img src="${account.photo }" width="250" class="img-rounded"
 					onerror="this.src = 'images/author/noFoto.jpg'" alt="Аватар">
 			</div>
-			<div class="container col-lg-6">
+			<div class="container col-lg-6 col-lg-offset-1">
 				<table class="table table-hover">
 					<tbody>
 						<tr>

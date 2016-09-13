@@ -28,6 +28,7 @@ import by.epam.karotki.film_rating.service.exception.ServiceException;
 
 public class FilmCard implements Command {
 	private static final String FILM = "film";
+	private static final String RATE = "rate";
 	private static final String COUNTRY_LIST = "country_list";
 	private static final String GENRE_LIST = "genre_list";
 	private static final String DIRECTORS_LIST = "directors_list";
@@ -58,6 +59,9 @@ public class FilmCard implements Command {
 		CommentService comService = factory.getCommentService();
 		AccountService accService = factory.getAccountService();
 		try {
+			double rate = comService.getAvgRateByFilm(idFilm);
+			request.setAttribute(RATE, rate);
+			
 			Film film = fService.getFilmById(idFilm,locale);
 			request.setAttribute(FILM, film);
 			

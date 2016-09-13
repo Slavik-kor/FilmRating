@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebFilter;
  */
 @WebFilter("/Controller")
 public class CharsetFilter implements Filter {
-    private String encoding = "utf-8"; 
+    private String encoding = "UTF-8"; 
   //  private static final String CHAR_ENC = "characterEncoding";
 	
     /**

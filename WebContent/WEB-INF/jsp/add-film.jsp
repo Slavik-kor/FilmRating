@@ -5,16 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
- 
-  <script src="js/bootstrap-select.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Add film</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
+<link href="css/bootstrap-select.css" rel="stylesheet">
 
 </head>
 <body>
@@ -29,16 +27,17 @@
      <div class="form-group">
   <label for="text">Название фильма</label>
   <input type="text" class="form-control" placeholder="Название фильма">
- </div> 
-     
+     </div>
+ 
+  
  <fieldset class="form-group">
   <label for="genre">Жанр</label>
-     <select multiple class="form-control" id="genre">
-     <option>Боевик</option>
-     <option>Драма</option>
-     <option>Комедия</option>
-     <option>Триллер</option>
-     <option>Спорт</option>
+     <select id="genre" class="selectpicker show-tick form-group" data-live-search="true" multiple>
+     <option value="1" >Боевик</option>
+     <option value="2">Драма</option>
+     <option value="3">Комедия</option>
+     <option value="4">Триллер</option>
+     <option value="5">Спорт</option>
      </select>
  </fieldset> 
      
@@ -66,7 +65,7 @@
      
      <fieldset class="form-group">
   <label for="director">Режисеры</label>
-   <select class="form-control" id="director" multiple >
+   <select id="director" class="selectpicker show-tick form-group" data-live-search="true" multiple >
      <option>Сильвестр Сталлоне</option>
      <option>Александр Котт</option>
      <option>Николай Лебедев</option>
@@ -77,7 +76,7 @@
  </fieldset> 
           <fieldset class="form-group">
   <label for="scenario">Сценаристы</label>
-   <select multiple class="form-control" id="scenario">
+   <select id="scenario" class="selectpicker show-tick form-group" data-live-search="true" multiple>
      <option>Сильвестр Сталлоне</option>
      <option>Александр Котт</option>
      <option>Николай Лебедев</option>
@@ -87,7 +86,7 @@
  </fieldset> 
            <fieldset class="form-group">
   <label for="actor">Актеры</label>
-   <select multiple class="form-control" id="actor">
+   <select id="actor" class="selectpicker show-tick form-group" data-live-search="true" multiple>
      <option>Сильвестр Сталлоне</option>
      <option>Александр Котт</option>
      <option>Николай Лебедев</option>
@@ -116,7 +115,7 @@
         
          <fieldset class="form-group">
   <label for="country">Страны</label>
-   <select multiple class="form-control" id="country">
+   <select id="country" class="selectpicker show-tick form-group" data-live-search="true" multiple>
      <option>США</option>
      <option>Канада</option>
      <option>Россия</option>
@@ -170,6 +169,10 @@
 <%@include file="inc/footer.jsp"%>
 </div>
 	
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap-select.js"></script>
+	<script src="js/defaults-ru_RU.js"></script>
 
 </body>
 </html>

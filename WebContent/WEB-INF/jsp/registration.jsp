@@ -6,7 +6,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<c:set var="prev_page" value="/FilmRating/reg"
+<c:set var="prev_page" value="Controller?command=reg_page"
 	scope="session" />
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -72,9 +72,14 @@
 						value="${account.login }">
 				</div>
 				<div class="form-group">
-					<label for="pass">${password}</label> <input type="password"
+					<label for="pass">${password}</label><span>*</span> <input required type="password"
 						class="form-control" name="pass" placeholder="${password}">
 				</div>
+				<div class="form-group">
+					<label for="pass">${password}</label><span>*</span> <input required type="password"
+						class="form-control" name="re-pass" placeholder="${password}">
+				</div>
+				
 				<div class="form-group">
 					<label for="first-name">${fname }</label> <input type="text"
 						class="form-control" name="first-name" placeholder="${fname }"
@@ -90,11 +95,16 @@
 						class="form-control" name="birthday" value="${account.birthDay }">
 				</div>
 
-				<div class="form-group">
-					<label for="country">${locality }</label> <input type="text"
-						class="form-control " name="country" placeholder="${locality }"
-						value="${account.countryId }">
-				</div>
+				
+				<c:set var="countryList"  value="${requestScope.countryList}"/>
+				<fieldset class="form-group">
+  					<label for="genre">${locality }</label>
+     					<select  class="form-control" id="genre" name="country">
+    						<c:forEach items="${countryList}" var="countryItem">
+    						<option value="${countryItem.id }">${countryItem.name }</option>
+    						</c:forEach>
+    					 </select>
+ 				</fieldset> 
 
 				<div class="form-group">
 					<label for="email">Email</label> <input type="email"
@@ -123,7 +133,9 @@
 						<button type="submit" class="btn btn-success">${sign_up }</button>
 					</c:otherwise>
 				</c:choose>
+				<c:if test="${mode!='update'}">
 				<button type="reset" class="btn btn-warning">${clear }</button>
+				</c:if>
 			</form>
 
 		</div>

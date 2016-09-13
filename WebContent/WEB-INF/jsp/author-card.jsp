@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 
@@ -60,14 +61,20 @@
 						<tr>
 				</table>
 				<h3>Фильмография</h3>
-				<p>Режисер</p>
 				<c:set var="directorFilms" value="${requestScope.directorFilms }" />
+				<c:if test="${not empty directorFilms }">
+				<p>Режисер</p>
+				
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
 						<c:forEach items="${directorFilms}" var="dFilm">
 							<tr>
-								<th scope="row">${count}</th>
+								<th scope="row">
+								<c:if test="${fn:length(directorFilms)>1 }">
+								${count}
+								</c:if>
+								</th>
 								<c:set var="count" value="${count + 1}" />
 								<td><a href="Controller?command=film_card&film=${dFilm.id}"><c:out
 											value="${dFilm.title}" /></a></td>
@@ -75,15 +82,20 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				</c:if>
+				<c:set var="scWriterFilms"	value="${requestScope.scenarioWriterFilms }" />
+				<c:if test="${not empty scWriterFilms }">
 				<p>Сценарист</p>
-				<c:set var="scWriterFilms"
-					value="${requestScope.scenarioWriterFilms }" />
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
 						<c:forEach items="${scWriterFilms}" var="scWriterFilm">
 							<tr>
-								<th scope="row">${count}</th>
+								<th scope="row">
+								<c:if test="${fn:length(scWriterFilms)>1 }">
+								${count}
+								</c:if>
+								</th>
 								<c:set var="count" value="${count + 1}" />
 								<td><a
 									href="Controller?command=film_card&film=${scWriterFilm.id}"><c:out
@@ -92,21 +104,29 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<p>Актер</p>
+				</c:if>
 				<c:set var="actorFilms" value="${requestScope.actorFilms }" />
+				<c:if test="${not empty actorFilms }">
+				<p>Актер</p>
+				
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
-						<c:forEach items="${actorFilm}" var="aFilm">
+						<c:forEach items="${actorFilms}" var="aFilm">
 							<tr>
-								<th scope="row">${count}</th>
+								<th scope="row">
+								<c:if test="${fn:length(actorFilms)>1 }">
+								${count}
+								</c:if>
+								</th>
 								<c:set var="count" value="${count + 1}" />
 								<td><a href="Controller?command=film_card&film=${aFilm.id}"><c:out
-											value="${aFilm}" /></a></td>
+											value="${aFilm.title}" /></a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				</c:if>
 			</div>
 		</div>
 

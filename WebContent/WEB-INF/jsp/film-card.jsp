@@ -11,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <c:set var="account" value="${sessionScope.account}" />
 <c:set var="film" value="${requestScope.film}" />
+<c:set var="rating" value="${requestScope.rate}" />
 <c:set var="prev_page"
 	value="Controller?command=film_card&film=${film.id}" scope="session" />
 <title>Film</title>
@@ -52,16 +53,17 @@
 		<div class="container col-lg-9 col-md-9 col-sm-9">
 
 			<div class="row">
-				<div class="container col-lg-4 col-lg-offset-4">
-					<h3>
-						<c:out value="${film.title}" />
-					</h3>
+				<div class="container col-lg-4 col-lg-offset-2">
+					<h3><c:out value="${film.title}" /></h3>
+				</div>
+				<div class = "container col-lg-2 col-lg-offset-4">
+				<h3>Рейтинг:<fmt:formatNumber type="number" maxFractionDigits="2" value="${rating }"/></h3>
 				</div>
 				<div class="container col-lg-4 col-lg-offset-1">
 					<img src="${film.poster }" width="250" class="img-rounded"
 						alt="постер">
 				</div>
-				<div class="container col-lg-6">
+				<div class="container col-lg-6 col-lg-offset-1">
 					<table class="table table-hover">
 						<tbody>
 							<tr>

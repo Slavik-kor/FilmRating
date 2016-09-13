@@ -9,6 +9,7 @@ import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmCountryDao;
 import by.epam.karotki.film_rating.dao.Operator;
+import by.epam.karotki.film_rating.dao.exception.CountryDaoException;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Country;
 import by.epam.karotki.film_rating.service.CountryService;
@@ -57,6 +58,20 @@ public class CountryServiceImpl implements CountryService {
 			country = null;
 		}
 		return country;
+	}
+
+	@Override
+	public List<Country> getAllCountries(String lang) throws CountryServiceException {
+		List<Country> countryList = new ArrayList<Country>();
+		DaoFactory dao = DaoFactory.getInstance();
+		CountryDao cDao = dao.getCountryDao();
+		try{
+			Criteria criteria = dao.createCriteria();
+			countryList = cDao.getCountryByCriteria(criteria, lang);
+		}catch(CountryDaoException e){
+			new CountryServiceException(ERROR_MESSAGE, e);
+		}
+		return countryList;
 	}
 
 

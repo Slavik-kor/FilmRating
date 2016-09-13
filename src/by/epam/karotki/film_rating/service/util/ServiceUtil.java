@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import by.epam.karotki.film_rating.entity.Comment;
+
 public class ServiceUtil {
 
 	public static void saveFromRequestFile(InputStream is, String path) {
@@ -41,6 +43,16 @@ public class ServiceUtil {
 			return null;
 		}
 
+	}
+	
+	public static double avg (List<Comment> list){
+		double value = 0.0;
+		double sum = 0.0;
+		for(Comment i : list){
+			sum += i.getRate();
+		}
+		value = sum/list.size();
+		return value;
 	}
 
 }

@@ -12,5 +12,8 @@ public interface CommentService {
 	List<Comment> getCommentsByFilm(int idFilm) throws CommentServiceException;
 	
 	void addComment(Comment comment) throws CommentServiceException;
+	
+	double getAvgRateByFilm(int idFilm) throws CommentServiceException;
+	
 
 }
