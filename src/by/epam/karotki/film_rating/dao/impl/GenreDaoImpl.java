@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+
 import by.epam.karotki.film_rating.dao.Criteria;
 import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.GenreDao;
@@ -16,6 +19,7 @@ import by.epam.karotki.film_rating.dao.exception.GenreDaoException;
 import by.epam.karotki.film_rating.entity.Genre;
 
 public class GenreDaoImpl implements GenreDao {
+	//private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
@@ -65,7 +69,7 @@ public class GenreDaoImpl implements GenreDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -173,7 +177,7 @@ public class GenreDaoImpl implements GenreDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -226,7 +230,7 @@ public class GenreDaoImpl implements GenreDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -250,7 +254,7 @@ public class GenreDaoImpl implements GenreDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -275,7 +279,7 @@ public class GenreDaoImpl implements GenreDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		

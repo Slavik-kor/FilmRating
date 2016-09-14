@@ -19,7 +19,7 @@ import by.epam.karotki.film_rating.entity.Author;
 //import org.apache.logging.log4j.Logger;
 
 public class AuthorDaoImpl implements AuthorDao {
-	// private static final Logger LOG = LogManager.getLogger();
+//	private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
@@ -270,7 +270,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+			//	 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		
@@ -411,7 +411,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+			//	 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}				
@@ -435,7 +435,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+			//	 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}				

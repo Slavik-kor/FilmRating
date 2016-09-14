@@ -28,8 +28,9 @@
 <h2>Error</h2>
 <c:out value="${errorMessage}" />
 
-	<%@include file="WEB-INF/jsp/inc/footer.jsp"%>
+	
 </div>
+<%@include file="WEB-INF/jsp/inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

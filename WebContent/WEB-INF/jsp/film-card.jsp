@@ -215,14 +215,15 @@
 								</div>
 								<div class="detail">
 
-									<p>
+									<p id="field" >
 										<c:out value="${comments[index].comment }" />
 									</p>
 
 								</div>
 								<div class="row">
 									<c:if test="${comments[index].accountId==account.id }">
-										<button class="btn btn-success">${editComment }</button>
+										
+										<button class="btn btn-success" >${editComment }</button>
 										<button class="btn btn-danger">${delComment }</button>
 									</c:if>
 								</div>
@@ -262,7 +263,7 @@
 								<div class="form-group">
 									<label for="comment">${textComment }</label>
 									<textarea class="form-control" name="comment"
-										placeholder="Название фильма"></textarea>
+										placeholder="Текст отзыва"></textarea>
 								</div>
 								<button type="submit" class="btn btn-success">${submit }</button>
 								<button type="reset" class="btn btn-warning">${clear }</button>
@@ -278,9 +279,11 @@
 				</c:choose>
 			</div>
 		</div>
-		<%@include file="inc/footer.jsp"%>
+		
 	</div>
+	<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	
 </body>
 </html>

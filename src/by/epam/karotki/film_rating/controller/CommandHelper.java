@@ -7,10 +7,11 @@ import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.command.impl.AccountList;
 import by.epam.karotki.film_rating.command.impl.AddAuthor;
 import by.epam.karotki.film_rating.command.impl.AddComment;
-import by.epam.karotki.film_rating.command.impl.AddFilm;
+import by.epam.karotki.film_rating.command.impl.AddFilmPage;
 import by.epam.karotki.film_rating.command.impl.AuthorCard;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.CommentList;
+import by.epam.karotki.film_rating.command.impl.DeleteAccount;
 import by.epam.karotki.film_rating.command.impl.FilmCard;
 import by.epam.karotki.film_rating.command.impl.FilmFavorite;
 import by.epam.karotki.film_rating.command.impl.FilmsByGenre;
@@ -25,6 +26,7 @@ import by.epam.karotki.film_rating.command.impl.RegistrationPage;
 import by.epam.karotki.film_rating.command.impl.SignOut;
 import by.epam.karotki.film_rating.command.impl.UnknownCommand;
 import by.epam.karotki.film_rating.command.impl.UpdateAccount;
+import by.epam.karotki.film_rating.command.impl.UpdateComment;
 
 public class CommandHelper {
 
@@ -41,7 +43,7 @@ public class CommandHelper {
 		commands.put(CommandName.SIGN_OUT, new SignOut());
 		commands.put(CommandName.UNKNOWN_COMMAND, new UnknownCommand());
 		commands.put(CommandName.PROFILE, new Profile());
-		commands.put(CommandName.ADD_FILM, new AddFilm());
+		commands.put(CommandName.ADD_FILM_PAGE, new AddFilmPage());
 		commands.put(CommandName.ADD_AUTHOR, new AddAuthor());
 		commands.put(CommandName.ACCOUNT_LIST, new AccountList());
 		commands.put(CommandName.COMMENT_LIST, new CommentList());
@@ -53,6 +55,8 @@ public class CommandHelper {
 		commands.put(CommandName.FILMS_BY_YEAR, new FilmsByYear());
 		commands.put(CommandName.FILMS_BY_RATE, new FilmsByRating());
 		commands.put(CommandName.FILM_FAVORITE, new FilmFavorite());
+		commands.put(CommandName.UPDATE_COMMENT, new UpdateComment());
+		commands.put(CommandName.DELETE_ACCOUNT, new DeleteAccount());
 	}
 
 	public Command getCommand(String name) {

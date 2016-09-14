@@ -19,16 +19,16 @@ import by.epam.karotki.film_rating.entity.Film;
 //import org.apache.logging.log4j.Logger;
 
 public class FilmDaoImpl implements FilmDao {
-	// private static final Logger LOG = LogManager.getLogger();
+//	 private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String FILM_BY_RATING = "SELECT * FROM (SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser, ROUND(AVG(Rate),2) Rating"
-			+ " from(select g.idFilm idFilm, coalesce(t.Title,g.Title) Title, coalesce(t.Description,g.Description) Description,  Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser "
-			+ "from (Film as g left join (select * from Film_lang where lang = ?)  t using(idFilm))) films JOIN Comment ON Comment.Film_id = Films.idFilm GROUP BY idFilm) films ORDER BY Rating desc";
+			+ " from(select g.idFilm idFilm, coalesce(t.Title,g.Title) Title, coalesce(t.Description,g.Description) Description,  g.Budget, g.BoxOfficeCash, g.Audience, g.PremierDate, g.Duration, g.WebSite, g.Poster, g.Teaser "
+			+ "from (Film as g left join (select * from Film_lang where lang = ?)  t using(idFilm))) films JOIN Comment ON Comment.Film_id = films.idFilm GROUP BY idFilm) filmList ORDER BY Rating desc";
 
-	private static final String FILM_BY_ACTOR = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM film "
+	private static final String FILM_BY_ACTOR = "SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser FROM Film "
 			+ "JOIN Film_has_Authors ON Film_has_Authors.Film_id = film.idFilm "
 			+ "JOIN Author ON Author.idAuthor = Film_has_Authors.Authors_idAuthors "
 			+ "WHERE (AuthorFirstName = ?) AND (AuthorLastName = ?) AND (Role = 'Actor');";
@@ -88,14 +88,9 @@ public class FilmDaoImpl implements FilmDao {
 		ResultSet rs = null;
 		try {
 			con = conPool.takeConnection();
-			System.out.println("before statement");
 			ps = con.prepareStatement(FILM_BY_RATING);
-			System.out.println("after statement");
 			ps.setString(1, lang);
-			System.out.println("before");
 			rs = ps.executeQuery();
-			System.out.println("after");
-
 			filmList = getFilms(rs);
 			
 		} catch (ConnectionPoolException e) {
@@ -106,7 +101,7 @@ public class FilmDaoImpl implements FilmDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 //LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
@@ -270,7 +265,7 @@ public class FilmDaoImpl implements FilmDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				//LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
@@ -372,7 +367,7 @@ public class FilmDaoImpl implements FilmDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+			 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}

@@ -20,7 +20,7 @@ import by.epam.karotki.film_rating.entity.Account;
 //import org.apache.logging.log4j.Logger;
 
 public class AccountDaoImpl implements AccountDao {
-	// private static final Logger LOG = LogManager.getLogger();
+	//private static final Logger LOG = LogManager.getLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
@@ -52,12 +52,12 @@ public class AccountDaoImpl implements AccountDao {
 			+ "VALUES (?, ?, ?, ?, NOW(), ?, ?, 'User', ?, ?, ?);";
 	
 	private static final String UPDATE_ACCOUNT="UPDATE Account SET AccountFirstName=?, AccountLastName=?, "
-	+ "AccountBirthday=?, AccountEmail=?, AccountCreationDate=?, AccountLogin=?, AccountPassword=?, "
-	+ "AccountRole=?,AccountActive=?,   Country_id=?, Phone=?, Photo=?  "
-	+ " WHERE idAccount=?;";
+			+ "AccountBirthday=?, AccountEmail=?, AccountCreationDate=?, AccountLogin=?, AccountPassword=?, "
+			+ "AccountRole=?,AccountActive=?,   Country_id=?, Phone=?, Photo=?  "
+			+ " WHERE idAccount=?;";
 	
 	
-	private static final String DELETE_ACCOUNT = "DELETE FROM Account WHERE idAccount=?;";
+	private static final String DELETE_ACCOUNT = "DELETE FROM Account WHERE idAccount = ?";
 
 	private static final String ACCOUNTS = "SELECT idAccount,AccountFirstName, AccountLastName, AccountBirthday, AccountEmail,"
 			+ "AccountCreationDate, AccountLogin, AccountPassword, AccountRole, AccountActive, Country_id, Phone, Photo"
@@ -87,7 +87,7 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				//LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();

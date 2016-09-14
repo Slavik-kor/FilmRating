@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.entity.Account;
 
-public class AddFilm implements Command {
+public class AddFilmPage implements Command {
 	private static final String ADD_FILM_PAGE = "/WEB-INF/jsp/add-film.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
 	private static final String ACCOUNT = "account";

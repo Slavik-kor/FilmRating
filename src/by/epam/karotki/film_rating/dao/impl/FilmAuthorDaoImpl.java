@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+
 import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.FilmAuthorDao;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
@@ -14,6 +17,7 @@ import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolE
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 
 public class FilmAuthorDaoImpl implements FilmAuthorDao {
+//private static final Logger LOG = LogManager.getLogger();
 private ConnectionPool conPool = ConnectionPool.getInstance();
 private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
@@ -45,7 +49,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -101,7 +105,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 //LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}

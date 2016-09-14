@@ -58,7 +58,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="Controller?command=profile">${profile}</a></li>
 							<li><a href="Controller?command=comment_list">${comment}</a></li>
-							<li><a href="Controller?command=add_film">${add_film}</a></li>
+							<li><a href="Controller?command=add_film_page">${add_film}</a></li>
 							<li><a href="Controller?command=add_author">${add_author}</a></li>
 							<li><a href="Controller?command=film_favorite">${favor_film}</a></li>
 							<li><a href="Controller?command=account_list">Accounts</a></li>

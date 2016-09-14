@@ -1,6 +1,8 @@
 package by.epam.karotki.film_rating.service;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.exception.FilmServiceException;
@@ -26,6 +28,12 @@ public interface FilmService {
 	List<Film> getFilmsByComments(int idAccount, String lang) throws FilmServiceException;
 
 	List<Film> getFilmsByAccountRate(int idAccount, String lang) throws FilmServiceException;
+	
+//	Film addFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
+	
+//	Film updateFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
+	
+//	void deleteFilm(int id) throws  FilmServiceException;
 
 	
 }

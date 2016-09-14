@@ -82,4 +82,17 @@ public class CommentServiceImpl implements CommentService {
 		return rate;
 	}
 
+	@Override
+	public void updateComment(Comment comment) throws CommentServiceException {
+		
+		DaoFactory factory = DaoFactory.getInstance();
+		CommentDao cDao = factory.getCommentDao();
+		try{
+			cDao.updateComment(comment);
+		}catch(DaoException e){
+			throw new CommentServiceException(ERROR_MESSAGE_GET,e);
+		}
+		
+	}
+
 }

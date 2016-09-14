@@ -75,11 +75,12 @@
 					<label for="pass">${password}</label><span>*</span> <input required type="password"
 						class="form-control" name="pass" placeholder="${password}">
 				</div>
+				<c:if test="mode !='update'">
 				<div class="form-group">
 					<label for="pass">${password}</label><span>*</span> <input required type="password"
 						class="form-control" name="re-pass" placeholder="${password}">
 				</div>
-				
+				</c:if>
 				<div class="form-group">
 					<label for="first-name">${fname }</label> <input type="text"
 						class="form-control" name="first-name" placeholder="${fname }"
@@ -139,9 +140,8 @@
 			</form>
 
 		</div>
-
-		<%@include file="inc/footer.jsp"%>
 	</div>
+	<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

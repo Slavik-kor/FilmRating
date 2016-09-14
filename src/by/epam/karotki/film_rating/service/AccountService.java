@@ -18,5 +18,7 @@ public interface AccountService {
 	List<Account> getAccountList(int value) throws AccountServiceException;
 	
 	Account getAccountById(int idAccount) throws AccountServiceException;
+	
+	void deleteAccount(int id) throws AccountServiceException;
 
 }

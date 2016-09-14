@@ -39,17 +39,17 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img src="images/poster/BrestCastle.jpg" 
-						alt="picture1" >
-					<div class="carousel-caption">...</div>
+					<a href="Controller?command=film_Card&film=1"><img src="images/poster/BrestCastle.jpg" 
+						alt="picture1" ></a>
+					<div class="carousel-caption">Брестская крепость</div>
 				</div>
 				<div class="item">
-					<img src="images/poster/DieHard.jpg" alt="picture2" >
-					<div class="carousel-caption">...</div>
+					<a href="Controller?command=film_Card&film=5"><img src="images/poster/DieHard.jpg" alt="picture2" ></a>
+					<div class="carousel-caption">Крепкий орешек</div>
 				</div>
 				<div class="item">
-					<img src="images/poster/Duhless.jpg" alt="picture3">
-					<div class="carousel-caption">...</div>
+					<a href="Controller?command=film_Card&film=4"><img src="images/poster/Duhless.jpg" alt="picture3"></a>
+					<div class="carousel-caption">Духless</div>
 				</div>
 			</div>
 			<!-- Элементы управления -->
@@ -63,8 +63,9 @@
 		</div>
 	</div>
 
-	<%@include file="WEB-INF/jsp/inc/footer.jsp"%>  
+	 
 </div>
+<%@include file="WEB-INF/jsp/inc/footer.jsp"%> 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

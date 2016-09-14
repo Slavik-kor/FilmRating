@@ -3,6 +3,7 @@ package by.epam.karotki.film_rating.service.impl;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.Operator;
 
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
@@ -244,6 +245,29 @@ public class AccountServiceImpl implements AccountService {
 
 		}
 		return account;
+	}
+
+	@Override
+	public void deleteAccount(int id) throws AccountServiceException {
+		
+		
+		DaoFactory dao = DaoFactory.getInstance();
+		AccountDao aDao = dao.getAccountDao();
+		
+		try{
+			Criteria criteria = dao.createCriteria();
+			criteria.addCriterion(Operator.EQUAL,DBColumnName.ACCOUNT_ID, String.valueOf(id));
+			Account account = aDao.getAccountByCriteria(criteria).get(0);
+			File file = new File(account.getPhoto());
+			file.delete();
+			aDao.deleteAccountById(id);
+			
+		}catch (DaoException e) {
+
+			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
+
+		}
+		
 	}
 
 }

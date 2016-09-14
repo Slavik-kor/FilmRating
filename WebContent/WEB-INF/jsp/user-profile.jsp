@@ -15,6 +15,16 @@
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="locale.profile.title" var="title_page" />
+<fmt:message bundle="${loc}" key="locale.profile.firstName" var="fName" />
+<fmt:message bundle="${loc}" key="locale.profile.lastName" var="lName" />
+<fmt:message bundle="${loc}" key="locale.profile.login" var="login" />
+<fmt:message bundle="${loc}" key="locale.profile.birthday" var="bday" />
+<fmt:message bundle="${loc}" key="locale.profile.country" var="country" />
+<fmt:message bundle="${loc}" key="locale.profile.phoneNumber" var="phone" />
+<fmt:message bundle="${loc}" key="locale.profile.role" var="role" />
+<fmt:message bundle="${loc}" key="locale.profile.edit" var="edit" />
+<fmt:message bundle="${loc}" key="locale.profile.delete" var="delete" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -29,29 +39,29 @@
 
 		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container"
 			align="center">
-			<h3>Профиль пользователя</h3>
-			<div class="container col-lg-4 col-lg-offset-1">
+			<h3>${title_page }</h3>
+			<div class="container col-lg-3 col-lg-offset-1">
 
 				<img src="${account.photo }" width="250" class="img-rounded"
 					onerror="this.src = 'images/author/noFoto.jpg'" alt="Аватар">
 			</div>
-			<div class="container col-lg-6 col-lg-offset-1">
+			<div class="container col-lg-7 col-lg-offset-1">
 				<table class="table table-hover">
 					<tbody>
 						<tr>
-							<th scope="row">Имя</th>
+							<th scope="row">${fName }</th>
 							<td><c:out value="${account.firstName}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Фамилия</th>
+							<th scope="row">${lName }</th>
 							<td><c:out value="${account.lastName}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Логин</th>
+							<th scope="row">${login }</th>
 							<td><c:out value="${account.login}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Дата рождения</th>
+							<th scope="row">${bday }</th>
 							<td><fmt:formatDate value="${account.birthDay}" /></td>
 						</tr>
 						<tr>
@@ -59,16 +69,16 @@
 							<td><c:out value="${account.email}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Страна</th>
+							<th scope="row">${country }</th>
 							<c:set var="country" value="${requestScope.country}" />
 							<td><c:out value="${country.name }" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Телефон</th>
+							<th scope="row">${phone }</th>
 							<td><c:out value="${account.phone}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Роль</th>
+							<th scope="row">${role }</th>
 							<td><c:out value="${account.role}" /></td>
 						</tr>
 					</tbody>
@@ -78,14 +88,17 @@
 		<div align="right">
 			<form action="Controller">
 				<input type="hidden" name="command" value="update_account_page" />
-				<button type="submit" class="btn btn-success">Редактировать
-					профиль</button>
+				<button type="submit" class="btn btn-success">${edit }</button>
 			</form>
-			<button type="button" class="btn btn-danger">Отмена</button>
+			<form action="Controller">
+			   <input type="hidden" name="command" value="delete_account" />
+			   <button type="submit" class="btn btn-danger">${delete }</button>
+			</form>
 		</div>
 
-		<%@include file="inc/footer.jsp"%>
+		
 	</div>
+	<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>
