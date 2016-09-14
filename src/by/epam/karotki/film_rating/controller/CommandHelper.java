@@ -5,13 +5,15 @@ import java.util.Map;
 
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.command.impl.AccountList;
-import by.epam.karotki.film_rating.command.impl.AddAuthor;
+import by.epam.karotki.film_rating.command.impl.AddAuthorPage;
 import by.epam.karotki.film_rating.command.impl.AddComment;
+import by.epam.karotki.film_rating.command.impl.AddFilm;
 import by.epam.karotki.film_rating.command.impl.AddFilmPage;
 import by.epam.karotki.film_rating.command.impl.AuthorCard;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.CommentList;
 import by.epam.karotki.film_rating.command.impl.DeleteAccount;
+import by.epam.karotki.film_rating.command.impl.DeleteComment;
 import by.epam.karotki.film_rating.command.impl.FilmCard;
 import by.epam.karotki.film_rating.command.impl.FilmFavorite;
 import by.epam.karotki.film_rating.command.impl.FilmsByGenre;
@@ -44,7 +46,7 @@ public class CommandHelper {
 		commands.put(CommandName.UNKNOWN_COMMAND, new UnknownCommand());
 		commands.put(CommandName.PROFILE, new Profile());
 		commands.put(CommandName.ADD_FILM_PAGE, new AddFilmPage());
-		commands.put(CommandName.ADD_AUTHOR, new AddAuthor());
+		commands.put(CommandName.ADD_AUTHOR, new AddAuthorPage());
 		commands.put(CommandName.ACCOUNT_LIST, new AccountList());
 		commands.put(CommandName.COMMENT_LIST, new CommentList());
 		commands.put(CommandName.ADD_COMMENT, new AddComment());
@@ -57,6 +59,9 @@ public class CommandHelper {
 		commands.put(CommandName.FILM_FAVORITE, new FilmFavorite());
 		commands.put(CommandName.UPDATE_COMMENT, new UpdateComment());
 		commands.put(CommandName.DELETE_ACCOUNT, new DeleteAccount());
+		commands.put(CommandName.DELETE_COMMENT, new DeleteComment());
+		commands.put(CommandName.ADD_FILM, new AddFilm());
+
 	}
 
 	public Command getCommand(String name) {

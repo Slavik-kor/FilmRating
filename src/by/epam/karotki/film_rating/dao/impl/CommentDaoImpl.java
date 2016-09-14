@@ -31,7 +31,7 @@ public class CommentDaoImpl implements CommentDao {
 
 	private static final String UPDATE_COMMENT = "UPDATE Comment SET CommentText = ?,  Rate = ? WHERE (Account_id = ?) AND (Film_id = ?)";
 
-	private static final String DELETE_COMMENT = "DELETE FROM Country WHERE (Account_id = ?) AND (Film_id = ?)";
+	private static final String DELETE_COMMENT = "DELETE FROM Comment WHERE (Account_id = ?) AND (Film_id = ?)";
 
 	@Override
 	public List<Comment> getCommentsByCriteria(Criteria criteria) throws CommentDaoException {

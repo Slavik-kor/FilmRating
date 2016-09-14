@@ -95,4 +95,16 @@ public class CommentServiceImpl implements CommentService {
 		
 	}
 
+	@Override
+	public void deleteComment(int idAccount, int idFilm) throws CommentServiceException {
+		DaoFactory factory = DaoFactory.getInstance();
+		CommentDao cDao = factory.getCommentDao();
+		try{
+			cDao.deleteComment(idAccount, idFilm);
+		}catch(DaoException e){
+			throw new CommentServiceException(ERROR_MESSAGE_GET,e);
+		}
+		
+	}
+
 }

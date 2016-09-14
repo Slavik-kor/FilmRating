@@ -17,5 +17,5 @@ public interface CommentService {
 	
 	void updateComment(Comment comment) throws CommentServiceException;
 	
-
+	void deleteComment(int idAccount,int idFilm) throws CommentServiceException;
 }

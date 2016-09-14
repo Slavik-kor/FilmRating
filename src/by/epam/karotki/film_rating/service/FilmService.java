@@ -29,7 +29,9 @@ public interface FilmService {
 
 	List<Film> getFilmsByAccountRate(int idAccount, String lang) throws FilmServiceException;
 	
-//	Film addFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
+	Film addFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
+	
+	void addFilm(Map<String,String> reqParam,String lang) throws  FilmServiceException;
 	
 //	Film updateFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
 	

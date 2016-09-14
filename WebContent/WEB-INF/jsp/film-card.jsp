@@ -222,9 +222,17 @@
 								</div>
 								<div class="row">
 									<c:if test="${comments[index].accountId==account.id }">
-										
+										<form type="submit" action="Controller" method="post">
+										<input type="hidden" name="command" value="delete_comment" />
+										<input type="hidden" name="film" value="${film.id }" />
 										<button class="btn btn-success" >${editComment }</button>
+										</form>
+										
+										<form type="submit" action="Controller" method="post">
+										<input type="hidden" name="command" value="delete_comment" />
+										<input type="hidden" name="film" value="${film.id }" />
 										<button class="btn btn-danger">${delComment }</button>
+										</form>									
 									</c:if>
 								</div>
 							</div>
