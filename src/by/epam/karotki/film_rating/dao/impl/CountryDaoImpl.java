@@ -291,7 +291,9 @@ public class CountryDaoImpl implements CountryDao {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(COUNTRY+criteria.getClause());
 			ps.setString(1, lang);
+			
 			rs = ps.executeQuery();
+			
 			countryList = getCountryList(rs);
 		} catch (ConnectionPoolException e) {
 			throw new CountryDaoException(ERROR_MESSAGE_CP, e);

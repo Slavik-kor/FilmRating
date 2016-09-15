@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <title>Accounts</title>
-<c:set var="prev_page"	value="/WEB-INF/jsp/accounts.jsp" scope="session" />
+<c:set var="prev_page"	value="Controller?command=account_list" scope="session" />
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -23,31 +23,12 @@
 
 <div class="container">
 	<%@include file="inc/top-menu.jsp"%>
-	
+	<h2>Страница в разработке</h2>
 
-	<div class="container col-md-10 col-lg-10 col-sm-9">
-<nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+	
+	
 </div>
-	<%@include file="inc/footer.jsp"%>
-</div>
+<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

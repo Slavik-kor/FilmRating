@@ -22,7 +22,6 @@ public class AccountList implements Command {
 	private static final String ADMIN = "Admin";
 	private static final String ACCOUNT_LIST = "accountList";
 	private static final String ERROR_MESSAGE = "errorMessage";
-	private static final String VALUE = "value";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -37,7 +36,7 @@ public class AccountList implements Command {
 				try {
 					ServiceFactory factory = ServiceFactory.getInstance();
 					AccountService aService = factory.getAccountService();
-					accountList = aService.getAccountList(Integer.valueOf(request.getParameter(VALUE)));
+					accountList = aService.getAccountList();
 					request.setAttribute(ACCOUNT_LIST, accountList);
 					pageDispatcher.forward(request, response);
 				} catch (ServiceException e) {

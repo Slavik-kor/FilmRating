@@ -57,11 +57,13 @@
 					<h3><c:out value="${film.title}" /></h3>
 				</div>
 				<div class = "container col-lg-2 col-lg-offset-4">
-				<h3>Рейтинг:<fmt:formatNumber type="number" maxFractionDigits="2" value="${rating }"/></h3>
+				
+					<h3>Рейтинг:<fmt:formatNumber type="number" maxFractionDigits="2" value="${rating }"/></h3>
+				
 				</div>
 				<div class="container col-lg-4 col-lg-offset-1">
 					<img src="${film.poster }" width="250" class="img-rounded"
-						alt="постер">
+						alt="постер" onerror="this.src = 'images/poster/noFoto.jpg'">
 				</div>
 				<div class="container col-lg-6 col-lg-offset-1">
 					<table class="table table-hover">
@@ -221,18 +223,43 @@
 
 								</div>
 								<div class="row">
-									<c:if test="${comments[index].accountId==account.id }">
+									<c:if test="${comments[index].accountId==account.id }">			
+										<button class="btn btn-success" >${editComment }</button>
 										<form type="submit" action="Controller" method="post">
 										<input type="hidden" name="command" value="delete_comment" />
 										<input type="hidden" name="film" value="${film.id }" />
-										<button class="btn btn-success" >${editComment }</button>
+										<button class="btn btn-danger" type="button"
+											data-toggle="modal" data-target="#myModal">${delComment }</button>
 										</form>
 										
-										<form type="submit" action="Controller" method="post">
-										<input type="hidden" name="command" value="delete_comment" />
-										<input type="hidden" name="film" value="${film.id }" />
-										<button class="btn btn-danger">${delComment }</button>
-										</form>									
+										<!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<h4 class="modal-title" id="myModalLabel">Подтверждение</h4>
+													</div>
+													<div class="modal-body">Удалить комментарий?</div>
+													<div class="modal-footer">
+														
+													<form type="submit" action="Controller" method="post">
+														<input type="hidden" name="command" value="delete_comment" />
+														<input type="hidden" name="film" value="${film.id }" />
+														<button type="submit" class="btn btn-primary">Удалить</button>
+													<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Закрыть</button>
+													</form>
+													</div>
+												</div>
+											</div>
+										</div> <!-- modal end -->		
+																	
 									</c:if>
 								</div>
 							</div>

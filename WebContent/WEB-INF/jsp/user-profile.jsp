@@ -36,7 +36,6 @@
 	<div class="container">
 		<%@include file="inc/top-menu.jsp"%>
 
-
 		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container"
 			align="center">
 			<h3>${title_page }</h3>
@@ -90,14 +89,37 @@
 				<input type="hidden" name="command" value="update_account_page" />
 				<button type="submit" class="btn btn-success">${edit }</button>
 			</form>
-			<form action="Controller">
-			   <input type="hidden" name="command" value="delete_account" />
-			   <button type="submit" class="btn btn-danger">${delete }</button>
-			</form>
-		</div>
+			   <button  class="btn btn-danger" type="button" data-toggle="modal" data-target="#myModal1">${delete }</button>
+				<!-- Modal -->
+										<div class="modal fade" id="myModal1" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<h4 class="modal-title" id="myModalLabel">Подтверждение</h4>
+													</div>
+													<div class="modal-body">Вы точно хотите удалить аккаунт?</div>
+													<div class="modal-footer">
+														
+													<form type="submit" action="Controller" method="post">
+														<input type="hidden" name="command" value="delete_account" />
+														<button type="submit" class="btn btn-primary">Удалить</button>
+													<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Закрыть</button>
+													</form>
+													</div>
+												</div>
+											</div>
+										</div> <!-- modal end -->
+				</div>
 
-		
 	</div>
+
 	<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>

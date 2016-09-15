@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <title>Add author</title>
-<c:set var="prev_page"	value="/WEB-INF/jsp/get-author.jsp" scope="session" />
+<c:set var="prev_page"	value="Controller?command=add_author" scope="session" />
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
@@ -25,10 +25,11 @@
 	<%@include file="inc/top-menu.jsp"%>
 	
 
-	
+	<h2>Страница в разработке</h2>
 
-	<%@include file="inc/footer.jsp"%>
+	
 </div>
+<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

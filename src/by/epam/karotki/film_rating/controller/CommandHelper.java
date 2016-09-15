@@ -61,6 +61,7 @@ public class CommandHelper {
 		commands.put(CommandName.DELETE_ACCOUNT, new DeleteAccount());
 		commands.put(CommandName.DELETE_COMMENT, new DeleteComment());
 		commands.put(CommandName.ADD_FILM, new AddFilm());
+		
 
 	}
 

@@ -40,21 +40,23 @@ public class CriteriaImpl implements Criteria {
 			exp = column + " BETWEEN '" + value[0] + "' AND '" + value[1] + "'";
 			break;
 		case IN:
-			
+			 if(value.length==0){break;}
 				exp = column + " IN (";
+				
 				for (int i = 0; i < value.length; i++) {
 					exp += value[i];
 					if (i < (value.length - 1)) {
 						exp += ",";
-					} else {
-						exp += ")";
 					}
 				}
+				exp += ")";
 			break;
 		default:
 			exp = "";
 		}
-		criteriaList.add(exp);
+		if(value.length!=0) {
+			criteriaList.add(exp);
+			}
 		
 		
 	}

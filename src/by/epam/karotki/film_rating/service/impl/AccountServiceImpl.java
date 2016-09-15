@@ -146,12 +146,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<Account> getAccountList(int value) throws AccountServiceException {
+	public List<Account> getAccountList() throws AccountServiceException {
 		List<Account> accountList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		AccountDao aDao = dao.getAccountDao();
 		try {
-			accountList = aDao.getAccountList(value);
+			accountList = aDao.getAccountList();
 		} catch (DaoException e) {
 
 			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);

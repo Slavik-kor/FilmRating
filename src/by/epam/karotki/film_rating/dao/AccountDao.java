@@ -14,7 +14,7 @@ public interface AccountDao {
 
 	List<Account> getActiveUsersByComment(int value) throws AccountDaoException;
 	
-	List<Account> getAccountList(int value) throws AccountDaoException;	
+	List<Account> getAccountList() throws AccountDaoException;	
 	
 	List<Account> getAccountByCriteria(Criteria criteria) throws AccountDaoException;	
 

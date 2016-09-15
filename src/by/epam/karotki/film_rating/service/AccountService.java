@@ -15,7 +15,7 @@ public interface AccountService {
 	
 	Account updateAccount(Map<String,String> reqParam,InputStream is) throws AccountServiceException;
 	
-	List<Account> getAccountList(int value) throws AccountServiceException;
+	List<Account> getAccountList() throws AccountServiceException;
 	
 	Account getAccountById(int idAccount) throws AccountServiceException;
 	

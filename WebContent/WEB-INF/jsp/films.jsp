@@ -2,13 +2,14 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%
-	session.setAttribute("prev_page", "Controller?command=newfilms");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
+
+<c:set var="prev_page"	value="Controller?command=newFilms" scope="session" />
+
 <c:set var="account" value="${sessionScope.account}" />
 <title>Films</title>
 <fmt:setLocale value="${sessionScope.locale}" />

@@ -26,10 +26,12 @@ public class CountryServiceImpl implements CountryService {
 		FilmCountryDao fCDao = dao.getFilmCountryDao();
 		try {
 			List<Integer> countryIds = fCDao.getCountriesByFilm(idFilm);
+			if(countryIds.size()==0){return null;}
 			String[] strCMas= new String[countryIds.size()];
 			for(int i=0; i<strCMas.length;i++){
 				strCMas[i] = String.valueOf(countryIds.get(i));
 			}
+			
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.IN, DBColumnName.COUNTRY_ID,strCMas);
 			countryList = cDao.getCountryByCriteria(criteria, lang);

@@ -351,10 +351,7 @@ public class FilmServiceImpl implements FilmService {
 	}
 
 	@Override
-	public void addFilm(Map<String, String> reqParam, String lang) throws FilmServiceException {
-		Film film = new Film();
-		film.setTitle(reqParam.get(TITLE));
-		film.setDescription(reqParam.get(DESCRIPTION));
+	public void addFilm(Film film, String lang) throws FilmServiceException {
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmDao fDao = dao.getFilmDao();
 		try {

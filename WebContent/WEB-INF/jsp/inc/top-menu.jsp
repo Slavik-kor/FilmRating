@@ -10,6 +10,7 @@
 <fmt:message bundle="${loc}" key="locale.menu.top.add_film" var="add_film" />
 <fmt:message bundle="${loc}" key="locale.menu.top.add_author" var="add_author" />
 <fmt:message bundle="${loc}" key="locale.menu.top.favor_film" var="favor_film" />
+<fmt:message bundle="${loc}" key="locale.menu.top.accounts" var="accounts" />
 <fmt:message bundle="${loc}" key="locale.menu.top.sign_out" var="sign_out" />	
 	
 <fmt:message bundle="${loc}" key="locale.menu.side.new" var="newFilm" />
@@ -61,7 +62,7 @@
 							<li><a href="Controller?command=add_film_page">${add_film}</a></li>
 							<li><a href="Controller?command=add_author">${add_author}</a></li>
 							<li><a href="Controller?command=film_favorite">${favor_film}</a></li>
-							<li><a href="Controller?command=account_list">Accounts</a></li>
+							<li><a href="Controller?command=account_list">${accounts }</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>
 						</ul>
 					</c:when>

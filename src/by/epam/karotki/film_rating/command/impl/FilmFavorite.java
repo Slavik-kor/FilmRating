@@ -22,6 +22,8 @@ public class FilmFavorite implements Command {
 	private static final String FILMS = "films";
 	private static final String FILMS_PAGE = "/WEB-INF/jsp/films.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
+	private static final String FAVOR = "Controller?command=film_favorite";
+	private static final String PREV_PAGE = "prev_page";
 
 
 	@Override
@@ -37,6 +39,7 @@ public class FilmFavorite implements Command {
 		FilmService fService = factory.getFilmService();
 		try {
 			List<Film> films = fService.getFilmsByAccountRate(account.getId(), locale);
+			session.setAttribute(PREV_PAGE, FAVOR);
 			request.setAttribute(FILMS, films);
 			request.getRequestDispatcher(FILMS_PAGE).forward(request, response);
 		} catch (ServiceException e) {

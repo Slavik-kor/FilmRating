@@ -21,7 +21,7 @@ public class FilmsByGenre implements Command {
 	private static final String FILMS = "films";
 	private static final String FILMS_PAGE = "/WEB-INF/jsp/films.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
-
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		int idGenre = Integer.valueOf(request.getParameter(ID_GENRE));

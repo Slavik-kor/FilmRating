@@ -71,15 +71,18 @@
 						class="form-control" name="login" placeholder="${login}"
 						value="${account.login }">
 				</div>
+				
+				<c:if test="${ mode !='update'}">
+				
 				<div class="form-group">
 					<label for="pass">${password}</label><span>*</span> <input required type="password"
-						class="form-control" name="pass" placeholder="${password}">
+						class="form-control" id="pass" name="pass" placeholder="${password}">
 				</div>
-				<c:if test="mode !='update'">
 				<div class="form-group">
 					<label for="pass">${password}</label><span>*</span> <input required type="password"
-						class="form-control" name="re-pass" placeholder="${password}">
+						class="form-control" id="re-pass" name="re-pass" placeholder="${password}">
 				</div>
+				
 				</c:if>
 				<div class="form-group">
 					<label for="first-name">${fname }</label> <input type="text"
@@ -99,9 +102,9 @@
 				
 				<c:set var="countryList"  value="${requestScope.countryList}"/>
 				<fieldset class="form-group">
-  					<label for="genre">${locality }</label>
-     					<select  class="form-control" id="genre" name="country">
-    						<c:forEach items="${countryList}" var="countryItem">
+  					<label for="country">${locality }</label>
+     					<select  class="form-control" id="country" name="country" >
+    						<c:forEach items="${countryList}" var="countryItem" >
     						<option value="${countryItem.id }">${countryItem.name }</option>
     						</c:forEach>
     					 </select>
@@ -128,10 +131,39 @@
 				</div>
 				<c:choose>
 					<c:when test="${mode=='update'}">
-						<button type="submit" class="btn btn-success">Обновить</button>
+						<button class="btn btn-danger" type="button"
+											data-toggle="modal" data-target="#myModal">Обновить</button>
+					<!-- Modal -->
+										<div class="modal fade" id="myModal" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<h4 class="modal-title" id="myModalLabel">Введите пароль</h4>
+													</div>
+														<div class="modal-body">
+															<label for="pass">${password}</label><span>*</span> <input required type="password"
+																class="form-control" name="pass" placeholder="${password}">
+														</div>
+													<div class="modal-footer">
+																	
+														<button type="submit" class="btn btn-primary">Обновить</button>
+													<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Закрыть</button>
+													
+													</div>
+												</div>
+											</div>
+										</div> <!-- modal end -->
+					
 					</c:when>
 					<c:otherwise>
-						<button type="submit" class="btn btn-success">${sign_up }</button>
+						<button  type="submit" class="btn btn-success">${sign_up }</button>
 					</c:otherwise>
 				</c:choose>
 				<c:if test="${mode!='update'}">
@@ -141,9 +173,11 @@
 
 		</div>
 	</div>
+	
 	<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	
 
 </body>
 </html>

@@ -21,7 +21,8 @@ import by.epam.karotki.film_rating.service.exception.ServiceException;
 
 public class AddFilm implements Command {
 	private static final String ERROR_PAGE = "error.jsp";
-	private static final String INDEX_PAGE = "index.jsp";
+	private static final String FILM = "film";
+	private static final String FILM_CARD_PAGE = "/WEB-INF/jsp/film-card.jsp";
 	private static final String ACCOUNT = "account";
 	private static final String ADMIN = "Admin";
 	private static final String ERROR_MESSAGE = "errorMessage";
@@ -42,6 +43,7 @@ public class AddFilm implements Command {
 	private static final String PROJECT_PATH = "ProjectPath";
 	private static final String RU = "ru";
 	private static final String EN = "en";
+	private static final String LOCALE = "locale";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -82,26 +84,37 @@ public class AddFilm implements Command {
 			//log
 		}
 		
-		Map<String,String> reqParamRu = new HashMap<String,String>();
-		reqParamRu.put(TITLE_RU, request.getParameter(TITLE_RU));
-		reqParamRu.put(DESCRIPTION_RU, request.getParameter(DESCRIPTION_RU));
-		Map<String,String> reqParamEn = new HashMap<String,String>();
-		reqParamEn.put(TITLE_EN, request.getParameter(TITLE_RU));
-		reqParamEn.put(DESCRIPTION_EN, request.getParameter(DESCRIPTION_EN));
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		FilmService fService = factory.getFilmService();
 		Film film = null;
 		try{
 			film = fService.addFilm(reqParam, is);
-			fService.addFilm(reqParamRu, RU);
-			fService.addFilm(reqParamEn, EN);
+			film.setDescription(request.getParameter(DESCRIPTION_RU));
+			film.setTitle(request.getParameter(TITLE_RU));
+			fService.addFilm(film, RU);
+			
+			film.setDescription(request.getParameter(DESCRIPTION_EN));
+			film.setTitle(request.getParameter(TITLE_EN));
+			fService.addFilm(film, EN);
+		}catch(ServiceException e){
+			errorDispatcher.forward(request, response);
+
+		}
+		String locale = (String)session.getAttribute(LOCALE);
+		if(locale == null || locale.isEmpty()){
+			locale = RU;
+		}
+		
+		try{
+			film = fService.getFilmById(film.getId(), locale);
 		}catch(ServiceException e){
 			errorDispatcher.forward(request, response);
 
 		}
 		
-request.getRequestDispatcher(INDEX_PAGE).forward(request, response);
+		request.setAttribute(FILM, film);
+       request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
 }
 
 }
