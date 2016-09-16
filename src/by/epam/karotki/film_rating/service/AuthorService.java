@@ -16,9 +16,18 @@ public interface AuthorService {
 	
 	Author getAuthorById(int idAuthor,String lang) throws AuthorServiceException;
 	
+	List<Author> getAllAuthors(String lang) throws AuthorServiceException;
+	
   //  Author addAuthor(Map<String,String> reqParam,InputStream is) throws  AuthorServiceException;
 	
 	//Author updateAuthor(Map<String,String> reqParam,InputStream is) throws  AuthorServiceException;
 	
 	//void deleteAuthor(int id) throws  AuthorServiceException;
+	
+	void addDirectorToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
+
+	void addScenarioToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
+
+	void addActorToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
+
 }

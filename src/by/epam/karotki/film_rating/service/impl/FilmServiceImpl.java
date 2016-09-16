@@ -332,7 +332,9 @@ public class FilmServiceImpl implements FilmService {
 		
 		Date premierDate = null;
 		try{
-			premierDate = Date.valueOf(RELEASE);
+			System.out.println(RELEASE);
+			premierDate = Date.valueOf(reqParam.get(RELEASE));
+			System.out.println(premierDate);
 		}catch(IllegalArgumentException e){
 			premierDate = null;
 		}

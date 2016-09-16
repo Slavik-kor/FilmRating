@@ -15,14 +15,17 @@ import javax.servlet.http.Part;
 import by.epam.karotki.film_rating.command.Command;
 import by.epam.karotki.film_rating.entity.Account;
 import by.epam.karotki.film_rating.entity.Film;
+import by.epam.karotki.film_rating.service.AuthorService;
+import by.epam.karotki.film_rating.service.CountryService;
 import by.epam.karotki.film_rating.service.FilmService;
+import by.epam.karotki.film_rating.service.GenreService;
 import by.epam.karotki.film_rating.service.ServiceFactory;
 import by.epam.karotki.film_rating.service.exception.ServiceException;
 
 public class AddFilm implements Command {
 	private static final String ERROR_PAGE = "error.jsp";
-	private static final String FILM = "film";
-	private static final String FILM_CARD_PAGE = "/WEB-INF/jsp/film-card.jsp";
+	//private static final String FILM = "film";
+	private static final String FILM_CARD_PAGE = "Controller?command=film_Card&film=";
 	private static final String ACCOUNT = "account";
 	private static final String ADMIN = "Admin";
 	private static final String ERROR_MESSAGE = "errorMessage";
@@ -44,6 +47,12 @@ public class AddFilm implements Command {
 	private static final String RU = "ru";
 	private static final String EN = "en";
 	private static final String LOCALE = "locale";
+	private static final String GENRE = "genre";
+	private static final String DIRECTORS = "directors";
+	private static final String SCENARIOS = "scenarios";
+	private static final String ACTORS = "actors";
+	private static final String COUNTRIES = "countries";
+
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -76,7 +85,6 @@ public class AddFilm implements Command {
 		InputStream is = null;
 		try{
 		Part part = request.getPart(POSTER);
-		System.out.println(part);
 		if (part!=null){
 		is = part.getInputStream();
 		}
@@ -84,9 +92,17 @@ public class AddFilm implements Command {
 			//log
 		}
 		
+		String[] genreList = request.getParameterValues(GENRE);
+		String[] directorList = request.getParameterValues(DIRECTORS);
+		String[] scenarioList = request.getParameterValues(SCENARIOS);
+		String[] actorList = request.getParameterValues(ACTORS);
+		String[] countryList = request.getParameterValues(COUNTRIES);
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		FilmService fService = factory.getFilmService();
+		GenreService gService = factory.getGenreService();
+		AuthorService aService = factory.getAuthorService();
+		CountryService cService = factory.getCountryService();
 		Film film = null;
 		try{
 			film = fService.addFilm(reqParam, is);
@@ -97,9 +113,37 @@ public class AddFilm implements Command {
 			film.setDescription(request.getParameter(DESCRIPTION_EN));
 			film.setTitle(request.getParameter(TITLE_EN));
 			fService.addFilm(film, EN);
+			
+			if(genreList!=null){
+				for (int i=0;i<genreList.length;i++){
+					gService.addGenreToFilm(film.getId(), Integer.valueOf(genreList[i]));
+				}
+			}
+			if(directorList!=null){
+				for (int i=0;i<directorList.length;i++){
+					aService.addDirectorToFilm(film.getId(), Integer.valueOf(directorList[i]));
+				}
+			}
+			
+			if(scenarioList!=null){
+				for (int i=0;i<scenarioList.length;i++){
+					aService.addScenarioToFilm(film.getId(), Integer.valueOf(scenarioList[i]));
+				}
+			}
+			if(actorList!=null){
+				for (int i=0;i<actorList.length;i++){
+					aService.addActorToFilm(film.getId(), Integer.valueOf(actorList[i]));
+				}
+			}
+			
+			if(countryList!=null){
+				for (int i=0;i<countryList.length;i++){
+					cService.addCountryToFilm(film.getId(), Integer.valueOf(countryList[i]));
+				}
+			}
 		}catch(ServiceException e){
 			errorDispatcher.forward(request, response);
-
+			return;
 		}
 		String locale = (String)session.getAttribute(LOCALE);
 		if(locale == null || locale.isEmpty()){
@@ -110,11 +154,11 @@ public class AddFilm implements Command {
 			film = fService.getFilmById(film.getId(), locale);
 		}catch(ServiceException e){
 			errorDispatcher.forward(request, response);
-
+			return;
 		}
 		
-		request.setAttribute(FILM, film);
-       request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
-}
+       //request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
+			response.sendRedirect(FILM_CARD_PAGE+film.getId());
+	}
 
 }

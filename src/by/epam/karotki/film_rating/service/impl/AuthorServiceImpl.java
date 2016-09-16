@@ -105,4 +105,54 @@ public class AuthorServiceImpl implements AuthorService {
 		return author.get(0);
 	}
 
+	@Override
+	public void addDirectorToFilm(int idFilm, int idAuthor) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmAuthorDao fADao = dao.getFilmAuthorDao();
+		try{
+			fADao.addAuthorToFilm(idFilm, idAuthor, DIRECTOR);
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't add director to film", e);
+		}
+	}
+
+	@Override
+	public void addScenarioToFilm(int idFilm, int idAuthor) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmAuthorDao fADao = dao.getFilmAuthorDao();
+		try{
+			fADao.addAuthorToFilm(idFilm, idAuthor,SCENARIO_WRITER);
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't add director to film", e);
+		}
+		
+	}
+
+	@Override
+	public void addActorToFilm(int idFilm, int idAuthor) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmAuthorDao fADao = dao.getFilmAuthorDao();
+		try{
+			fADao.addAuthorToFilm(idFilm, idAuthor, ACTOR);
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't add director to film", e);
+		}
+		
+	}
+
+	@Override
+	public List<Author> getAllAuthors(String lang) throws AuthorServiceException {
+		List<Author> authorList = null;
+		DaoFactory dao = DaoFactory.getInstance();
+		AuthorDao aDao = dao.getAuthorDao();
+		try {
+			Criteria criteria = dao.createCriteria();
+			authorList = aDao.getAuthorByCriteria(criteria, lang);
+		} catch (DaoException e) {
+			// log
+			throw new AuthorServiceException("can't get all authors", e);
+		}
+		return authorList;
+	}
+
 }

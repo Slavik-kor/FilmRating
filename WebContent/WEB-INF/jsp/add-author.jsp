@@ -44,12 +44,12 @@
      	<div class="form-group">
 					<label for="first-name">Имя</label> <input type="text"
 						class="form-control" name="first-name" placeholder="Имя"
-						value="">
+						value="" required>
 				</div>
 				<div class="form-group">
 					<label for="last-name">Фамилия</label> <input type="text"
 						class="form-control" name="last-name" placeholder="Фамилия"
-						value="">
+						value="" required>
 				</div>
      	<fieldset class="form-group">
   					<label class="container" for="country">Страна рождения</label>
@@ -61,6 +61,10 @@
     						<option value="">Франция</option>
     					 </select>
  				</fieldset> 
+ 				<div class="form-group">
+					<label for="birthday">Дата рождения</label> <input type="date"
+						class="form-control" name="birthday" value="Дата рождения">
+				</div>
  				<c:if test="${mode != 'update' }">
 		<div class="form-group">
      		<label for="file" class="control-label">Выбрать фото</label>

@@ -42,15 +42,13 @@
    <label for="text">Название фильма на английском</label>
   <input name="title_en" type="text" class="form-control" placeholder="Название фильма" required>
      </div>
-  
+  <c:set var="genres" value="${requestScope.genreList }"/>
  <fieldset class="form-group col-lg-12 col-md-12 col-sm-12">
   <label class="container" for="genre">Жанр</label>
      <select name="genre" id="genre" class="selectpicker show-tick " data-live-search="true" multiple>
-     <option value="1" >Боевик</option>
-     <option value="2">Драма</option>
-     <option value="3">Комедия</option>
-     <option value="4">Триллер</option>
-     <option value="5">Спорт</option>
+    <c:forEach items="${genres}" var="genre" >
+    	<option value="${genre.id }">${genre.name }</option>
+    </c:forEach>
      </select>
  </fieldset> 
      
@@ -78,36 +76,30 @@
   <input name="budget" type="number" class="form-control" placeholder="Бюджет фильма">
              </div>
  </div>
-     
+   <c:set var="authors" value="${requestScope.authorList }"/>    
      <fieldset class="form-group col-lg-4 col-md-4">
   <label class="container" for="director">Режисеры</label>
    <select name="directors" id="director" class="selectpicker show-tick form-group" data-live-search="true" multiple >
-     <option>Сильвестр Сталлоне</option>
-     <option>Александр Котт</option>
-     <option>Николай Лебедев</option>
-     <option>Роман Прыгунов</option>
-     <option>Андрей Курейчик</option>
+    <c:forEach items="${authors}" var="author" >
+    	<option value="${author.id }">${author.firstName } ${ author.lastName}</option>
+    </c:forEach>
      </select> 
  </fieldset> 
  
           <fieldset class="form-group col-lg-4 col-md-4">
   <label class="container" for="scenario">Сценаристы</label>
    <select name="scenarios" id="scenario" class="selectpicker show-tick form-group" data-live-search="true" multiple>
-     <option>Сильвестр Сталлоне</option>
-     <option>Александр Котт</option>
-     <option>Николай Лебедев</option>
-     <option>Роман Прыгунов</option>
-     <option>Андрей Курейчик</option>
+    <c:forEach items="${authors}" var="author" >
+    	<option value="${author.id }">${author.firstName } ${ author.lastName}</option>
+    </c:forEach>
      </select>
  </fieldset> 
            <fieldset class="form-group col-lg-4 col-md-4">
   <label class="container" for="actor">Актеры</label>
-   <select id="actor" class="selectpicker show-tick form-group" data-live-search="true" multiple>
-     <option>Сильвестр Сталлоне</option>
-     <option>Александр Котт</option>
-     <option>Николай Лебедев</option>
-     <option>Роман Прыгунов</option>
-     <option>Андрей Курейчик</option>
+   <select name="actors" id="actor" class="selectpicker show-tick form-group" data-live-search="true" multiple>
+    <c:forEach items="${authors}" var="author" >
+    	<option value="${author.id }">${author.firstName } ${ author.lastName}</option>
+    </c:forEach>
      </select>
  </fieldset> 
    
@@ -128,15 +120,13 @@
  </div>
              </div>
        
-        
+   <c:set var="countries" value="${requestScope.countryList }"/>    
          <fieldset class="form-group ">
   <label class="container" for="country">Страны</label>
    <select name="countries" id="country" class="selectpicker show-tick form-group" data-live-search="true" multiple>
-     <option>США</option>
-     <option>Канада</option>
-     <option>Россия</option>
-     <option>Беларусь</option>
-     <option>Франция</option>
+     <c:forEach items="${countries}" var="country" >
+    	<option value="${country.id }">${country.name }</option>
+    </c:forEach>
      </select>
  </fieldset> 
         

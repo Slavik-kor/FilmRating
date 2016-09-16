@@ -38,4 +38,32 @@ public class GenreServiceImpl implements GenreService {
 		return genreList;
 	}
 
+	@Override
+	public void addGenreToFilm(int idFilm, int idGenre) throws GenreServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmGenreDao fGDao = dao.getFilmGenreDao();
+		try{
+			fGDao.addGenresToFilm(idFilm, idGenre);
+		}catch (DaoException e) {
+			// log
+			throw new GenreServiceException("can't add genre to film", e);
+		}
+		
+	}
+
+	@Override
+	public List<Genre> getAllGenres(String lang) throws GenreServiceException {
+		List<Genre> genreList = null;
+		DaoFactory dao = DaoFactory.getInstance();
+		GenreDao gDao = dao.getGenreDao();
+		try {
+			Criteria criteria = dao.createCriteria();
+			genreList = gDao.getGenreByCriteria(criteria, lang);
+		} catch (DaoException e) {
+			// log
+			throw new GenreServiceException(ERROR_MESSAGE, e);
+		}
+		return genreList;
+	}
+
 }
