@@ -14,6 +14,7 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 <link href="css/bootstrap-select.css" rel="stylesheet">
+<link href="css/fileInput.css" rel="stylesheet">
 
 </head>
 <body>
@@ -34,14 +35,13 @@
          <h2 class="form-signin-heading">Заполните форму добавления фильма:</h2>
      </div>
      <div class="form-group col-lg-6 col-md-6 col-sm-6">
-  <label for="text">Название фильма на русском</label>
-  <input name="title_ru" type="text" class="form-control" placeholder="Название фильма">
+  <label for="text">Название фильма на русском</label><span>*</span>
+  <input name="title_ru" type="text" class="form-control" placeholder="Название фильма" required>
   </div>
    <div class="form-group col-lg-6 col-md-6 col-sm-6">
    <label for="text">Название фильма на английском</label>
-  <input name="title_en" type="text" class="form-control" placeholder="Название фильма">
+  <input name="title_en" type="text" class="form-control" placeholder="Название фильма" required>
      </div>
- 
   
  <fieldset class="form-group col-lg-12 col-md-12 col-sm-12">
   <label class="container" for="genre">Жанр</label>
@@ -158,31 +158,34 @@
  </div>
 
      <div class="form-group">
-  <label for="file">Загрузите постер фильма</label>
-         <div class="input-group">
-  <label class="file">
-      <input name="poster" type="file" id="file">
-      <span class="file-custom"></span>
-         </label>
-             </div>
+ 			<label for="file" class="control-label">Загрузите постер фильма</label>
+			<input id="input" type="file" class="file-loading" name="poster">
  </div>
-     
      
      <button type="submit" class="btn btn-success">Добавить фильм</button>
      <button type="reset" class="btn btn-warning">Очистить</button>
-     <button type="button" class="btn btn-danger">Отмена</button>
 </form>
 </div>
 
-
+</div>
 
 <%@include file="inc/footer.jsp"%>
-</div>
+
 	
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/bootstrap-select.js"></script>
 	<script src="js/defaults-ru_RU.js"></script>
-
+<script src="js/fileInput.js"></script>
+<script>
+$(document).on('ready', function() {
+    $("#input").fileinput({
+        browseClass: "btn btn-primary btn-block",
+        showCaption: false,
+        showRemove: false,
+        showUpload: false
+    });
+});
+</script>
 </body>
 </html>

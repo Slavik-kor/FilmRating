@@ -46,13 +46,14 @@
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
-
+<link href="css/fileInput.css" rel="stylesheet">
+<link href="css/bootstrap-select.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<%@include file="inc/top-menu.jsp"%>
 		<div class="container col-md-9 col-lg-9 col-sm-9">
-			<form action="Controller" enctype="multipart/form-data" method="post"
+			<form id="reg" action="Controller" enctype="multipart/form-data" method="post"
 				role="form">
 				<c:choose>
 					<c:when test="${mode=='update' }">
@@ -67,20 +68,20 @@
 					<h2 class="form-signin-heading">${message}</h2>
 				</div>
 				<div class="form-group">
-					<label for="login">${login}</label> <input type="text"
+					<label for="login">${login}</label><span>*</span> <input id="login" type="text"
 						class="form-control" name="login" placeholder="${login}"
-						value="${account.login }">
+						value="${account.login }" required>
 				</div>
 				
 				<c:if test="${ mode !='update'}">
 				
 				<div class="form-group">
-					<label for="pass">${password}</label><span>*</span> <input required type="password"
-						class="form-control" id="pass" name="pass" placeholder="${password}">
+					<label for="pass">${password}</label><span>*</span> <input  type="password"
+						class="form-control" id="pass" name="pass" placeholder="${password}" required>
 				</div>
 				<div class="form-group">
-					<label for="pass">${password}</label><span>*</span> <input required type="password"
-						class="form-control" id="re-pass" name="re-pass" placeholder="${password}">
+					<label for="pass">${password}</label><span>*</span> <input  type="password"
+						class="form-control" id="re-pass" name="re-pass" placeholder="${password}" required>
 				</div>
 				
 				</c:if>
@@ -102,8 +103,8 @@
 				
 				<c:set var="countryList"  value="${requestScope.countryList}"/>
 				<fieldset class="form-group">
-  					<label for="country">${locality }</label>
-     					<select  class="form-control" id="country" name="country" >
+  					<label class="container" for="country">${locality }</label>
+     					<select  class="selectpicker" id="country" name="country" multiple data-max-options="1">
     						<c:forEach items="${countryList}" var="countryItem" >
     						<option value="${countryItem.id }">${countryItem.name }</option>
     						</c:forEach>
@@ -122,13 +123,12 @@
 						placeholder="${phone_number }" value="${account.phone }">
 
 				</div>
-
-				<div class="form-group">
-					<label for="file" class="input input-file">${choose_photo}
-						<input type="file" name="avatar">
-					</label>
-
-				</div>
+<c:if test="${mode != 'update' }">
+		<div class="form-group">
+     		<label for="file" class="control-label">${choose_photo}</label>
+			<input id="input" type="file" class="file-loading" name="avatar">
+		</div>
+</c:if>				
 				<c:choose>
 					<c:when test="${mode=='update'}">
 						<button class="btn btn-danger" type="button"
@@ -160,10 +160,33 @@
 												</div>
 											</div>
 										</div> <!-- modal end -->
-					
+						
 					</c:when>
 					<c:otherwise>
 						<button  type="submit" class="btn btn-success">${sign_up }</button>
+					
+					<!-- Modal -->
+										<div class="modal fade" id="passRepeat" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											 <div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h4 class="modal-title" id="myModalLabel">Предупреждение</h4>
+													</div>
+														<div class="modal-body">
+															<h4 class="modal-body" id="myModalLabel">Пароль не совпадает</h4>
+														</div>
+													<div class="modal-footer">
+																	
+													<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Закрыть</button>
+													</div>
+													</div>
+												</div>
+		
+										</div> <!-- modal end -->
+					
 					</c:otherwise>
 				</c:choose>
 				<c:if test="${mode!='update'}">
@@ -176,8 +199,19 @@
 	
 	<%@include file="inc/footer.jsp"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	
-
+	<script src="js/bootstrap.js"></script>
+	<script src="js/common.js"></script>
+	<script src="js/fileInput.js"></script>
+	<script src="js/bootstrap-select.js"></script>
+<script>
+$(document).on('ready', function() {
+    $("#input").fileinput({
+        browseClass: "btn btn-primary btn-block",
+        showCaption: false,
+        showRemove: false,
+        showUpload: false
+    });
+});
+</script>
 </body>
 </html>
