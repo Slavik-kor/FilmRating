@@ -10,14 +10,11 @@ import by.epam.karotki.film_rating.dao.Criteria;
 import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmAuthorDao;
-import by.epam.karotki.film_rating.dao.FilmDao;
 import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Author;
-import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.AuthorService;
 import by.epam.karotki.film_rating.service.exception.AuthorServiceException;
-import by.epam.karotki.film_rating.service.exception.FilmServiceException;
 import by.epam.karotki.film_rating.service.util.ServiceUtil;
 
 public class AuthorServiceImpl implements AuthorService {
@@ -32,7 +29,9 @@ public class AuthorServiceImpl implements AuthorService {
 	private static final String L_NAME = "last-name";
 	private static final String COUNTRY = "country";
 	private static final String BIRTHDAY = "birthday";
-	
+	private static final String PROJECT_PATH = "ProjectPath";
+	private static final String PATH_PHOTO = "images\\author\\author";
+	private static final String JPG = ".jpg";
 	@Override
 	public List<Author> getDirectorsByFilm(int idFilm, String lang) throws AuthorServiceException {
 		List<Author> authorList = null;
@@ -206,10 +205,24 @@ public class AuthorServiceImpl implements AuthorService {
 		try{
 			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
 		}catch(IllegalArgumentException e){
-			premierDate = null;
+			birthday = null;
 		}
-		film.setPremierDate(premierDate);
-		author.setBirthDay(reqParam.get());
+		author.setBirthDay(birthday);
+		
+		Integer countryId = null;
+		try {
+			countryId = Integer.valueOf(reqParam.get(COUNTRY));
+		} catch (IllegalArgumentException | NullPointerException e) {
+			countryId = null;
+		}
+		author.setCountryOfBirthId(countryId);
+
+		String rootPath = reqParam.get(PROJECT_PATH);
+		String photoPath = PATH_PHOTO + author.getLastName()+author.getId() + JPG;
+		String fullPhotoPath = rootPath + "\\" + photoPath;
+		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+		author.setPhoto(photoPath);
+		
 		return author;
 	}
 	

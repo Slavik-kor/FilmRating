@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,9 +230,18 @@ public class AuthorDaoImpl implements AuthorDao {
 			ps = con.prepareStatement(ADD_AUTHOR);
 			ps.setString(1, author.getFirstName());
 			ps.setString(2, author.getLastName());
-			ps.setDate(3, author.getBirthDay());
+			if(author.getBirthDay()!=null){
+				ps.setDate(3,author.getBirthDay());
+			}else{
+				ps.setNull(3, Types.DATE);
+			}
 			ps.setString(4, author.getPhoto());
+			if(author.getCountryOfBirthId()!=null){
 			ps.setInt(5, author.getCountryOfBirthId());
+			}else{
+				ps.setNull(5, Types.INTEGER);
+			}
+			System.out.println("before");
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
 			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);

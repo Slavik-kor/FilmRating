@@ -60,7 +60,7 @@
 							<li><a href="Controller?command=profile">${profile}</a></li>
 							<li><a href="Controller?command=comment_list">${comment}</a></li>
 							<li><a href="Controller?command=add_film_page">${add_film}</a></li>
-							<li><a href="Controller?command=add_author">${add_author}</a></li>
+							<li><a href="Controller?command=add_author_page">${add_author}</a></li>
 							<li><a href="Controller?command=film_favorite">${favor_film}</a></li>
 							<li><a href="Controller?command=account_list">${accounts }</a></li>
 							<li><a href="Controller?command=sign_out">${sign_out}</a></li>

@@ -84,6 +84,10 @@ public class AddAuthor implements Command {
 		Author author = null;
 		try{
 			author = aService.addAuthor(reqParam, is);
+			if(author==null){
+				errorDispatcher.forward(request, response);
+				return;
+			}
 			author.setFirstName(request.getParameter(F_NAME_RU));
 			author.setLastName(request.getParameter(L_NAME_RU));
 			aService.addAuthor(author, RU);
