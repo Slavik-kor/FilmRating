@@ -1,7 +1,9 @@
 package by.epam.karotki.film_rating.service;
 
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import by.epam.karotki.film_rating.entity.Author;
 import by.epam.karotki.film_rating.service.exception.AuthorServiceException;
@@ -30,4 +32,7 @@ public interface AuthorService {
 
 	void addActorToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
 
+	Author addAuthor(Map<String,String> reqParam,InputStream is) throws AuthorServiceException;
+
+	void addAuthor(Author author, String lang) throws AuthorServiceException;
 }

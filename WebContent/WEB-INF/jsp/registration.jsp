@@ -100,7 +100,6 @@
 						class="form-control" name="birthday" value="${account.birthDay }">
 				</div>
 
-				
 				<c:set var="countryList"  value="${requestScope.countryList}"/>
 				<fieldset class="form-group">
   					<label class="container" for="country">${locality }</label>

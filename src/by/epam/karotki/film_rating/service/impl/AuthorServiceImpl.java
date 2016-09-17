@@ -1,17 +1,23 @@
 package by.epam.karotki.film_rating.service.impl;
 
+import java.io.InputStream;
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import by.epam.karotki.film_rating.dao.AuthorDao;
 import by.epam.karotki.film_rating.dao.Criteria;
 import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmAuthorDao;
+import by.epam.karotki.film_rating.dao.FilmDao;
 import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 import by.epam.karotki.film_rating.entity.Author;
+import by.epam.karotki.film_rating.entity.Film;
 import by.epam.karotki.film_rating.service.AuthorService;
 import by.epam.karotki.film_rating.service.exception.AuthorServiceException;
+import by.epam.karotki.film_rating.service.exception.FilmServiceException;
 import by.epam.karotki.film_rating.service.util.ServiceUtil;
 
 public class AuthorServiceImpl implements AuthorService {
@@ -22,7 +28,11 @@ public class AuthorServiceImpl implements AuthorService {
 	private static final String ERROR_MESSAGE_SC = "can't get scenariowriters by film id";
 	private static final String ERROR_MESSAGE_ACT = "can't get actors by film id";
 	private static final String ERROR_MESSAGE_AUT = "can't get author by id";
-
+	private static final String F_NAME = "first-name";
+	private static final String L_NAME = "last-name";
+	private static final String COUNTRY = "country";
+	private static final String BIRTHDAY = "birthday";
+	
 	@Override
 	public List<Author> getDirectorsByFilm(int idFilm, String lang) throws AuthorServiceException {
 		List<Author> authorList = null;
@@ -154,5 +164,54 @@ public class AuthorServiceImpl implements AuthorService {
 		}
 		return authorList;
 	}
+
+	@Override
+	public Author addAuthor(Map<String, String> reqParam, InputStream is) throws AuthorServiceException {
+		Author author = createAuthor(reqParam,is);
+		DaoFactory dao = DaoFactory.getInstance();
+		AuthorDao aDao = dao.getAuthorDao();
+		try {
+			aDao.addAuthor(author);
+		} catch (DaoException e) {
+			// log
+			throw new AuthorServiceException("can't add author", e);
+		}
+		Author newAuthor = null;
+		try{
+			newAuthor = aDao.getAuthorById(author.getId());
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't get added auhtor",e);
+		}
+		return newAuthor;
+	}
+
+
+	@Override
+	public void addAuthor(Author author, String lang) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		AuthorDao aDao = dao.getAuthorDao();
+		try{
+			aDao.addAuthor(author, lang);
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't get added auhtor",e);
+		}
+	}
+	
+	private Author createAuthor(Map<String, String> reqParam, InputStream is) {
+		Author author = new Author();
+		author.setFirstName(reqParam.get(F_NAME));
+		author.setLastName(reqParam.get(L_NAME));
+		
+		Date birthday = null;
+		try{
+			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
+		}catch(IllegalArgumentException e){
+			premierDate = null;
+		}
+		film.setPremierDate(premierDate);
+		author.setBirthDay(reqParam.get());
+		return author;
+	}
+	
 
 }

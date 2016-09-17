@@ -33,6 +33,8 @@ public interface FilmService {
 	
 	void addFilm(Film film,String lang) throws  FilmServiceException;
 	
+	List<Film> getAllFilms(String lang) throws  FilmServiceException;
+	
 //	Film updateFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
 	
 //	void deleteFilm(int id) throws  FilmServiceException;

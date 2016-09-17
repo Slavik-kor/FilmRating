@@ -35,7 +35,7 @@ public class FilmServiceImpl implements FilmService {
 	private static final String TEASER = "teaser";
 	private static final String PROJECT_PATH = "ProjectPath";
 	private static final String JPG = ".jpg";
-	private static final String PATH_POSTER = "images\\avatar\\avatar";
+	private static final String PATH_POSTER = "images\\poster\\film";
 	
 	@Override
 	public List<Film> getFilmsByNewest(String lang) throws FilmServiceException {
@@ -332,9 +332,7 @@ public class FilmServiceImpl implements FilmService {
 		
 		Date premierDate = null;
 		try{
-			System.out.println(RELEASE);
 			premierDate = Date.valueOf(reqParam.get(RELEASE));
-			System.out.println(premierDate);
 		}catch(IllegalArgumentException e){
 			premierDate = null;
 		}
@@ -344,6 +342,7 @@ public class FilmServiceImpl implements FilmService {
 		String photoPath = PATH_POSTER + film.getTitle() + JPG;
 		String fullPhotoPath = rootPath + "\\" + photoPath;
 		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+		film.setPoster(photoPath);
 		
 		return film;
 	}
@@ -363,6 +362,20 @@ public class FilmServiceImpl implements FilmService {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		
+	}
+
+	@Override
+	public List<Film> getAllFilms(String lang) throws FilmServiceException {
+		List<Film> filmList = null;
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmDao fDao = dao.getFilmDao();
+		try{
+			Criteria criteria = dao.createCriteria();
+			filmList = fDao.getFilmListByCriteria(criteria, lang);
+		}catch(DaoException e){
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
+		return filmList;
 	}
 
 }

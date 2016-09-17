@@ -34,10 +34,13 @@ public class AddFilmPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		RequestDispatcher errorDispatcher = request.getRequestDispatcher(ERROR_PAGE);
 		RequestDispatcher pageDispatcher = request.getRequestDispatcher(ADD_FILM_PAGE);
-		
+		if(session==null){
+			errorDispatcher.forward(request, response);
+			return;
+		}
 		String locale = (String)session.getAttribute(LOCALE);
 		
 		if(locale == null || locale.isEmpty()){
