@@ -1,5 +1,6 @@
 package by.epam.karotki.film_rating.service.impl;
 
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.List;
@@ -27,11 +28,12 @@ public class AuthorServiceImpl implements AuthorService {
 	private static final String ERROR_MESSAGE_AUT = "can't get author by id";
 	private static final String F_NAME = "first-name";
 	private static final String L_NAME = "last-name";
-	private static final String COUNTRY = "country";
+	private static final String COUNTRY = "countries";
 	private static final String BIRTHDAY = "birthday";
 	private static final String PROJECT_PATH = "ProjectPath";
 	private static final String PATH_PHOTO = "images\\author\\author";
 	private static final String JPG = ".jpg";
+	private static int AUTHOR_FILE = 20;
 	@Override
 	public List<Author> getDirectorsByFilm(int idFilm, String lang) throws AuthorServiceException {
 		List<Author> authorList = null;
@@ -100,18 +102,24 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public Author getAuthorById(int idAuthor, String lang) throws AuthorServiceException {
-		List<Author> author = null;
+		List<Author> authorList = null;
+		Author author = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
 		try {
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_ID, String.valueOf(idAuthor));
-			author = aDao.getAuthorByCriteria(criteria, lang);
+			authorList = aDao.getAuthorByCriteria(criteria, lang);
+			if((authorList != null)&&(authorList.size()>0)){
+				author = authorList.get(0);
+			}else{
+				author = null;
+			}
 		} catch (DaoException e) {
 			// log
 			throw new AuthorServiceException(ERROR_MESSAGE_AUT, e);
 		}
-		return author.get(0);
+		return author;
 	}
 
 	@Override
@@ -177,7 +185,10 @@ public class AuthorServiceImpl implements AuthorService {
 		}
 		Author newAuthor = null;
 		try{
-			newAuthor = aDao.getAuthorById(author.getId());
+			Criteria criteria = dao.createCriteria();
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_FIRST_NAME, author.getFirstName());
+			criteria.addCriterion(Operator.EQUAL, DBColumnName.AUTHOR_LAST_NAME, author.getLastName());
+			newAuthor = aDao.getAuthorByCriteria(criteria, "ru").get(0);
 		}catch(DaoException e){
 			throw new AuthorServiceException("can't get added auhtor",e);
 		}
@@ -218,12 +229,34 @@ public class AuthorServiceImpl implements AuthorService {
 		author.setCountryOfBirthId(countryId);
 
 		String rootPath = reqParam.get(PROJECT_PATH);
-		String photoPath = PATH_PHOTO + author.getLastName()+author.getId() + JPG;
+		String photoPath = PATH_PHOTO + AUTHOR_FILE++ + JPG;
 		String fullPhotoPath = rootPath + "\\" + photoPath;
 		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
 		author.setPhoto(photoPath);
 		
 		return author;
+	}
+
+	@Override
+	public void deleteAuthor(int idAuthor,String path) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		AuthorDao aDao = dao.getAuthorDao();
+		Author author = null;
+		try{
+			author = aDao.getAuthorById(idAuthor);
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't find author by id",e);
+		}
+		String photoPath = author.getPhoto();
+		try{
+			aDao.deleteAuthorById(idAuthor);
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't delete author",e);
+		}
+		
+		File file = new File(path+"\\"+photoPath);
+		file.delete();
+
 	}
 	
 

@@ -162,7 +162,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account updateAccount(Map<String, String> reqParam, InputStream is) throws AccountServiceException {
-
+		System.out.println("in Service");
 		DaoFactory dao = DaoFactory.getInstance();
 		AccountDao aDao = dao.getAccountDao();
 		Account account = null;
@@ -177,6 +177,7 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new AccountServiceException(ERROR_MESSAGE_ACC);
 		}
+		System.out.println("got by login");
 
 		account.setLogin(login);
 		account.setPassword(reqParam.get(PASSWORD));
@@ -215,9 +216,12 @@ public class AccountServiceImpl implements AccountService {
 
 		Account newAccount = null;
 		try {
+			
 			aDao.updateAccount(account);
+			
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.ACCOUNT_ID, String.valueOf(account.getId()));
+			
 			newAccount = aDao.getAccountByCriteria(criteria).get(0);
 		} catch (NullPointerException e) {
 			newAccount = null;
@@ -244,17 +248,16 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void deleteAccount(int id) throws AccountServiceException {
+	public void deleteAccount(int id,String path) throws AccountServiceException {
 
 		DaoFactory dao = DaoFactory.getInstance();
 		AccountDao aDao = dao.getAccountDao();
-
+		String photoPath = "";
 		try {
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.ACCOUNT_ID, String.valueOf(id));
 			Account account = aDao.getAccountByCriteria(criteria).get(0);
-			File file = new File(account.getPhoto());
-			file.delete();
+			photoPath = account.getPhoto();
 			aDao.deleteAccountById(id);
 
 		} catch (DaoException e) {
@@ -262,7 +265,9 @@ public class AccountServiceImpl implements AccountService {
 			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
 
 		}
-
+		File file = new File(path+"\\"+photoPath);
+		file.delete();
+		
 	}
 
 }

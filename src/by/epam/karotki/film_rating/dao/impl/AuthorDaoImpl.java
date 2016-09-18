@@ -56,6 +56,10 @@ public class AuthorDaoImpl implements AuthorDao {
 	
 	private static final String DELETE_AUTHOR = "DELETE FROM Author WHERE idAuthor = ?";
 		
+	private static final String DELETE_AUTHOR_LANG_T = "DELETE FROM Author_lang WHERE idAuthor = ? ";
+
+	private static final String 	DELETE_AUTHOR_FILM = "DELETE FROM Film_has_Authors WHERE Authors_idAuthors = ? ";
+	
 	private static final String DELETE_AUTHOR_LANG = "DELETE FROM Author_lang WHERE (idAuthor = ?) AND (lang = ?)";
 	
 	private static final String AUTHOR = "SELECT idAuthor, AuthorFirstName, AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id "
@@ -290,16 +294,36 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void deleteAuthorById(int id) throws AuthorDaoException {
 		Connection con = null;
 		PreparedStatement ps = null;
+		PreparedStatement ps_lang = null;
+		PreparedStatement ps_film = null;
 		try {
 			con = conPool.takeConnection();
+			con.setAutoCommit(false);
+			
+			ps_lang = con.prepareStatement(DELETE_AUTHOR_LANG_T);
+			ps_lang.setInt(1, id);
+			ps_lang.executeUpdate();
+			
+			ps_film = con.prepareStatement(DELETE_AUTHOR_FILM);
+			ps_film.setInt(1, id);
+			ps_film.executeUpdate();
+			
 			ps = con.prepareStatement(DELETE_AUTHOR);
 			ps.setInt(1, id);
 			ps.executeUpdate();
+			
+			con.commit();
 		} catch (ConnectionPoolException e) {
 			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
 			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
+			try{
+				con.setAutoCommit(true);
+			}catch(SQLException e){
+				//
+			}
+			
 			try {
 				ps.close();
 				} catch (SQLException e) {

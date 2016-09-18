@@ -24,7 +24,7 @@ public interface AuthorService {
 	
 	//Author updateAuthor(Map<String,String> reqParam,InputStream is) throws  AuthorServiceException;
 	
-	//void deleteAuthor(int id) throws  AuthorServiceException;
+	void deleteAuthor(int idAuthor,String path) throws  AuthorServiceException;
 	
 	void addDirectorToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
 

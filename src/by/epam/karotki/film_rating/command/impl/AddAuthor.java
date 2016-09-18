@@ -31,7 +31,7 @@ public class AddAuthor implements Command {
 	private static final String L_NAME_RU = "last-name-ru";
 	private static final String L_NAME_EN = "last-name-en";
 	private static final String L_NAME = "last-name";
-	private static final String COUNTRY = "country";
+	private static final String COUNTRY = "countries";
 	private static final String BIRTHDAY = "birthday";
 	private static final String DIR_FILMS = "dirFilms";
 	private static final String SCEN_FILMS = "scenFilms";
@@ -44,9 +44,11 @@ public class AddAuthor implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		
 		HttpSession session = request.getSession(false);
 		RequestDispatcher errorDispatcher = request.getRequestDispatcher(ERROR_PAGE);
 		if(session == null ){
+			request.setAttribute(ERROR_MESSAGE, "It's needed authorization");
 			errorDispatcher.forward(request, response);
 			return;
 		}
@@ -83,11 +85,14 @@ public class AddAuthor implements Command {
 		AuthorService aService = factory.getAuthorService();
 		Author author = null;
 		try{
+
 			author = aService.addAuthor(reqParam, is);
 			if(author==null){
+				request.setAttribute(ERROR_MESSAGE, "can't add author to database");
 				errorDispatcher.forward(request, response);
 				return;
 			}
+
 			author.setFirstName(request.getParameter(F_NAME_RU));
 			author.setLastName(request.getParameter(L_NAME_RU));
 			aService.addAuthor(author, RU);
@@ -95,26 +100,30 @@ public class AddAuthor implements Command {
 			author.setFirstName(request.getParameter(F_NAME_EN));
 			author.setLastName(request.getParameter(L_NAME_EN));
 			aService.addAuthor(author, EN);
-			
+
 			
 			if(dirFilmList!=null){
 				for (int i=0;i<dirFilmList.length;i++){
 					aService.addDirectorToFilm(Integer.valueOf(dirFilmList[i]), author.getId());
 				}
 			}
-			
+
 			if(scenFilmList!=null){
 				for (int i=0;i<scenFilmList.length;i++){
 					aService.addScenarioToFilm(Integer.valueOf(scenFilmList[i]), author.getId());
 				}
 			}
+
 			if(actFilmList!=null){
 				for (int i=0;i<actFilmList.length;i++){
 					aService.addActorToFilm(Integer.valueOf(actFilmList[i]),author.getId());
 				}
 			}
 			
+
+
 		}catch(ServiceException e){
+			request.setAttribute(ERROR_MESSAGE, "can't add author to database. ServiceException");
 			errorDispatcher.forward(request, response);
 			return;
 		}
@@ -126,11 +135,10 @@ public class AddAuthor implements Command {
 		try{
 			author = aService.getAuthorById(author.getId(),locale);
 		}catch(ServiceException e){
+			request.setAttribute(ERROR_MESSAGE, "can't get newAuthor from Database");
 			errorDispatcher.forward(request, response);
 			return;
 		}
-		
-			request.getRequestDispatcher(AUTHOR_CARD_PAGE).forward(request, response);
 			response.sendRedirect(AUTHOR_CARD_PAGE+author.getId());
 	}
 	

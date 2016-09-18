@@ -32,7 +32,12 @@ public class AuthorCard implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		int idAuthor = Integer.valueOf(request.getParameter(AUTHOR_ID));
+		int idAuthor = 0;
+		try{
+		idAuthor = Integer.valueOf(request.getParameter(AUTHOR_ID));
+		}catch(NumberFormatException e){
+			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+		}
 		HttpSession session = request.getSession(true);
 		String locale = (String)session.getAttribute(LOCALE);
 		if(locale == null || locale.isEmpty()){

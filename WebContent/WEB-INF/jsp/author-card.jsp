@@ -130,7 +130,15 @@
 				</c:if>
 			</div>
 		</div>
-
+	<c:if test="${account.role=='Admin'}">
+		<div class="container">
+			<form action="Controller" method="post">
+				<input type="hidden" name="command" value="delete_author" />
+				<input type="hidden" name="idAuthor" value="${author.id }" />
+				<button type="submit" class="btn btn-danger" type="button">Удалить</button>
+			</form>
+		</div>
+	</c:if>
 	</div>
 
 </div>

@@ -19,6 +19,6 @@ public interface AccountService {
 	
 	Account getAccountById(int idAccount) throws AccountServiceException;
 	
-	void deleteAccount(int id) throws AccountServiceException;
+	void deleteAccount(int id, String path) throws AccountServiceException;
 
 }

@@ -31,9 +31,9 @@ public class DeleteAccount implements Command {
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		AccountService aService = factory.getAccountService();
+		String path = request.getServletContext().getRealPath("");
 		try{
-			System.out.println(account.getId());
-			aService.deleteAccount(account.getId());
+			aService.deleteAccount(account.getId(),path);
 			session.setAttribute(ACCOUNT, null);
 			response.sendRedirect(INDEX_PAGE);
 		}catch(AccountServiceException e){

@@ -54,13 +54,13 @@
 				
 				<div class="form-group col-lg-6 col-md-6 col-sm-6">
 					<label for="last-name">Фамилия на русском</label> <input type="text"
-						class="form-control" name="last-name" placeholder="Фамилия"
+						class="form-control" name="last-name-ru" placeholder="Фамилия"
 						value="" required>
 				</div>
 				
 				<div class="form-group col-lg-6 col-md-6 col-sm-6">
 					<label for="last-name">Фамилия на на английском</label> <input type="text"
-						class="form-control" name="last-name" placeholder="Фамилия"
+						class="form-control" name="last-name-en" placeholder="Фамилия"
 						value="" required>
 				</div>
 				

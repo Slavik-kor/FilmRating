@@ -53,11 +53,11 @@ public class Registration implements Command {
 		InputStream is = null;
 		try{
 		Part part = request.getPart(AVATAR);
-		System.out.println(part);
+		System.out.println(part.getSize());
 		if (part!=null){
 		is = part.getInputStream();
 		}
-		
+		System.out.println(is);
 		}catch(ServletException e){
 			//log
 		}

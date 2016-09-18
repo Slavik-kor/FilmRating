@@ -14,6 +14,7 @@ import by.epam.karotki.film_rating.command.impl.AuthorCard;
 import by.epam.karotki.film_rating.command.impl.Authorization;
 import by.epam.karotki.film_rating.command.impl.CommentList;
 import by.epam.karotki.film_rating.command.impl.DeleteAccount;
+import by.epam.karotki.film_rating.command.impl.DeleteAuthor;
 import by.epam.karotki.film_rating.command.impl.DeleteComment;
 import by.epam.karotki.film_rating.command.impl.FilmCard;
 import by.epam.karotki.film_rating.command.impl.FilmFavorite;
@@ -63,7 +64,7 @@ public class CommandHelper {
 		commands.put(CommandName.DELETE_COMMENT, new DeleteComment());
 		commands.put(CommandName.ADD_FILM, new AddFilm());
 		commands.put(CommandName.ADD_AUTHOR, new AddAuthor());
-		
+		commands.put(CommandName.DELETE_AUTHOR, new DeleteAuthor());
 
 	}
 

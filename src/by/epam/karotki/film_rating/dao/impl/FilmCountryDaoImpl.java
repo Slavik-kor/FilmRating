@@ -27,7 +27,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 	private static final String SELECT_COUNTRY_ID = "SELECT Country_id FROM FilmOriginCountry WHERE Film_id = ?";
 	
 	@Override
-	public void addGenresToFilm(int idFilm, int idCountry) throws DaoException {
+	public void addCountriesToFilm(int idFilm, int idCountry) throws DaoException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -51,7 +51,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 	}
 
 	@Override
-	public void deleteGenresFromFilm(int idFilm, int idCountry) throws DaoException {
+	public void deleteCountriesFromFilm(int idFilm, int idCountry) throws DaoException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {

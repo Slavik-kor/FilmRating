@@ -25,6 +25,7 @@ public class UpdateAccount implements Command {
 	private static final String BIRTHDAY = "birthday";
 	private static final String COUNTRY = "country";
 	private static final String EMAIL = "email";
+	private static final String ROLE = "role";
 	private static final String PHONE_NUMBER = "phone-number";
 	private static final String AVATAR = "avatar";
 	private static final String ERROR_PAGE = "error.jsp";
@@ -35,32 +36,34 @@ public class UpdateAccount implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
 		HttpSession session = request.getSession(false);
 		if(session==null){
+			request.setAttribute(ERROR_MESSAGE, "Session wasn't found");
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 			return;
 		}
+		
 		String login = request.getParameter(LOGIN);
 		String pass = request.getParameter(PASSWORD);
 		
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		AccountService aService = factory.getAccountService();
-		Account account = null;
+		Account accountCO = null;
 		try{
-			account = aService.autorization(login, pass);
+			accountCO = aService.autorization(login, pass);
 		}catch(AccountServiceException e ){
 			request.setAttribute(ERROR_MESSAGE, "Account by login and password isn't exist");
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 			return;
 		}
-	/*	if(account==null){
+		Account account = (Account)session.getAttribute(ACCOUNT);
+		if(!accountCO.equals(account)){
 	  				
-	 		request.setAttribute(ERROR_MESSAGE, "Account by login and password isn't exist");
+	 		request.setAttribute(ERROR_MESSAGE, "wrong password");
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 			return;
-		}  */
+		}  
 		
 		Map<String, String> reqParam = new HashMap<String, String>();
 		reqParam.put(LOGIN, login);
@@ -71,6 +74,8 @@ public class UpdateAccount implements Command {
 		reqParam.put(COUNTRY, request.getParameter(COUNTRY));
 		reqParam.put(EMAIL, request.getParameter(EMAIL));
 		reqParam.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
+		reqParam.put(ROLE, request.getParameter(ROLE));
+
 		
 		InputStream is = null;
 

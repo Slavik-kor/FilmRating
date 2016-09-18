@@ -10,7 +10,7 @@ public interface FilmCountryDao {
 	
 	List<Integer> getCountriesByFilm(int idFilm) throws DaoException;
     
-	void addGenresToFilm(int idFilm, int idCountry) throws DaoException;
+	void addCountriesToFilm(int idFilm, int idCountry) throws DaoException;
 	
-	void deleteGenresFromFilm(int idFilm, int idCountry) throws DaoException;
+	void deleteCountriesFromFilm(int idFilm, int idCountry) throws DaoException;
 }

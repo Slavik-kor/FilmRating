@@ -105,7 +105,14 @@
   					<label class="container" for="country">${locality }</label>
      					<select  class="selectpicker" id="country" name="country" multiple data-max-options="1">
     						<c:forEach items="${countryList}" var="countryItem" >
-    						<option value="${countryItem.id }">${countryItem.name }</option>
+    						<c:choose>
+    							<c:when test="${countryItem.id==account.countryId }">
+    								<option selected value="${countryItem.id }">${countryItem.name }</option>
+    							</c:when>
+    							<c:otherwise>
+    						    	<option value="${countryItem.id }">${countryItem.name }</option>		
+    							</c:otherwise>
+    						</c:choose>
     						</c:forEach>
     					 </select>
  				</fieldset> 
@@ -122,12 +129,16 @@
 						placeholder="${phone_number }" value="${account.phone }">
 
 				</div>
-<c:if test="${mode != 'update' }">
+
+<c:choose>
+	<c:when test="${mode != 'update' }">
 		<div class="form-group">
      		<label for="file" class="control-label">${choose_photo}</label>
 			<input id="input" type="file" class="file-loading" name="avatar">
 		</div>
-</c:if>				
+	</c:when>
+</c:choose>
+			
 				<c:choose>
 					<c:when test="${mode=='update'}">
 						<button class="btn btn-danger" type="button"
