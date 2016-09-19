@@ -15,6 +15,15 @@
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="locale.comment.title" var="title" />
+<fmt:message bundle="${loc}" key="locale.comment.rate" var="rate" />
+<fmt:message bundle="${loc}" key="locale.comment.edit" var="edit" />
+<fmt:message bundle="${loc}" key="locale.comment.delete" var="delete" />
+<fmt:message bundle="${loc}" key="locale.comment.noComment" var="noComment" />
+<fmt:message bundle="${loc}" key="locale.registration.cancel" var="cancel" />
+<fmt:message bundle="${loc}" key="locale.comment.confirmation" var="confirmation" />
+<fmt:message bundle="${loc}" key="locale.comment.reallyDel" var="reallyDel" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -29,7 +38,7 @@
 		<%@include file="inc/top-menu.jsp"%>
 		<c:set var="comments" value="${requestScope.comment_list }" />
 		<div class="container col-md-9 col-lg-9 col-sm-9">
-			<h2 class="page-header">Мои отзывы:</h2>
+			<h2 class="page-header">${title }</h2>
 			<c:set var="comments" value="${requestScope.comment_list}" />
 			<c:set var="films" value="${requestScope.film_list}" />
 			<div class="container col-lg-12 col-md-12 col-sm-12">
@@ -42,7 +51,7 @@
 									<a href="Controller?command=film_Card&film=${films[index].id}"><c:out
 											value="${films[index].title}" /></a> |
 									<fmt:formatDate value="${comments[index].commentDate}" />
-									|Оценка:
+									|${rate }:
 									<c:out value="${comments[index].rate }" />
 								</div>
 								<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad">
@@ -60,10 +69,10 @@
 									</div>
 									<div class="row">
 
-										<button class="btn btn-success">Редактировать</button>
+										<button class="btn btn-success">${edit}</button>
 
 										<button class="btn btn-danger" type="button"
-											data-toggle="modal" data-target="#myModal">Удалить</button>
+											data-toggle="modal" data-target="#myModal">${delete }</button>
 										<!-- Modal -->
 										<div class="modal fade" id="myModal" tabindex="-1"
 											role="dialog" aria-labelledby="myModalLabel"
@@ -75,22 +84,24 @@
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
-														<h4 class="modal-title" id="myModalLabel">Подтверждение</h4>
+														<h4 class="modal-title" id="myModalLabel">${confirmation }</h4>
 													</div>
-													<div class="modal-body">Удалить комментарий?</div>
+													<div class="modal-body">${reallyDel }</div>
 													<div class="modal-footer">
-														
-													<form type="submit" action="Controller" method="post">
-														<input type="hidden" name="command" value="delete_comment" />
-														<input type="hidden" name="film" value="${films[index].id }" />
-														<button type="submit" class="btn btn-primary">Удалить</button>
-													<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Закрыть</button>
-													</form>
+
+														<form  action="Controller" method="post">
+															<input type="hidden" name="command"
+																value="delete_comment" /> <input type="hidden"
+																name="film" value="${films[index].id }" />
+															<button type="submit" class="btn btn-primary">${delete }</button>
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">${cancel }</button>
+														</form>
 													</div>
 												</div>
 											</div>
-										</div> <!-- modal end -->
+										</div>
+										<!-- modal end -->
 									</div>
 								</div>
 
@@ -100,7 +111,7 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<h5>У Вас пока нет отзывов</h5>
+						<h5>${noComment }</h5>
 					</c:otherwise>
 				</c:choose>
 			</div>

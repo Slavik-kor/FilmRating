@@ -216,6 +216,7 @@ public class AccountDaoImpl implements AccountDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
+		//	LOG.warn("authorizied");
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(AUTHORIZATION);
 			ps.setString(1, login);
