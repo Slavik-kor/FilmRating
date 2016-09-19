@@ -54,7 +54,7 @@ public class Registration implements Command {
 		try{
 		Part part = request.getPart(AVATAR);
 		System.out.println(part.getSize());
-		if (part!=null){
+		if ((part!=null)&&(part.getSize()>0)){
 		is = part.getInputStream();
 		}
 		System.out.println(is);

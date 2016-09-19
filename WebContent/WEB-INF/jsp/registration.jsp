@@ -9,6 +9,7 @@
 <c:set var="prev_page" value="Controller?command=reg_page"
 	scope="session" />
 <fmt:setLocale value="${sessionScope.locale}" />
+<c:set var="localeCode" value="${pageContext.response.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="locale.menu.top.reg" var="reg" />
 <fmt:message bundle="${loc}" key="locale.registration.message"
@@ -51,7 +52,7 @@
 </head>
 <body>
 	<div class="container">
-		<%@include file="inc/top-menu.jsp"%>
+		<%@include file="inc/top-menu"%>
 		<div class="container col-md-9 col-lg-9 col-sm-9">
 			<form id="reg" action="Controller" enctype="multipart/form-data" method="post"
 				role="form">
@@ -130,14 +131,15 @@
 
 				</div>
 
-<c:choose>
-	<c:when test="${mode != 'update' }">
+		<c:if test="${mode == 'update' }">
+			<img alt="avatar" src="${account.photo }" width="250" class="img-rounded"
+					onerror="this.src = 'images/author/noFoto.jpg'">
+		</c:if>
 		<div class="form-group">
      		<label for="file" class="control-label">${choose_photo}</label>
 			<input id="input" type="file" class="file-loading" name="avatar">
 		</div>
-	</c:when>
-</c:choose>
+	
 			
 				<c:choose>
 					<c:when test="${mode=='update'}">
@@ -207,12 +209,24 @@
 		</div>
 	</div>
 	
-	<%@include file="inc/footer.jsp"%>
+	<%@include file="inc/footer"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/common.js"></script>
 	<script src="js/fileInput.js"></script>
 	<script src="js/bootstrap-select.js"></script>
+	<c:choose>
+		<c:when test="${localeCode =='ru' }">
+			<script src="js/defaults-ru_RU.js"></script>
+		</c:when>
+		<c:when test="${localeCode =='en' }">
+			<script src="js/defaults-en_US.js"></script>
+		</c:when>
+		<c:otherwise>
+			<script src="js/defaults-ru_RU.js"></script>
+		</c:otherwise>
+	</c:choose>
+	
 <script>
 $(document).on('ready', function() {
     $("#input").fileinput({

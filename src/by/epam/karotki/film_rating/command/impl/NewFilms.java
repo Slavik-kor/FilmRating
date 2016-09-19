@@ -23,8 +23,8 @@ public class NewFilms implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		System.out.print(request.getServletPath());
-		System.out.println(request.getQueryString());
+		//System.out.print(request.getServletPath());
+		//System.out.println(request.getQueryString());
 		
 		HttpSession session = request.getSession(true);
 		String locale = (String)session.getAttribute(LOCALE);

@@ -23,14 +23,14 @@
 </head>
 <body>
 <div class="container">
-	<%@include file="WEB-INF/jsp/inc/top-menu.jsp"%>
+	<%@include file="WEB-INF/jsp/inc/top-menu"%>
 
 <h2>Error</h2>
 <c:out value="${errorMessage}" />
 
 	
 </div>
-<%@include file="WEB-INF/jsp/inc/footer.jsp"%>
+<%@include file="WEB-INF/jsp/inc/footer"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

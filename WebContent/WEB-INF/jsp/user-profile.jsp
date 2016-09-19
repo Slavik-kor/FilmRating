@@ -34,7 +34,7 @@
 </head>
 <body>
 	<div class="container">
-		<%@include file="inc/top-menu.jsp"%>
+		<%@include file="inc/top-menu"%>
 
 		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 container"
 			align="center">
@@ -106,7 +106,7 @@
 													<div class="modal-body">Вы точно хотите удалить аккаунт?</div>
 													<div class="modal-footer">
 														
-													<form type="submit" action="Controller" method="post">
+													<form action="Controller" method="post">
 														<input type="hidden" name="command" value="delete_account" />
 														<button type="submit" class="btn btn-primary">Удалить</button>
 													<button type="button" class="btn btn-secondary"
@@ -120,7 +120,7 @@
 
 	</div>
 
-	<%@include file="inc/footer.jsp"%>
+	<%@include file="inc/footer"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

@@ -23,7 +23,7 @@
 </head>
 <body>
 <div class="container">
- <%@include file="WEB-INF/jsp/inc/top-menu.jsp"%>  
+ <%@include file="WEB-INF/jsp/inc/top-menu"%>  
 	
 	<div class="container col-md-10 col-lg-10 col-sm-9">
 		<div id="carousel" class="carousel slide"
@@ -65,7 +65,7 @@
 
 	 
 </div>
-<%@include file="WEB-INF/jsp/inc/footer.jsp"%> 
+<%@include file="WEB-INF/jsp/inc/footer"%> 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 

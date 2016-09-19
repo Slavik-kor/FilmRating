@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Add film</title>
 <fmt:setLocale value="${sessionScope.locale}" />
+<c:set var="localeCode" value="${pageContext.response.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
 <fmt:message bundle="${loc}" key="locale.addFilm.fasade" var="facade" />
 <fmt:message bundle="${loc}" key="locale.addFilm.title_ru" var="title_ru" />
@@ -39,7 +41,7 @@
 </head>
 <body>
 <div class="container">
-<%@include file="inc/top-menu.jsp"%>
+<%@include file="inc/top-menu"%>
 
 <div class="container col-lg-9 col-md-9 col-sm-9">
  <form action="Controller" enctype="multipart/form-data" method="post" role="form">
@@ -59,7 +61,7 @@
   <input name="title_ru" type="text" class="form-control" placeholder="${title_ru }" required>
   </div>
    <div class="form-group col-lg-6 col-md-6 col-sm-6">
-   <label for="text">${title_en }</label>
+   <label for="text">${title_en }</label><span>*</span>
   <input name="title_en" type="text" class="form-control" placeholder="${title_en }" required>
      </div>
   <c:set var="genres" value="${requestScope.genreList }"/>
@@ -179,14 +181,24 @@
 
 </div>
 
-<%@include file="inc/footer.jsp"%>
+<%@include file="inc/footer"%>
 
 	
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script src="js/bootstrap-select.js"></script>
-	<script src="js/defaults-ru_RU.js"></script>
-<script src="js/fileInput.js"></script>
+	<script src="js/fileInput.js"></script>
+	<c:choose>
+		<c:when test="${localeCode =='ru' }">
+			<script src="js/defaults-ru_RU.js"></script>
+		</c:when>
+		<c:when test="${localeCode =='en' }">
+			<script src="js/defaults-en_US.js"></script>
+		</c:when>
+		<c:otherwise>
+			<script src="js/defaults-ru_RU.js"></script>
+		</c:otherwise>
+	</c:choose>
 <script>
 $(document).on('ready', function() {
     $("#input").fileinput({

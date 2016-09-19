@@ -82,7 +82,7 @@ public class UpdateAccount implements Command {
 			try {
 				Part part = request.getPart(AVATAR);
 			
-				if (part != null) {
+				if ((part != null)&&(part.getSize()>0)) {
 					is = part.getInputStream();
 					String path = request.getServletContext().getRealPath("");
 					reqParam.put(PROJECT_PATH, path);
@@ -91,7 +91,6 @@ public class UpdateAccount implements Command {
 			} catch (ServletException e) {
 				// log
 			}
-		
 		
 		try{
 			account = aService.updateAccount(reqParam, is);

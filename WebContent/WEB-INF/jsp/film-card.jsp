@@ -48,7 +48,7 @@
 </head>
 <body>
 	<div class="container">
-		<%@include file="inc/top-menu.jsp"%>
+		<%@include file="inc/top-menu"%>
 
 		<div class="container col-lg-9 col-md-9 col-sm-9">
 
@@ -185,7 +185,7 @@
 			<div class="container col-md-10 col-lg-10 col-sm-9">
 			<h2 class="page-header">${teaser }</h2>
 				<iframe width="560" height="315" src="${film.teaser}"
-					frameborder="0" allowfullscreen align="center"></iframe>
+					frameborder="0" allowfullscreen ></iframe>
 			</div>
 			</c:if>
 			<c:if test="${not empty film.description }">
@@ -225,7 +225,7 @@
 								<div class="row">
 									<c:if test="${comments[index].accountId==account.id }">			
 										<button class="btn btn-success" >${editComment }</button>
-										<form type="submit" action="Controller" method="post">
+										<form  action="Controller" method="post">
 										<input type="hidden" name="command" value="delete_comment" />
 										<input type="hidden" name="film" value="${film.id }" />
 										<button class="btn btn-danger" type="button"
@@ -248,7 +248,7 @@
 													<div class="modal-body">Удалить комментарий?</div>
 													<div class="modal-footer">
 														
-													<form type="submit" action="Controller" method="post">
+													<form action="Controller" method="post">
 														<input type="hidden" name="command" value="delete_comment" />
 														<input type="hidden" name="film" value="${film.id }" />
 														<button type="submit" class="btn btn-primary">Удалить</button>
@@ -316,7 +316,7 @@
 		</div>
 		
 	</div>
-	<%@include file="inc/footer.jsp"%>
+	<%@include file="inc/footer"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	

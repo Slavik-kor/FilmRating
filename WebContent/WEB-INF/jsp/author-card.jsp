@@ -29,7 +29,7 @@
 
 <body>
 <div class="container">
-	<%@include file="inc/top-menu.jsp"%>
+	<%@include file="inc/top-menu"%>
 
 	<div class="container col-lg-9 col-md-9 col-sm-9">
 
@@ -142,7 +142,7 @@
 	</div>
 
 </div>
-<%@include file="inc/footer.jsp"%>
+<%@include file="inc/footer"%>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </body>

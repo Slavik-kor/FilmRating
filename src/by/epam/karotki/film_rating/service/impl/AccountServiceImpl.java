@@ -162,7 +162,6 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account updateAccount(Map<String, String> reqParam, InputStream is) throws AccountServiceException {
-		System.out.println("in Service");
 		DaoFactory dao = DaoFactory.getInstance();
 		AccountDao aDao = dao.getAccountDao();
 		Account account = null;
@@ -177,7 +176,6 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new AccountServiceException(ERROR_MESSAGE_ACC);
 		}
-		System.out.println("got by login");
 
 		account.setLogin(login);
 		account.setPassword(reqParam.get(PASSWORD));

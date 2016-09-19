@@ -31,7 +31,7 @@
 </head>
 <body>
 	<div class="container">
-		<%@include file="inc/top-menu.jsp"%>
+		<%@include file="inc/top-menu"%>
 		<c:set var="films" value="${requestScope.films}" />
 		<div class="container col-md-10 col-lg-10 col-sm-9">
 			<h2 class="page-header">${filmList}</h2>
@@ -98,7 +98,7 @@
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 	</div>
-	<%@include file="inc/footer.jsp"%>
+	<%@include file="inc/footer"%>
 </body>
 </html>
 
