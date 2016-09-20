@@ -36,6 +36,14 @@ public class FilmServiceImpl implements FilmService {
 	private static final String PROJECT_PATH = "ProjectPath";
 	private static final String JPG = ".jpg";
 	private static final String PATH_POSTER = "images\\poster\\film";
+	private static final String TITLE_RU = "title_ru";
+	private static final String TITLE_EN = "title_en";
+	private static final String DESCRIPTION_RU = "description_ru";
+	private static final String DESCRIPTION_EN = "description_en";
+	private static final String POSTER = "poster";
+	private static final String FILM_ID = "idFilm";
+	
+	
 
 	@Override
 	public List<Film> getFilmsByNewest(String lang) throws FilmServiceException {
@@ -387,8 +395,75 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public Film updateFilm(Map<String, String> updParam, InputStream is) throws FilmServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		int idFilm = Integer.valueOf(updParam.get(FILM_ID));
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmDao fDao = dao.getFilmDao();
+		Film film = null;
+		try{
+			film = fDao.getFilmById(idFilm);
+		}catch (DaoException e) {
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
+		
+		if(film == null){
+			throw new FilmServiceException(ERROR_MESSAGE);
+		}
+		
+		String title = updParam.get(TITLE);
+		if(title!=null){
+			film.setTitle(title);
+		}
+		
+		String desc = updParam.get(DESCRIPTION);
+		if(desc!=null){
+			film.setDescription(DESCRIPTION);
+		}
+		
+		Integer budget = Integer.valueOf(updParam.get(BUDGET));
+		if(budget!=null){
+			film.setBudget(budget);
+		}
+		
+		Double boxOffice = Double.valueOf(updParam.get(BOX_OFFICE));
+		if(boxOffice!=null){
+			film.setBoxOfficeCash(boxOffice);
+		}
+		
+		Integer audience = Integer.valueOf(updParam.get(AUDIENCE));
+		if(audience!=null){
+			film.setAudience(audience);
+		}
+		
+		Date release = Date.valueOf(updParam.get(RELEASE));
+		if(release!=null){
+			film.setPremierDate(release);
+		}
+		
+		String site = updParam.get(SITE);
+		if(site!=null){
+			film.setWebSite(site);
+		}
+		
+		Time duration = Time.valueOf(updParam.get(DURATION));
+		if(duration!=null){
+			film.setDuration(duration);
+		}
+		
+		String teaser = updParam.get(TEASER);
+		if(teaser!=null){
+			film.setTeaser(teaser);
+		}
+		
+		if (is != null) {
+			String rootPath = updParam.get(PROJECT_PATH);
+			String photoPath = PATH_POSTER + film.getId() + JPG;
+			String fullPhotoPath = rootPath + "\\" + photoPath;
+			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+			film.setPoster(photoPath);
+		}
+
+		
+		return film;
 	}
 
 }
