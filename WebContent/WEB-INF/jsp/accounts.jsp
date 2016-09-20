@@ -23,52 +23,37 @@
 
 <div class="container">
 	<%@include file="inc/top-menu"%>
-	<h2 class="form-signin-heading">Список аккаунтов:</h2>
-	
+	<h2 class="form-signin-heading">List of accounts:</h2>
+	<c:set var="accounts" value = "${requestScope.accountList }" />
 	<div class="container col-lg-9 col-md-9 col-sm-9">
 	<div class="row">
 		<div class="span5">
             <table class="table table-striped table-condensed">
                   <thead>
                   <tr>
-                      <th>Username</th>
+                      <th>Login</th>
                       <th>Date registered</th>
                       <th>Role</th>
                       <th>Status</th>                                          
                   </tr>
               </thead>   
               <tbody>
-                <tr>
-                    <td>Donna R. Folse</td>
-                    <td>2012/05/06</td>
-                    <td>Admin</td>
-                    <td><span class="label label-success">Active</span>
-                    </td>                                       
-                </tr>
-                <tr>
-                    <td>Emily F. Burns</td>
-                    <td>2011/12/01</td>
-                    <td>User</td>
-                    <td><span class="label label-danger">Banned</span></td>                                       
-                </tr>
-                <tr>
-                    <td>Andrew A. Stout</td>
-                    <td>2010/08/21</td>
-                    <td>User</td>
-                    <td><span class="label label-success">Active</span></td>                                        
-                </tr>
-                <tr>
-                    <td>Mary M. Bryan</td>
-                    <td>2009/04/11</td>
-                    <td>User</td>
-                    <td><span class="label label-success">Active</span></td>                                       
-                </tr>
-                <tr>
-                    <td>Mary A. Lewis</td>
-                    <td>2007/02/01</td>
-                    <td>User</td>
-                    <td><span class="label label-success">Active</span></td>                                        
-                </tr>                                   
+              	<c:forEach items="${accounts }" var="account">
+               	 <tr>
+                    <td>${account.login }</td>
+                    <td>${account.creationDate }</td>
+                    <td>${account.role }</td>
+                    <c:choose>
+                    	<c:when test="${account.active == true }">
+                    	<td><span class="label label-success">Active</span></td> 
+                    	</c:when>
+                    	<c:when test="${account.active == false }">
+                    	<td><span class="label label-danger">Banned</span></td> 
+                    	</c:when>
+                    </c:choose>
+                                                          
+              	  </tr>
+                </c:forEach>
               </tbody>
             </table>
             </div>

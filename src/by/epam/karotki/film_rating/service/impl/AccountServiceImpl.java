@@ -176,18 +176,39 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new AccountServiceException(ERROR_MESSAGE_ACC);
 		}
-
+		
 		account.setLogin(login);
-		account.setPassword(reqParam.get(PASSWORD));
-		account.setFirstName(reqParam.get(FIRST_NAME));
-		account.setLastName(reqParam.get(LAST_NAME));
-		account.setEmail(reqParam.get(EMAIL));
-		account.setPhone(reqParam.get(PHONE_NUMBER));
+		
+		String pass = reqParam.get(PASSWORD);
+		if(pass!=null){
+			account.setPassword(pass);
+			}
+		
+		String fName = reqParam.get(FIRST_NAME);
+		if(fName!=null){
+			account.setFirstName(fName);
+			}
+		
+		String lName = reqParam.get(LAST_NAME);
+		if(lName!=null){
+			account.setLastName(lName);
+			}
+
+		String eMail = reqParam.get(EMAIL);
+		if(eMail!=null){
+			account.setEmail(eMail);
+		}
+		
+		String phone = reqParam.get(PHONE_NUMBER);
+		if(phone!=null){
+		account.setPhone(phone);
+		}
+		
 		String role = reqParam.get(ROLE);
 		if (role != null) {
 			account.setRole(role);
 		}
-
+		
 		Date birthday = null;
 		try {
 			birthday = Date.valueOf(reqParam.get(BIRTHDAY));

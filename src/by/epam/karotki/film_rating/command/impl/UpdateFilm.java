@@ -22,10 +22,8 @@ import by.epam.karotki.film_rating.service.GenreService;
 import by.epam.karotki.film_rating.service.ServiceFactory;
 import by.epam.karotki.film_rating.service.exception.ServiceException;
 
-public class AddFilm implements Command {
+public class UpdateFilm implements Command {
 	private static final String ERROR_PAGE = "error.jsp";
-	//private static final String FILM = "film";
-	private static final String FILM_CARD_PAGE = "Controller?command=film_Card&film=";
 	private static final String ACCOUNT = "account";
 	private static final String ADMIN = "Admin";
 	private static final String ERROR_MESSAGE = "errorMessage";
@@ -43,22 +41,20 @@ public class AddFilm implements Command {
 	private static final String RELEASE = "release";
 	private static final String TEASER = "teaser";
 	private static final String POSTER = "poster";
+	private static final String FILM_ID = "idFilm";
 	private static final String PROJECT_PATH = "ProjectPath";
-	private static final String RU = "ru";
-	private static final String EN = "en";
-	private static final String LOCALE = "locale";
 	private static final String GENRE = "genre";
 	private static final String DIRECTORS = "directors";
 	private static final String SCENARIOS = "scenarios";
 	private static final String ACTORS = "actors";
 	private static final String COUNTRIES = "countries";
 
-
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(false);
 		RequestDispatcher errorDispatcher = request.getRequestDispatcher(ERROR_PAGE);
 		if(session == null ){
+			request.setAttribute(ERROR_MESSAGE, "It's needed authorization");
 			errorDispatcher.forward(request, response);
 			return;
 		}
@@ -69,18 +65,26 @@ public class AddFilm implements Command {
 			return;
 		}
 		
-		Map<String,String> reqParam = new HashMap<String,String>();
-		reqParam.put(TITLE, request.getParameter(TITLE_RU));
-		reqParam.put(DESCRIPTION, request.getParameter(DESCRIPTION_RU));
-		reqParam.put(SITE, request.getParameter(SITE));
-		reqParam.put(BUDGET, request.getParameter(BUDGET));
-		reqParam.put(BOX_OFFICE,request.getParameter(BOX_OFFICE));
-		reqParam.put(AUDIENCE,request.getParameter(AUDIENCE));
-		reqParam.put(DURATION,request.getParameter(DURATION));
-		reqParam.put(RELEASE,request.getParameter(RELEASE));
-		reqParam.put(TEASER,request.getParameter(TEASER));
+		Map<String, String> updParam = new HashMap<String, String>();
+		updParam.put(FILM_ID,  request.getParameter(FILM_ID));
+		updParam.put(TITLE_RU,  request.getParameter(TITLE_RU));
+		updParam.put(TITLE_EN,  request.getParameter(TITLE_EN));
+		updParam.put(TITLE, request.getParameter(TITLE));
+		updParam.put(DESCRIPTION_RU, request.getParameter(DESCRIPTION_RU));
+		updParam.put(DESCRIPTION_EN, request.getParameter(DESCRIPTION_EN));
+		updParam.put(DESCRIPTION, request.getParameter(DESCRIPTION));
+		updParam.put(SITE, request.getParameter(SITE));
+		updParam.put(BUDGET, request.getParameter(BUDGET));
+		updParam.put(BOX_OFFICE, request.getParameter(BOX_OFFICE));
+		updParam.put(AUDIENCE, request.getParameter(AUDIENCE));
+		updParam.put(DURATION, request.getParameter(DURATION));
+		updParam.put(RELEASE, request.getParameter(RELEASE));
+		updParam.put(TEASER, request.getParameter(TEASER));
+		updParam.put(POSTER, request.getParameter(POSTER));
+
+		
 		String path = request.getServletContext().getRealPath("");
-		reqParam.put(PROJECT_PATH,path);
+		updParam.put(PROJECT_PATH,path);
 		
 		InputStream is = null;
 		try{
@@ -105,27 +109,20 @@ public class AddFilm implements Command {
 		CountryService cService = factory.getCountryService();
 		Film film = null;
 		try{
-			film = fService.addFilm(reqParam, is);
-			film.setDescription(request.getParameter(DESCRIPTION_RU));
-			film.setTitle(request.getParameter(TITLE_RU));
-			fService.addFilm(film, RU);
+			film = fService.updateFilm(updParam, is);
 			
-			film.setDescription(request.getParameter(DESCRIPTION_EN));
-			film.setTitle(request.getParameter(TITLE_EN));
-			fService.addFilm(film, EN);
 			
-			if(genreList!=null){			
+			if(genreList!=null){
 					gService.addGenreToFilm(film.getId(), genreList);
 			}
 			
 			if(directorList!=null){
-					aService.addDirectorToFilm(film.getId(), directorList);
+					aService.addDirectorToFilm(film.getId(),directorList);
 			}
 			
 			if(scenarioList!=null){
 					aService.addScenarioToFilm(film.getId(), scenarioList);
 			}
-			
 			if(actorList!=null){
 					aService.addActorToFilm(film.getId(), actorList);
 			}
@@ -137,20 +134,7 @@ public class AddFilm implements Command {
 			errorDispatcher.forward(request, response);
 			return;
 		}
-		String locale = (String)session.getAttribute(LOCALE);
-		if(locale == null || locale.isEmpty()){
-			locale = RU;
-		}
 		
-		try{
-			film = fService.getFilmById(film.getId(), locale);
-		}catch(ServiceException e){
-			errorDispatcher.forward(request, response);
-			return;
-		}
-		
-       //request.getRequestDispatcher(FILM_CARD_PAGE).forward(request, response);
-			response.sendRedirect(FILM_CARD_PAGE+film.getId());
 	}
 
 }

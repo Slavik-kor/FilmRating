@@ -18,6 +18,16 @@
 
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="locale.author.filmography" var="filmography" />
+<fmt:message bundle="${loc}" key="locale.author.director" var="dir_loc" />
+<fmt:message bundle="${loc}" key="locale.author.scenario" var="scen_loc" />
+<fmt:message bundle="${loc}" key="locale.author.actor" var="act_loc" />
+<fmt:message bundle="${loc}" key="locale.author.edit" var="edit" />
+<fmt:message bundle="${loc}" key="locale.author.delete" var="delete" />
+<fmt:message bundle="${loc}" key="locale.profile.firstName" var="fName_loc" />
+<fmt:message bundle="${loc}" key="locale.profile.lastName" var="lName_loc" />
+<fmt:message bundle="${loc}" key="locale.profile.birthday" var="birthday_loc" />
+<fmt:message bundle="${loc}" key="locale.profile.country" var="country_loc" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -43,28 +53,28 @@
 				<table class="table table-hover">
 					<tbody>
 						<tr>
-							<th scope="row">Имя</th>
+							<th scope="row">${fName_loc }</th>
 							<td><c:out value="${author.firstName}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Фамилия</th>
+							<th scope="row">${lName_loc }</th>
 							<td><c:out value="${author.lastName}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Дата рождения</th>
+							<th scope="row">${birthday_loc }</th>
 							<td><fmt:formatDate value="${author.birthDay}" /></td>
 						</tr>
 						<tr>
-							<th scope="row">Страна рождения</th>
+							<th scope="row">${country_loc }</th>
 							<td><c:set var="country" value="${requestScope.country}" />
 								<c:out value="${country.name}" /></td>
 						</tr>
 						<tr>
 				</table>
-				<h3>Фильмография</h3>
+				<h3>${filmography }</h3>
 				<c:set var="directorFilms" value="${requestScope.directorFilms }" />
 				<c:if test="${not empty directorFilms }">
-				<p>Режисер</p>
+				<p>${dir_loc }</p>
 				
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
@@ -86,7 +96,7 @@
 				</c:if>
 				<c:set var="scWriterFilms"	value="${requestScope.scenarioWriterFilms }" />
 				<c:if test="${not empty scWriterFilms }">
-				<p>Сценарист</p>
+				<p>${scen_loc }</p>
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
 					<tbody>
@@ -108,7 +118,7 @@
 				</c:if>
 				<c:set var="actorFilms" value="${requestScope.actorFilms }" />
 				<c:if test="${not empty actorFilms }">
-				<p>Актер</p>
+				<p>${act_loc }</p>
 				
 				<c:set var="count" value="1" />
 				<table class="table table-hover">
@@ -135,7 +145,7 @@
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="delete_author" />
 				<input type="hidden" name="idAuthor" value="${author.id }" />
-				<button type="submit" class="btn btn-danger" type="button">Удалить</button>
+				<button type="submit" class="btn btn-danger" type="button">${delete }</button>
 			</form>
 		</div>
 	</c:if>

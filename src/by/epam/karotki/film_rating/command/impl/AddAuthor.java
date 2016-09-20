@@ -103,20 +103,16 @@ public class AddAuthor implements Command {
 
 			
 			if(dirFilmList!=null){
-				for (int i=0;i<dirFilmList.length;i++){
-					aService.addDirectorToFilm(Integer.valueOf(dirFilmList[i]), author.getId());
-				}
+					aService.addFilmsToDirector(dirFilmList, author.getId());
 			}
 
 			if(scenFilmList!=null){
-				for (int i=0;i<scenFilmList.length;i++){
-					aService.addScenarioToFilm(Integer.valueOf(scenFilmList[i]), author.getId());
-				}
+					aService.addFilmsToScenario(scenFilmList, author.getId());
 			}
 
 			if(actFilmList!=null){
 				for (int i=0;i<actFilmList.length;i++){
-					aService.addActorToFilm(Integer.valueOf(actFilmList[i]),author.getId());
+					aService.addFilmsToActor(actFilmList,author.getId());
 				}
 			}
 			

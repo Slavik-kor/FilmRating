@@ -123,22 +123,26 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public void addDirectorToFilm(int idFilm, int idAuthor) throws AuthorServiceException {
+	public void addDirectorToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException {
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try{
-			fADao.addAuthorToFilm(idFilm, idAuthor, DIRECTOR);
+			for(int i = 0;i < idAuthor.length;i++){
+				fADao.addAuthorToFilm(idFilm, Integer.valueOf(idAuthor[i]), DIRECTOR);
+			}
 		}catch(DaoException e){
 			throw new AuthorServiceException("can't add director to film", e);
 		}
 	}
 
 	@Override
-	public void addScenarioToFilm(int idFilm, int idAuthor) throws AuthorServiceException {
+	public void addScenarioToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException {
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try{
-			fADao.addAuthorToFilm(idFilm, idAuthor,SCENARIO_WRITER);
+			for(int i = 0;i < idAuthor.length;i++){
+				fADao.addAuthorToFilm(idFilm, Integer.valueOf(idAuthor[i]),SCENARIO_WRITER);
+			}
 		}catch(DaoException e){
 			throw new AuthorServiceException("can't add director to film", e);
 		}
@@ -146,11 +150,13 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public void addActorToFilm(int idFilm, int idAuthor) throws AuthorServiceException {
+	public void addActorToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException {
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try{
-			fADao.addAuthorToFilm(idFilm, idAuthor, ACTOR);
+			for(int i = 0;i < idAuthor.length;i++){
+				fADao.addAuthorToFilm(idFilm, Integer.valueOf(idAuthor[i]), ACTOR);
+			}
 		}catch(DaoException e){
 			throw new AuthorServiceException("can't add director to film", e);
 		}
@@ -257,6 +263,49 @@ public class AuthorServiceImpl implements AuthorService {
 		File file = new File(path+"\\"+photoPath);
 		file.delete();
 
+	}
+
+	@Override
+	public void addFilmsToDirector(String[] idFilm, int idAuthor) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmAuthorDao fADao = dao.getFilmAuthorDao();
+		try{
+			for(int i = 0;i < idFilm.length;i++){
+				fADao.addAuthorToFilm(Integer.valueOf(idFilm[i]), idAuthor, DIRECTOR);
+			}
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't add films to director", e);
+		}
+		
+	}
+
+	@Override
+	public void addFilmsToScenario(String[] idFilm, int idAuthor) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmAuthorDao fADao = dao.getFilmAuthorDao();
+		try{
+			for(int i = 0;i < idFilm.length;i++){
+				fADao.addAuthorToFilm(Integer.valueOf(idFilm[i]), idAuthor, SCENARIO_WRITER);
+			}
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't add films to scenario writer", e);
+		}
+		
+	}
+
+	@Override
+	public void addFilmsToActor(String[] idFilm, int idAuthor) throws AuthorServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmAuthorDao fADao = dao.getFilmAuthorDao();
+		try{
+			for(int i = 0;i < idFilm.length;i++){
+				fADao.addAuthorToFilm(Integer.valueOf(idFilm[i]), idAuthor, ACTOR);
+			}
+		}catch(DaoException e){
+			throw new AuthorServiceException("can't add films to actor", e);
+		}
+		
+		
 	}
 	
 

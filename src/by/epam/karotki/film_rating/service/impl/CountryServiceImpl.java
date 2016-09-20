@@ -77,11 +77,13 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	public void addCountryToFilm(int idFilm, int idCountry) throws CountryServiceException {
+	public void addCountryToFilm(int idFilm, String[] idCountry) throws CountryServiceException {
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmCountryDao fCDao = dao.getFilmCountryDao();
 		try{
-			fCDao.addCountriesToFilm(idFilm, idCountry);
+			for(int i = 0; i < idCountry.length; i++){
+				fCDao.addCountriesToFilm(idFilm, Integer.valueOf(idCountry[i]));
+			}
 		}catch(DaoException e){
 			new CountryServiceException(ERROR_MESSAGE, e);
 		}

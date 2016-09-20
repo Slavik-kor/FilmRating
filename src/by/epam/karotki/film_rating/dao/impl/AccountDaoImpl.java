@@ -16,11 +16,11 @@ import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolE
 import by.epam.karotki.film_rating.dao.exception.AccountDaoException;
 import by.epam.karotki.film_rating.entity.Account;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AccountDaoImpl implements AccountDao {
-	//private static final Logger LOG = LogManager.getRootLogger();
+	private static final Logger LOG = LogManager.getRootLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
@@ -89,7 +89,7 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				//LOG.error("Can't close ResultSet");
+				LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
@@ -165,49 +165,7 @@ public class AccountDaoImpl implements AccountDao {
 		return userList;
 	}
 
-	private Account getAccount(ResultSet rs) throws SQLException {
-		if (rs.next()) {
-			Account user = new Account();
-			user.setId(rs.getInt(DBColumnName.ACCOUNT_ID));
-			user.setFirstName(rs.getString(DBColumnName.ACCOUNT_FIRST_NAME));
-			user.setLastName(rs.getString(DBColumnName.ACCOUNT_LAST_NAME));
-			user.setBirthDay(rs.getDate(DBColumnName.ACCOUNT_BIRTH_DAY));
-			user.setEmail(rs.getString(DBColumnName.ACCOUNT_EMAIL));
-			user.setCreationDate(rs.getDate(DBColumnName.ACCOUNT_CREATION_DATE));
-			user.setLogin(rs.getString(DBColumnName.ACCOUNT_LOGIN));
-			user.setPassword(rs.getString(DBColumnName.ACCOUNT_PASSWORD));
-			user.setRole(rs.getString(DBColumnName.ACCOUNT_ROLE));
-			user.setActive(rs.getBoolean(DBColumnName.ACCOUNT_IS_ACTIVE));
-			user.setPhone(rs.getString(DBColumnName.ACCOUNT_PHONE));
-			user.setPhoto(rs.getString(DBColumnName.ACCOUNT_PHOTO));
-			user.setCountryId(rs.getInt(DBColumnName.ACCOUNT_COUNTRY_ID));
-			return user;
-		}
-
-		return null;
-	}
-
-	private List<Account> getAccounts(ResultSet rs) throws SQLException {
-		List<Account> userList = new ArrayList<Account>();
-		while (rs.next()) {
-			Account user = new Account();
-			user.setId(rs.getInt(DBColumnName.ACCOUNT_ID));
-			user.setFirstName(rs.getString(DBColumnName.ACCOUNT_FIRST_NAME));
-			user.setLastName(rs.getString(DBColumnName.ACCOUNT_LAST_NAME));
-			user.setBirthDay(rs.getDate(DBColumnName.ACCOUNT_BIRTH_DAY));
-			user.setEmail(rs.getString(DBColumnName.ACCOUNT_EMAIL));
-			user.setCreationDate(rs.getDate(DBColumnName.ACCOUNT_CREATION_DATE));
-			user.setLogin(rs.getString(DBColumnName.ACCOUNT_LOGIN));
-			user.setPassword(rs.getString(DBColumnName.ACCOUNT_PASSWORD));
-			user.setRole(rs.getString(DBColumnName.ACCOUNT_ROLE));
-			user.setActive(rs.getBoolean(DBColumnName.ACCOUNT_IS_ACTIVE));
-			user.setPhone(rs.getString(DBColumnName.ACCOUNT_PHONE));
-			user.setPhoto(rs.getString(DBColumnName.ACCOUNT_PHOTO));
-			user.setCountryId(rs.getInt(DBColumnName.ACCOUNT_COUNTRY_ID));
-			userList.add(user);
-		}
-		return userList;
-	}
+	
 
 	@Override
 	public Account authorization(String login, String password) throws AccountDaoException {
@@ -216,7 +174,7 @@ public class AccountDaoImpl implements AccountDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-		//	LOG.warn("authorizied");
+			LOG.warn("warn");
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(AUTHORIZATION);
 			ps.setString(1, login);
@@ -485,4 +443,48 @@ public class AccountDaoImpl implements AccountDao {
 		return accountList;
 	}
 
+	private Account getAccount(ResultSet rs) throws SQLException {
+		if (rs.next()) {
+			Account user = new Account();
+			user.setId(rs.getInt(DBColumnName.ACCOUNT_ID));
+			user.setFirstName(rs.getString(DBColumnName.ACCOUNT_FIRST_NAME));
+			user.setLastName(rs.getString(DBColumnName.ACCOUNT_LAST_NAME));
+			user.setBirthDay(rs.getDate(DBColumnName.ACCOUNT_BIRTH_DAY));
+			user.setEmail(rs.getString(DBColumnName.ACCOUNT_EMAIL));
+			user.setCreationDate(rs.getDate(DBColumnName.ACCOUNT_CREATION_DATE));
+			user.setLogin(rs.getString(DBColumnName.ACCOUNT_LOGIN));
+			user.setPassword(rs.getString(DBColumnName.ACCOUNT_PASSWORD));
+			user.setRole(rs.getString(DBColumnName.ACCOUNT_ROLE));
+			user.setActive(rs.getBoolean(DBColumnName.ACCOUNT_IS_ACTIVE));
+			user.setPhone(rs.getString(DBColumnName.ACCOUNT_PHONE));
+			user.setPhoto(rs.getString(DBColumnName.ACCOUNT_PHOTO));
+			user.setCountryId(rs.getInt(DBColumnName.ACCOUNT_COUNTRY_ID));
+			return user;
+		}
+
+		return null;
+	}
+
+	private List<Account> getAccounts(ResultSet rs) throws SQLException {
+		List<Account> userList = new ArrayList<Account>();
+		while (rs.next()) {
+			Account user = new Account();
+			user.setId(rs.getInt(DBColumnName.ACCOUNT_ID));
+			user.setFirstName(rs.getString(DBColumnName.ACCOUNT_FIRST_NAME));
+			user.setLastName(rs.getString(DBColumnName.ACCOUNT_LAST_NAME));
+			user.setBirthDay(rs.getDate(DBColumnName.ACCOUNT_BIRTH_DAY));
+			user.setEmail(rs.getString(DBColumnName.ACCOUNT_EMAIL));
+			user.setCreationDate(rs.getDate(DBColumnName.ACCOUNT_CREATION_DATE));
+			user.setLogin(rs.getString(DBColumnName.ACCOUNT_LOGIN));
+			user.setPassword(rs.getString(DBColumnName.ACCOUNT_PASSWORD));
+			user.setRole(rs.getString(DBColumnName.ACCOUNT_ROLE));
+			user.setActive(rs.getBoolean(DBColumnName.ACCOUNT_IS_ACTIVE));
+			user.setPhone(rs.getString(DBColumnName.ACCOUNT_PHONE));
+			user.setPhoto(rs.getString(DBColumnName.ACCOUNT_PHOTO));
+			user.setCountryId(rs.getInt(DBColumnName.ACCOUNT_COUNTRY_ID));
+			userList.add(user);
+		}
+		return userList;
+	}
+	
 }

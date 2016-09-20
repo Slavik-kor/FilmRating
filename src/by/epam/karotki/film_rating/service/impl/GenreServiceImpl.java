@@ -25,9 +25,11 @@ public class GenreServiceImpl implements GenreService {
 		FilmGenreDao fGDao = dao.getFilmGenreDao();
 		try {
 			List<Integer> genreIds = fGDao.getGenresByFilm(idFilm);
-			if(genreIds.size()==0){return null;}
+			if (genreIds.size() == 0) {
+				return null;
+			}
 			String[] strGMas = ServiceUtil.intListToStringArray(genreIds);
-			
+
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.IN, DBColumnName.GENRE_ID, strGMas);
 			genreList = gDao.getGenreByCriteria(criteria, lang);
@@ -39,16 +41,21 @@ public class GenreServiceImpl implements GenreService {
 	}
 
 	@Override
-	public void addGenreToFilm(int idFilm, int idGenre) throws GenreServiceException {
+	public void addGenreToFilm(int idFilm, String[] idGenre) throws GenreServiceException {
+		
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmGenreDao fGDao = dao.getFilmGenreDao();
-		try{
-			fGDao.addGenresToFilm(idFilm, idGenre);
-		}catch (DaoException e) {
+		
+		try {
+			
+			for (int i = 0; i < idGenre.length; i++) {
+				fGDao.addGenresToFilm(idFilm, Integer.valueOf(idGenre[i]));
+			}
+		} catch (DaoException e) {
 			// log
 			throw new GenreServiceException("can't add genre to film", e);
 		}
-		
+
 	}
 
 	@Override

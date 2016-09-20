@@ -26,11 +26,17 @@ public interface AuthorService {
 	
 	void deleteAuthor(int idAuthor,String path) throws  AuthorServiceException;
 	
-	void addDirectorToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
+	void addDirectorToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException;
 
-	void addScenarioToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
+	void addScenarioToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException;
 
-	void addActorToFilm(int idFilm, int idAuthor) throws AuthorServiceException;
+	void addActorToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException;
+	
+	void addFilmsToDirector(String[] idFilm, int idAuthor) throws AuthorServiceException;
+
+	void addFilmsToScenario(String[] idFilm, int idAuthor) throws AuthorServiceException;
+
+	void addFilmsToActor(String[] idFilm, int idAuthor) throws AuthorServiceException;
 
 	Author addAuthor(Map<String,String> reqParam,InputStream is) throws AuthorServiceException;
 

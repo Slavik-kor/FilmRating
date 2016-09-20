@@ -36,7 +36,7 @@ public class FilmServiceImpl implements FilmService {
 	private static final String PROJECT_PATH = "ProjectPath";
 	private static final String JPG = ".jpg";
 	private static final String PATH_POSTER = "images\\poster\\film";
-	
+
 	@Override
 	public List<Film> getFilmsByNewest(String lang) throws FilmServiceException {
 
@@ -195,13 +195,14 @@ public class FilmServiceImpl implements FilmService {
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		Criteria criteria = factory.createCriteria();
-		criteria.addCriterion(Operator.BETWEEN, DBColumnName.FILM_PREMIER_DATE, ""+year+"-01-01", ""+year+"-12-31");
-		try{
+		criteria.addCriterion(Operator.BETWEEN, DBColumnName.FILM_PREMIER_DATE, "" + year + "-01-01",
+				"" + year + "-12-31");
+		try {
 			films = fDao.getFilmListByCriteria(criteria, lang);
-		}catch(DaoException e){
+		} catch (DaoException e) {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
-		
+
 		return films;
 	}
 
@@ -210,12 +211,12 @@ public class FilmServiceImpl implements FilmService {
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
-		try{
+		try {
 			films = fDao.getTopFilmsByRating(lang);
-		}catch(DaoException e){
+		} catch (DaoException e) {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
-		
+
 		return films;
 	}
 
@@ -225,23 +226,25 @@ public class FilmServiceImpl implements FilmService {
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		CommentDao cDao = factory.getCommentDao();
-		try{
+		try {
 			Criteria criteria = factory.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.COMMENT_ACCOUNT_ID, String.valueOf(idAccount));
-			
+
 			List<Comment> commentList = cDao.getCommentsByCriteria(criteria);
-			if(commentList==null){return null;}
+			if (commentList == null) {
+				return null;
+			}
 			String[] idFilmsArray = new String[commentList.size()];
-			for(int i=0;i<commentList.size();i++){
+			for (int i = 0; i < commentList.size(); i++) {
 				idFilmsArray[i] = String.valueOf(commentList.get(i).getFilmId());
 			}
 			Criteria fCriteria = factory.createCriteria();
 			fCriteria.addCriterion(Operator.IN, DBColumnName.FILM_ID, idFilmsArray);
 			films = fDao.getFilmListByCriteria(fCriteria, lang);
-		}catch(DaoException e){
+		} catch (DaoException e) {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
-		
+
 		return films;
 	}
 
@@ -251,20 +254,22 @@ public class FilmServiceImpl implements FilmService {
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		CommentDao cDao = factory.getCommentDao();
-		try{
+		try {
 			Criteria criteria = factory.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.COMMENT_ACCOUNT_ID, String.valueOf(idAccount));
 			criteria.addOrderColumn(DBColumnName.COMMENT_RATE, false);
 			List<Comment> commentList = cDao.getCommentsByCriteria(criteria);
-			if(commentList==null){return null;}
+			if (commentList == null) {
+				return null;
+			}
 			String[] idFilmsArray = new String[commentList.size()];
-			for(int i=0;i<commentList.size();i++){
+			for (int i = 0; i < commentList.size(); i++) {
 				idFilmsArray[i] = String.valueOf(commentList.get(i).getFilmId());
 			}
 			Criteria fCriteria = factory.createCriteria();
 			fCriteria.addCriterion(Operator.IN, DBColumnName.FILM_ID, idFilmsArray);
 			films = fDao.getFilmListByCriteria(fCriteria, lang);
-		}catch(DaoException e){
+		} catch (DaoException e) {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		return films;
@@ -283,72 +288,74 @@ public class FilmServiceImpl implements FilmService {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		Film newFilm = null;
-		try{
+		try {
 			newFilm = fDao.getFilmByTitle(film.getTitle());
-		}catch(DaoException e){
-			throw new FilmServiceException(ERROR_MESSAGE,e);
+		} catch (DaoException e) {
+			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
-		
+
 		return newFilm;
 	}
-	
-	private Film createFilm(Map<String,String> reqParam, InputStream is){
+
+	private Film createFilm(Map<String, String> reqParam, InputStream is) {
 		Film film = new Film();
 		film.setTitle(reqParam.get(TITLE));
 		film.setDescription(reqParam.get(DESCRIPTION));
 		int audience;
-		try{
-		audience = Integer.valueOf(reqParam.get(AUDIENCE));
-		}catch(NumberFormatException e){
-			audience=0;
+		try {
+			audience = Integer.valueOf(reqParam.get(AUDIENCE));
+		} catch (NumberFormatException e) {
+			audience = 0;
 		}
 		film.setAudience(audience);
-		
+
 		int budget;
-		try{
-		budget = Integer.valueOf(reqParam.get(BUDGET));
-		}catch(NumberFormatException e){
-			budget=0;
+		try {
+			budget = Integer.valueOf(reqParam.get(BUDGET));
+		} catch (NumberFormatException e) {
+			budget = 0;
 		}
 		film.setBudget(budget);
-		
+
 		double boxOffice;
-		try{
+		try {
 			boxOffice = Double.valueOf(BOX_OFFICE);
-		}catch(NumberFormatException e){
-			boxOffice=0;
+		} catch (NumberFormatException e) {
+			boxOffice = 0;
 		}
 		film.setBoxOfficeCash(boxOffice);
 		film.setWebSite(reqParam.get(SITE));
 		film.setTeaser(reqParam.get(TEASER));
-		
+
 		Time duration = null;
-		try{
+		try {
 			duration = Time.valueOf(reqParam.get(DURATION));
-		}catch(IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			duration = null;
 		}
 		film.setDuration(duration);
-		
+
 		Date premierDate = null;
-		try{
+		try {
 			premierDate = Date.valueOf(reqParam.get(RELEASE));
-		}catch(IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			premierDate = null;
 		}
 		film.setPremierDate(premierDate);
-		
-		String rootPath = reqParam.get(PROJECT_PATH);
-		String photoPath = PATH_POSTER + film.getTitle() + JPG;
-		String fullPhotoPath = rootPath + "\\" + photoPath;
-		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
-		film.setPoster(photoPath);
+
+		if (is != null) {
+			String rootPath = reqParam.get(PROJECT_PATH);
+			String photoPath = PATH_POSTER + film.getTitle() + JPG;
+			String fullPhotoPath = rootPath + "\\" + photoPath;
+			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+			film.setPoster(photoPath);
+		}
 		
 		return film;
 	}
-	
-	private void validateParam(Map<String,String> reqParam) throws FilmServiceException{
-		
+
+	private void validateParam(Map<String, String> reqParam) throws FilmServiceException {
+
 	}
 
 	@Override
@@ -361,7 +368,7 @@ public class FilmServiceImpl implements FilmService {
 			// log
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
-		
+
 	}
 
 	@Override
@@ -369,13 +376,19 @@ public class FilmServiceImpl implements FilmService {
 		List<Film> filmList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmDao fDao = dao.getFilmDao();
-		try{
+		try {
 			Criteria criteria = dao.createCriteria();
 			filmList = fDao.getFilmListByCriteria(criteria, lang);
-		}catch(DaoException e){
+		} catch (DaoException e) {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
 		return filmList;
+	}
+
+	@Override
+	public Film updateFilm(Map<String, String> updParam, InputStream is) throws FilmServiceException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
