@@ -2,7 +2,9 @@ package by.epam.karotki.film_rating.command.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -96,11 +98,11 @@ public class UpdateFilm implements Command {
 			//log
 		}
 		
-		String[] genreList = request.getParameterValues(GENRE);
-		String[] directorList = request.getParameterValues(DIRECTORS);
-		String[] scenarioList = request.getParameterValues(SCENARIOS);
-		String[] actorList = request.getParameterValues(ACTORS);
-		String[] countryList = request.getParameterValues(COUNTRIES);
+		String[] genres = request.getParameterValues(GENRE);
+		String[] directors = request.getParameterValues(DIRECTORS);
+		String[] scenarios = request.getParameterValues(SCENARIOS);
+		String[] actors = request.getParameterValues(ACTORS);
+		String[] countries = request.getParameterValues(COUNTRIES);
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
 		FilmService fService = factory.getFilmService();
@@ -112,24 +114,51 @@ public class UpdateFilm implements Command {
 			film = fService.updateFilm(updParam, is);
 			
 			
-			if(genreList!=null){
+			if((genres != null) && (genres.length > 0)){
+					List<Integer> genreList = new ArrayList<Integer>();
+					for(int i = 0; i < genres.length; i++){
+						genreList.add(Integer.valueOf(genres[i]));
+					}
+					
 					gService.addGenreToFilm(film.getId(), genreList);
 			}
 			
-			if(directorList!=null){
-					aService.addDirectorToFilm(film.getId(),directorList);
-			}
+			if((directors != null) && (directors.length > 0)){
+				List<Integer> dirList = new ArrayList<Integer>();
+				for(int i = 0; i < directors.length; i++){
+					dirList.add(Integer.valueOf(directors[i]));
+				}
+				
+				aService.addDirectorToFilm(film.getId(), dirList);
+		}
 			
-			if(scenarioList!=null){
-					aService.addScenarioToFilm(film.getId(), scenarioList);
-			}
-			if(actorList!=null){
-					aService.addActorToFilm(film.getId(), actorList);
-			}
+			if((scenarios != null) && (scenarios.length > 0)){
+				List<Integer> scList = new ArrayList<Integer>();
+				for(int i = 0; i < scenarios.length; i++){
+					scList.add(Integer.valueOf(scenarios[i]));
+				}
+				
+				aService.addScenarioToFilm(film.getId(), scList);
+		}
 			
-			if(countryList!=null){
-					cService.addCountryToFilm(film.getId(), countryList);
-			}
+			if((actors != null) && (actors.length > 0)){
+				List<Integer> actorList = new ArrayList<Integer>();
+				for(int i = 0; i < actors.length; i++){
+					actorList.add(Integer.valueOf(actors[i]));
+				}
+				
+				aService.addActorToFilm(film.getId(), actorList);
+		}
+			
+			if((countries != null) && (countries.length > 0)){
+				List<Integer> countryList = new ArrayList<Integer>();
+				for(int i = 0; i < countries.length; i++){
+					countryList.add(Integer.valueOf(countries[i]));
+				}
+				
+				cService.addCountryToFilm(film.getId(), countryList);
+		}
+			
 		}catch(ServiceException e){
 			errorDispatcher.forward(request, response);
 			return;

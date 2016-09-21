@@ -41,16 +41,26 @@ public class GenreServiceImpl implements GenreService {
 	}
 
 	@Override
-	public void addGenreToFilm(int idFilm, String[] idGenre) throws GenreServiceException {
-		
+	public void addGenreToFilm(int idFilm, List<Integer> idGenre) throws GenreServiceException {
+
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmGenreDao fGDao = dao.getFilmGenreDao();
-		
+
 		try {
-			
-			for (int i = 0; i < idGenre.length; i++) {
-				fGDao.addGenresToFilm(idFilm, Integer.valueOf(idGenre[i]));
+			List<Integer> genresDB = fGDao.getGenresByFilm(idFilm);
+			for (int i = 0; i < idGenre.size(); i++) {
+				Integer genre =idGenre.get(i);
+				if ((genresDB!=null) && (!genresDB.contains(genre))) {
+					fGDao.addGenresToFilm(idFilm, genre);
+				}
 			}
+			
+			for (int i = 0; i < genresDB.size(); i++) {
+				if(!idGenre.contains(genresDB.get(i))){
+					fGDao.deleteGenresFromFilm(idFilm, genresDB.get(i));
+				}
+			}
+
 		} catch (DaoException e) {
 			// log
 			throw new GenreServiceException("can't add genre to film", e);

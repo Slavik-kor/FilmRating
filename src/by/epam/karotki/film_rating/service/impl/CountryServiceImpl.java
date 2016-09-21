@@ -77,15 +77,27 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	public void addCountryToFilm(int idFilm, String[] idCountry) throws CountryServiceException {
+	public void addCountryToFilm(int idFilm, List<Integer> idCountry) throws CountryServiceException {
 		DaoFactory dao = DaoFactory.getInstance();
-		FilmCountryDao fCDao = dao.getFilmCountryDao();
-		try{
-			for(int i = 0; i < idCountry.length; i++){
-				fCDao.addCountriesToFilm(idFilm, Integer.valueOf(idCountry[i]));
+		FilmCountryDao fGDao = dao.getFilmCountryDao();
+		try {
+			List<Integer> countiesDB = fGDao.getCountriesByFilm(idFilm);
+			for (int i = 0; i < idCountry.size(); i++) {
+				Integer country =idCountry.get(i);
+				if (!countiesDB.contains(country)) {
+					fGDao.addCountriesToFilm(idFilm, country);
+				}
 			}
-		}catch(DaoException e){
-			new CountryServiceException(ERROR_MESSAGE, e);
+			
+			for (int i = 0; i < countiesDB.size(); i++) {
+				if(!idCountry.contains(countiesDB.get(i))){
+					fGDao.deleteCountriesFromFilm(idFilm, countiesDB.get(i));
+				}
+			}
+
+		} catch (DaoException e) {
+			// log
+			throw new CountryServiceException("can't add country List to film", e);
 		}
 	}
 

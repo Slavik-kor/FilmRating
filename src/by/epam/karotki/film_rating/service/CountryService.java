@@ -13,5 +13,5 @@ public interface CountryService {
 	
 	Country getCountryById(int id,String lang) throws CountryServiceException;
 
-	void addCountryToFilm(int idFilm,String[] idCountry) throws CountryServiceException;
+	void addCountryToFilm(int idFilm,List<Integer> idCountry) throws CountryServiceException;
 }

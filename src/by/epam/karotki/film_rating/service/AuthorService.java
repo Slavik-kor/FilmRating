@@ -10,6 +10,7 @@ import by.epam.karotki.film_rating.service.exception.AuthorServiceException;
 
 
 public interface AuthorService {
+	
 	List<Author> getDirectorsByFilm(int idFilm, String lang) throws AuthorServiceException;
 	
 	List<Author> getScenarioWritersByFilm(int idFilm,String lang) throws AuthorServiceException;
@@ -26,11 +27,11 @@ public interface AuthorService {
 	
 	void deleteAuthor(int idAuthor,String path) throws  AuthorServiceException;
 	
-	void addDirectorToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException;
+	void addDirectorToFilm(int idFilm, List<Integer> idAuthor) throws AuthorServiceException;
 
-	void addScenarioToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException;
+	void addScenarioToFilm(int idFilm, List<Integer> idAuthor) throws AuthorServiceException;
 
-	void addActorToFilm(int idFilm, String[] idAuthor) throws AuthorServiceException;
+	void addActorToFilm(int idFilm, List<Integer> idAuthor) throws AuthorServiceException;
 	
 	void addFilmsToDirector(String[] idFilm, int idAuthor) throws AuthorServiceException;
 

@@ -40,9 +40,9 @@ public class FilmServiceImpl implements FilmService {
 	private static final String TITLE_EN = "title_en";
 	private static final String DESCRIPTION_RU = "description_ru";
 	private static final String DESCRIPTION_EN = "description_en";
-	private static final String POSTER = "poster";
 	private static final String FILM_ID = "idFilm";
-	
+	private static final String RU = "ru";
+	private static final String EN = "en";
 	
 
 	@Override
@@ -416,7 +416,7 @@ public class FilmServiceImpl implements FilmService {
 		
 		String desc = updParam.get(DESCRIPTION);
 		if(desc!=null){
-			film.setDescription(DESCRIPTION);
+			film.setDescription(desc);
 		}
 		
 		Integer budget = Integer.valueOf(updParam.get(BUDGET));
@@ -461,7 +461,50 @@ public class FilmServiceImpl implements FilmService {
 			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
 			film.setPoster(photoPath);
 		}
+		
+		try{
+			fDao.updateFilm(film);
+		}catch (DaoException e) {
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
+		
+		String titleRU = updParam.get(TITLE_RU);
+		if(title!=null){
+			film.setTitle(titleRU);
+		}
+		
+		String descRU = updParam.get(DESCRIPTION_RU);
+		if(desc!=null){
+			film.setDescription(descRU);
+		}
+		
+		try{
+			fDao.updateFilm(film, RU);
+		}catch (DaoException e) {
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
 
+		String titleEN = updParam.get(TITLE_EN);
+		if(title!=null){
+			film.setTitle(titleEN);
+		}
+		
+		String descEN = updParam.get(DESCRIPTION_EN);
+		if(desc!=null){
+			film.setDescription(descEN);
+		}
+		
+		try{
+			fDao.updateFilm(film, EN);
+		}catch (DaoException e) {
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
+		
+		try{
+			film = fDao.getFilmById(idFilm);
+		}catch (DaoException e) {
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
 		
 		return film;
 	}

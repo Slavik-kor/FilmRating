@@ -9,7 +9,7 @@ public interface GenreService {
 	
 	List<Genre> getGenreListByFilm(int idFilm, String lang) throws GenreServiceException;
 
-	void addGenreToFilm(int idFilm, String[] idGenre) throws GenreServiceException;
+	void addGenreToFilm(int idFilm, List<Integer> idGenre) throws GenreServiceException;
 
 	List<Genre> getAllGenres(String lang) throws GenreServiceException;
 
