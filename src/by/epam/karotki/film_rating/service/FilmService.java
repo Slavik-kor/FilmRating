@@ -37,9 +37,7 @@ public interface FilmService {
 	
 	Film updateFilm(Map<String,String> updParam,InputStream is) throws  FilmServiceException;
 	
-//	Film updateFilm(Map<String,String> reqParam,InputStream is) throws  FilmServiceException;
-	
-//	void deleteFilm(int id) throws  FilmServiceException;
+	void deleteFilm(int id, String path) throws  FilmServiceException;
 
 	
 }

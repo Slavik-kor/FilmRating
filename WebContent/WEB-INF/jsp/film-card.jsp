@@ -43,13 +43,21 @@
 <meta name="author" content="">
 
 <link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/Items.css" rel="stylesheet">
+
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container">
 		<%@include file="inc/top-menu"%>
-
+		<c:if test="${account.role == 'Admin' }">
+			<div class="container col-lg-9 col-md-9 col-sm-9">
+			<form action="Controller" method="post">
+				<input type="hidden" name="command" value="delete_film" />
+				<input type="hidden" name="idFilm" value="${film.id }" />
+				<button type="submit" class="btn btn-danger" type="button">Удалить</button>
+			</form>
+			</div>
+		</c:if>
 		<div class="container col-lg-9 col-md-9 col-sm-9">
 
 			<div class="row">

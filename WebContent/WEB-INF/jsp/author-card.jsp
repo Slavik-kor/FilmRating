@@ -40,11 +40,19 @@
 <body>
 <div class="container">
 	<%@include file="inc/top-menu"%>
-
+	<c:if test="${account.role=='Admin'}">
+		<div class="container col-lg-9 col-md-9 col-sm-9">
+			<form action="Controller" method="post">
+				<input type="hidden" name="command" value="delete_author" />
+				<input type="hidden" name="idAuthor" value="${author.id }" />
+				<button type="submit" class="btn btn-danger" type="button">${delete }</button>
+			</form>
+		</div>
+	</c:if>
 	<div class="container col-lg-9 col-md-9 col-sm-9">
 
 		<div class="row">
-			<div class="container col-lg-4 col-lg-offset-4"></div>
+			
 			<div class="container col-lg-4 col-lg-offset-1">
 				<img src="${author.photo}" width="250" class="img-rounded"
 					onerror="this.src = 'images/author/noFoto.jpg'" alt="фото">
@@ -140,15 +148,7 @@
 				</c:if>
 			</div>
 		</div>
-	<c:if test="${account.role=='Admin'}">
-		<div class="container">
-			<form action="Controller" method="post">
-				<input type="hidden" name="command" value="delete_author" />
-				<input type="hidden" name="idAuthor" value="${author.id }" />
-				<button type="submit" class="btn btn-danger" type="button">${delete }</button>
-			</form>
-		</div>
-	</c:if>
+	
 	</div>
 
 </div>

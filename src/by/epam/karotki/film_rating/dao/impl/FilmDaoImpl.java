@@ -80,6 +80,17 @@ public class FilmDaoImpl implements FilmDao {
 
 	private static final String DELETE_FILM_LANG = "DELETE FROM Film_lang WHERE (idFilm = ?) AND (lang = ?)";
 
+	private static final String DELETE_COUNTRY_FILM = "DELETE FROM FilmOriginCountry WHERE Film_id = ? ";
+	
+	private static final String DELETE_COMMENT_FILM = "DELETE FROM Comment WHERE Film_id = ? ";
+	
+	private static final String DELETE_AUTHOR_FILM = "DELETE FROM Film_has_Authors WHERE Film_id = ? ";
+	
+	private static final String DELETE_GENRE_FILM = "DELETE FROM Film_Genre WHERE Film_id = ? ";
+	
+	private static final String DELETE_FILM_LANG_T = "DELETE FROM Film_lang WHERE idFilm = ? ";
+	
+	
 	@Override
 	public List<Film> getTopFilmsByRating(String lang) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
@@ -486,16 +497,49 @@ public class FilmDaoImpl implements FilmDao {
 	public void deleteFilmById(int id) throws FilmDaoException {
 		Connection con = null;
 		PreparedStatement ps = null;
+		PreparedStatement ps_com = null;
+		PreparedStatement ps_country = null;
+		PreparedStatement ps_genre = null;
+		PreparedStatement ps_author = null;
+		PreparedStatement ps_lang = null;
 		try {
 			con = conPool.takeConnection();
+			con.setAutoCommit(false);
+			
+			ps_com = con.prepareStatement(DELETE_COMMENT_FILM);
+			ps_com.setInt(1, id);
+			ps_com.executeUpdate();
+			
+			ps_country = con.prepareStatement(DELETE_COUNTRY_FILM);
+			ps_country.setInt(1, id);
+			ps_country.executeUpdate();
+			
+			ps_genre = con.prepareStatement(DELETE_GENRE_FILM);
+			ps_genre.setInt(1, id);
+			ps_genre.executeUpdate();
+			
+			ps_author = con.prepareStatement(DELETE_AUTHOR_FILM);
+			ps_author.setInt(1, id);
+			ps_author.executeUpdate();
+			
+			ps_lang = con.prepareStatement(DELETE_FILM_LANG_T);
+			ps_lang.setInt(1, id);
+			ps_lang.executeUpdate();
+			
 			ps = con.prepareStatement(DELETE_FILM);
 			ps.setInt(1, id);
 			ps.executeUpdate();
+			
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
+			try{
+				con.setAutoCommit(true);
+			}catch(SQLException e){
+				//
+			}
 			try {
 				ps.close();
 			} catch (SQLException e) {

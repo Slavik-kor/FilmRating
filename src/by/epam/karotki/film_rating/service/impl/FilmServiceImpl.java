@@ -1,5 +1,6 @@
 package by.epam.karotki.film_rating.service.impl;
 
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Time;
@@ -43,7 +44,6 @@ public class FilmServiceImpl implements FilmService {
 	private static final String FILM_ID = "idFilm";
 	private static final String RU = "ru";
 	private static final String EN = "en";
-	
 
 	@Override
 	public List<Film> getFilmsByNewest(String lang) throws FilmServiceException {
@@ -72,7 +72,9 @@ public class FilmServiceImpl implements FilmService {
 			Criteria criteria = factory.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.FILM_ID, String.valueOf(id));
 			List<Film> filmList = fDao.getFilmListByCriteria(criteria, lang);
-			film = filmList.get(0);
+			if ((filmList!=null)&&(filmList.size()>0)){
+				film = filmList.get(0);
+			}
 		} catch (DaoException e) {
 			// log
 			throw new FilmServiceException(ERROR_MESSAGE, e);
@@ -507,6 +509,27 @@ public class FilmServiceImpl implements FilmService {
 		}
 		
 		return film;
+	}
+
+	@Override
+	public void deleteFilm(int id, String path) throws FilmServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmDao fDao = dao.getFilmDao();
+		Film film = null;
+		try {
+			film = fDao.getFilmById(id);
+		} catch (DaoException e) {
+			throw new FilmServiceException("can't find film by id", e);
+		}
+		String posterPath = film.getPoster();
+		try {
+			fDao.deleteFilmById(id);;
+		} catch (DaoException e) {
+			throw new FilmServiceException("can't delete film", e);
+		}
+
+		File file = new File(path + "\\" + posterPath);
+		file.delete();
 	}
 
 }

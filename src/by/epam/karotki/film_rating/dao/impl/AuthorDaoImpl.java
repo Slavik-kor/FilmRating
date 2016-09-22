@@ -58,7 +58,7 @@ public class AuthorDaoImpl implements AuthorDao {
 		
 	private static final String DELETE_AUTHOR_LANG_T = "DELETE FROM Author_lang WHERE idAuthor = ? ";
 
-	private static final String 	DELETE_AUTHOR_FILM = "DELETE FROM Film_has_Authors WHERE Authors_idAuthors = ? ";
+	private static final String DELETE_AUTHOR_FILM = "DELETE FROM Film_has_Authors WHERE Authors_idAuthors = ? ";
 	
 	private static final String DELETE_AUTHOR_LANG = "DELETE FROM Author_lang WHERE (idAuthor = ?) AND (lang = ?)";
 	
