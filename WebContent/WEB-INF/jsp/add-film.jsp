@@ -57,36 +57,46 @@
          <h2 class="form-signin-heading">${facade }</h2>
      </div>
      <div class="form-group col-lg-6 col-md-6 col-sm-6">
+     <c:set var="film_ru" value="${requestScope.filmRu }"/>
+     <c:set var="film_en" value="${requestScope.filmEn }"/>
   <label for="text">${title_ru }</label><span>*</span>
-  <input name="title_ru" type="text" class="form-control" placeholder="${title_ru }" required>
+  <input name="title_ru" type="text" class="form-control" placeholder="${title_ru }" required value="${film_ru.title }">
   </div>
    <div class="form-group col-lg-6 col-md-6 col-sm-6">
-   <label for="text">${title_en }</label><span>*</span>
-  <input name="title_en" type="text" class="form-control" placeholder="${title_en }" required>
+   <label for="text">${title_en }</label>
+  <input name="title_en" type="text" class="form-control" placeholder="${title_en }" value="${film_en.title }">
      </div>
   <c:set var="genres" value="${requestScope.genreList }"/>
+  <c:set var="current_genres" value="${requestScope.currentGenres }"/>
  <fieldset class="form-group col-lg-12 col-md-12 col-sm-12">
   <label class="container" for="genre">${genre_loc }</label>
      <select name="genre" id="genre" class="selectpicker show-tick " data-live-search="true" multiple>
-    <c:forEach items="${genres}" var="genre" >
-    	<option value="${genre.id }">${genre.name }</option>
+    <c:forEach var="index" begin = "0" end="${fn:length(genres)-1}" >
+    	<c:choose>
+    	<c:when test="${fn: contains(current_genres,genres[index].id) }">
+    		<option value="${genres[index].id }" selected>${genres[index].name }</option>
+    	</c:when>
+    	<c:otherwise>
+    		<option value="${genres[index].id }">${genres[index].name }</option>
+    	</c:otherwise>
+    	</c:choose>
     </c:forEach>
      </select>
  </fieldset> 
      
     <div class="form-group col-lg-6 col-md-6 col-sm-6">
   		<label for="textarea">${desc_ru }</label>
-        <textarea name="description_ru" rows="3" class="form-control" style="resize:none" placeholder="${desc_ru }"></textarea>
+        <textarea name="description_ru" rows="3" class="form-control" style="resize:none" placeholder="${desc_ru }">${film_ru.description }</textarea>
      </div> 
  	<div class="form-group col-lg-6 col-md-6 col-sm-6">
   		<label for="textarea">${desc_en }</label>
-        <textarea name="description_en" rows="3" class="form-control" style="resize:none" placeholder="${desc_en }"></textarea>
+        <textarea name="description_en" rows="3" class="form-control" style="resize:none" placeholder="${desc_en }">${film_en.description }</textarea>
      </div> 
      <div class="form-group">
   <label for="text">${site }</label>
            <div class="input-group">
   <span class="input-group-addon glyphicon glyphicon-globe"></span>
-   <input name="site" type="text" class="form-control" placeholder="${site }">
+   <input name="site" type="text" class="form-control" placeholder="${site }" value="${film_ru.webSite }">
              </div>
   
  </div>
@@ -95,7 +105,7 @@
   <label for="number">${budget}</label>
          <div class="input-group">
   <span class="input-group-addon">$</span>
-  <input name="budget" type="number" class="form-control" placeholder="${budget}">
+  <input name="budget" type="number" class="form-control" placeholder="${budget}" value="${film_ru.budget }">
              </div>
  </div>
    <c:set var="authors" value="${requestScope.authorList }"/>    
@@ -129,7 +139,7 @@
   <label for="time">${duration }</label>
              <div class="input-group">
   <span class="input-group-addon glyphicon glyphicon-time"></span>
-   <input name="duration" type="time" class="form-control" placeholder="${duration }">
+   <input name="duration" type="time" class="form-control" placeholder="${duration }" value="${film_ru.duration}">
              </div>
       
  </div>
@@ -138,7 +148,7 @@
   <label for="date">${realise_loc }</label>
              <div class="input-group">
   <span class="input-group-addon glyphicon glyphicon-sunglasses"></span>
-   <input name="release" type="date" class="form-control" placeholder="${realise_loc }">
+   <input name="release" type="date" class="form-control" placeholder="${realise_loc }" value="${film_ru.premierDate}">
  </div>
              </div>
        
@@ -156,7 +166,7 @@
       <label for="number">${audience }</label>
           <div class="input-group">
   <span class="input-group-addon glyphicon glyphicon-eye-open"></span>
-  <input name="audience" type="number" class="form-control " placeholder="${audience }">
+  <input name="audience" type="number" class="form-control " placeholder="${audience }" value="${film_ru.audience }">
              </div>
 
       </div>
@@ -165,7 +175,7 @@
   <label for="number">${boxOffice }</label>
            <div class="input-group">
   <span class="input-group-addon">$</span>
-  <input name="boxOffice" type="number" class="form-control" placeholder="${boxOffice }">
+  <input name="boxOffice" type="number" class="form-control" placeholder="${boxOffice }" value="${film_ru.boxOfficeCash }">
              </div>
  </div>
 

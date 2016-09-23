@@ -56,6 +56,11 @@
 				<input type="hidden" name="idFilm" value="${film.id }" />
 				<button type="submit" class="btn btn-danger" type="button">Удалить</button>
 			</form>
+			<form action="Controller" method="post">
+				<input type="hidden" name="command" value="update_film_page" />
+				<input type="hidden" name="idFilm" value="${film.id }" />
+				<button type="submit" class="btn btn-warning" type="button">Изменить</button>
+			</form>
 			</div>
 		</c:if>
 		<div class="container col-lg-9 col-md-9 col-sm-9">

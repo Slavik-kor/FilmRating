@@ -33,6 +33,7 @@ import by.epam.karotki.film_rating.command.impl.UnknownCommand;
 import by.epam.karotki.film_rating.command.impl.UpdateAccount;
 import by.epam.karotki.film_rating.command.impl.UpdateComment;
 import by.epam.karotki.film_rating.command.impl.UpdateFilm;
+import by.epam.karotki.film_rating.command.impl.UpdateFilmPage;
 
 public class CommandHelper {
 
@@ -69,6 +70,7 @@ public class CommandHelper {
 		commands.put(CommandName.DELETE_AUTHOR, new DeleteAuthor());
 		commands.put(CommandName.UPDATE_FILM, new UpdateFilm());
 		commands.put(CommandName.DELETE_FILM, new DeleteFilm());
+		commands.put(CommandName.UPDATE_FILM_PAGE, new UpdateFilmPage());
 	}
 
 	public Command getCommand(String name) {

@@ -47,6 +47,11 @@
 				<input type="hidden" name="idAuthor" value="${author.id }" />
 				<button type="submit" class="btn btn-danger" type="button">${delete }</button>
 			</form>
+			<form action="Controller" method="post">
+				<input type="hidden" name="command" value="update_author_page" />
+				<input type="hidden" name="idAuthor" value="${author.id }" />
+				<button type="submit" class="btn btn-danger" type="button">Изменить фильм</button>
+			</form>
 		</div>
 	</c:if>
 	<div class="container col-lg-9 col-md-9 col-sm-9">
