@@ -43,7 +43,7 @@
 <meta name="author" content="">
 
 <link href="css/bootstrap.css" rel="stylesheet">
-
+<link href="css/Items.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
 </head>
 <body>
@@ -236,7 +236,7 @@
 
 								</div>
 								<div class="row">
-									<c:if test="${comments[index].accountId==account.id }">			
+									<c:if test="${(comments[index].accountId==account.id)}">			
 										<button class="btn btn-success" >${editComment }</button>
 										<form  action="Controller" method="post">
 										<input type="hidden" name="command" value="delete_comment" />

@@ -45,8 +45,11 @@
 
 <div class="container col-lg-9 col-md-9 col-sm-9">
  <form action="Controller" enctype="multipart/form-data" method="post" role="form">
+  <c:set var="film_ru" value="${requestScope.filmRu }"/>
+     <c:set var="film_en" value="${requestScope.filmEn }"/>
      			<c:choose>
 					<c:when test="${mode=='update' }">
+						<input type="hidden" name="idFilm" value="${film_ru.id }" />
 						<input type="hidden" name="command" value="update_film" />
 					</c:when>
 					<c:otherwise>
@@ -57,8 +60,6 @@
          <h2 class="form-signin-heading">${facade }</h2>
      </div>
      <div class="form-group col-lg-6 col-md-6 col-sm-6">
-     <c:set var="film_ru" value="${requestScope.filmRu }"/>
-     <c:set var="film_en" value="${requestScope.filmEn }"/>
   <label for="text">${title_ru }</label><span>*</span>
   <input name="title_ru" type="text" class="form-control" placeholder="${title_ru }" required value="${film_ru.title }">
   </div>

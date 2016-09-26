@@ -72,7 +72,7 @@ public class FilmServiceImpl implements FilmService {
 			Criteria criteria = factory.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.FILM_ID, String.valueOf(id));
 			List<Film> filmList = fDao.getFilmListByCriteria(criteria, lang);
-			if ((filmList!=null)&&(filmList.size()>0)){
+			if ((filmList != null) && (filmList.size() > 0)) {
 				film = filmList.get(0);
 			}
 		} catch (DaoException e) {
@@ -360,7 +360,7 @@ public class FilmServiceImpl implements FilmService {
 			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
 			film.setPoster(photoPath);
 		}
-		
+
 		return film;
 	}
 
@@ -411,34 +411,53 @@ public class FilmServiceImpl implements FilmService {
 			throw new FilmServiceException(ERROR_MESSAGE);
 		}
 		
-		String title = updParam.get(TITLE);
-		if(title!=null){
-			film.setTitle(title);
-		}
 		
+			String title = updParam.get(TITLE);
+			if(title!=null){
+				film.setTitle(title);
+			}
+
 		String desc = updParam.get(DESCRIPTION);
 		if(desc!=null){
 			film.setDescription(desc);
 		}
 		
-		Integer budget = Integer.valueOf(updParam.get(BUDGET));
+		try{
+		Double budget = Double.valueOf(updParam.get(BUDGET));
 		if(budget!=null){
 			film.setBudget(budget);
-		}
+			}
+		}catch(IllegalArgumentException | NullPointerException e){
+				//log
+			}
 		
+		
+		try{
 		Double boxOffice = Double.valueOf(updParam.get(BOX_OFFICE));
 		if(boxOffice!=null){
 			film.setBoxOfficeCash(boxOffice);
 		}
+		}catch(IllegalArgumentException | NullPointerException e){
+			//log
+		}
 		
+		
+		try{
 		Integer audience = Integer.valueOf(updParam.get(AUDIENCE));
 		if(audience!=null){
 			film.setAudience(audience);
 		}
+		}catch(IllegalArgumentException | NullPointerException e){
+			//log
+		}
 		
+		try{
 		Date release = Date.valueOf(updParam.get(RELEASE));
 		if(release!=null){
 			film.setPremierDate(release);
+		}
+		}catch(IllegalArgumentException | NullPointerException e){
+			//log
 		}
 		
 		String site = updParam.get(SITE);
@@ -446,9 +465,13 @@ public class FilmServiceImpl implements FilmService {
 			film.setWebSite(site);
 		}
 		
+		try{
 		Time duration = Time.valueOf(updParam.get(DURATION));
 		if(duration!=null){
 			film.setDuration(duration);
+		}
+		}catch(IllegalArgumentException | NullPointerException e){
+			//log
 		}
 		
 		String teaser = updParam.get(TEASER);
@@ -507,7 +530,7 @@ public class FilmServiceImpl implements FilmService {
 		}catch (DaoException e) {
 			throw new FilmServiceException(ERROR_MESSAGE, e);
 		}
-		
+			
 		return film;
 	}
 
@@ -523,7 +546,8 @@ public class FilmServiceImpl implements FilmService {
 		}
 		String posterPath = film.getPoster();
 		try {
-			fDao.deleteFilmById(id);;
+			fDao.deleteFilmById(id);
+			;
 		} catch (DaoException e) {
 			throw new FilmServiceException("can't delete film", e);
 		}

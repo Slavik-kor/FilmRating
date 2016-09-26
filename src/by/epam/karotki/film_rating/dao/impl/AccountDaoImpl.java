@@ -16,11 +16,11 @@ import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolE
 import by.epam.karotki.film_rating.dao.exception.AccountDaoException;
 import by.epam.karotki.film_rating.entity.Account;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 public class AccountDaoImpl implements AccountDao {
-	private static final Logger LOG = LogManager.getRootLogger();
+	//private static final Logger LOG = LogManager.getRootLogger();
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
@@ -89,7 +89,7 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				LOG.error("Can't close ResultSet");
+				//LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
@@ -174,7 +174,7 @@ public class AccountDaoImpl implements AccountDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			LOG.warn("warn");
+			//LOG.warn("warn");
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(AUTHORIZATION);
 			ps.setString(1, login);

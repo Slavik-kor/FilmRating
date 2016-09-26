@@ -117,9 +117,6 @@ a {
 	z-index: 2;
 }
 
-.caption h3 {
-	
-}
 
 .caption a {
 	padding: 0 20px;
@@ -152,9 +149,6 @@ a {
 	background-color: orange;
 }
 
-.propertyType.unit {
-	background-color: green;
-}
 
 .propertyType.commercial {
 	background-color: blue;

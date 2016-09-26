@@ -50,7 +50,7 @@
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="update_author_page" />
 				<input type="hidden" name="idAuthor" value="${author.id }" />
-				<button type="submit" class="btn btn-danger" type="button">Изменить фильм</button>
+				<button type="submit" class="btn btn-warning" type="button">Изменить автора</button>
 			</form>
 		</div>
 	</c:if>
