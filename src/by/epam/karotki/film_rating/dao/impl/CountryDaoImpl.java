@@ -16,8 +16,11 @@ import by.epam.karotki.film_rating.dao.exception.CountryDaoException;
 import by.epam.karotki.film_rating.entity.Country;
 
 public class CountryDaoImpl implements CountryDao {
+	
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String COUNTRIES_BY_FILM = "SELECT idCountry, CountryName, CountryCode FROM Country "
@@ -107,29 +110,6 @@ public class CountryDaoImpl implements CountryDao {
 		return country;
 	}
 	
-	private Country getCountry(ResultSet rs) throws SQLException {
-		Country country = null;
-		while (rs.next()) {
-			country = new Country();
-			country.setId(rs.getInt(DBColumnName.COUNTRY_ID));
-			country.setName(rs.getString(DBColumnName.COUNTRY_NAME));
-			country.setCode(rs.getString(DBColumnName.COUNTRY_CODE));
-		}
-		return country;
-		}
-	
-	private List<Country> getCountryList(ResultSet rs) throws SQLException {
-		List<Country> countryList = new ArrayList<Country>();
-		while (rs.next()) {
-			Country country = new Country();
-			country.setId(rs.getInt(DBColumnName.COUNTRY_ID));
-			country.setName(rs.getString(DBColumnName.COUNTRY_NAME));
-			country.setCode(rs.getString(DBColumnName.COUNTRY_CODE));
-			countryList.add(country);
-		}
-		return countryList;
-
-	}
 
 	@Override
 	public void addCountry(Country country) throws CountryDaoException {
@@ -313,6 +293,30 @@ public class CountryDaoImpl implements CountryDao {
 			conPool.returnConnection(con);
 		}
 		return countryList;
+	}
+	
+	private Country getCountry(ResultSet rs) throws SQLException {
+		Country country = null;
+		while (rs.next()) {
+			country = new Country();
+			country.setId(rs.getInt(DBColumnName.COUNTRY_ID));
+			country.setName(rs.getString(DBColumnName.COUNTRY_NAME));
+			country.setCode(rs.getString(DBColumnName.COUNTRY_CODE));
+		}
+		return country;
+		}
+	
+	private List<Country> getCountryList(ResultSet rs) throws SQLException {
+		List<Country> countryList = new ArrayList<Country>();
+		while (rs.next()) {
+			Country country = new Country();
+			country.setId(rs.getInt(DBColumnName.COUNTRY_ID));
+			country.setName(rs.getString(DBColumnName.COUNTRY_NAME));
+			country.setCode(rs.getString(DBColumnName.COUNTRY_CODE));
+			countryList.add(country);
+		}
+		return countryList;
+
 	}
 
 	

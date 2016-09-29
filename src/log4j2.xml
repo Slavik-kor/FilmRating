@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE xml>
-<configuration>
+<configuration monitorInterval="3">
 	<appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n- %msg%n" />
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
 		</Console>
-		<RollingFile name="MyFile" fileName="D:/app.log"
-			filePattern="d:/log/totalLog-%d{MM-dd-yyyy}-%i.log">
+		<RollingFile name="MyFile" fileName="logs/log.log" filePattern="logs/$${date:yyyy-MM}/log-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout>
-				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n- %msg%n</Pattern>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
 			</PatternLayout>
 			<Policies>
 				<TimeBasedTriggeringPolicy />
 				<SizeBasedTriggeringPolicy size="1 MB" />
 			</Policies>
-			<DefaultRolloverStrategy max="2000" />
 		</RollingFile>
 	</appenders>
 	<loggers>

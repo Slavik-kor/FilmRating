@@ -16,6 +16,7 @@ import by.epam.karotki.film_rating.service.CountryService;
 import by.epam.karotki.film_rating.service.exception.CountryServiceException;
 
 public class CountryServiceImpl implements CountryService {
+	
 	private static final String ERROR_MESSAGE = "can't get countries";
 
 	@Override

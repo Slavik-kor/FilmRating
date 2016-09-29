@@ -87,63 +87,7 @@ public class AccountServiceImpl implements AccountService {
 		return newAccount;
 	}
 
-	private void validateParam(Map<String, String> reqParam) throws AccountServiceException {
-		validateLogPas(reqParam.get(LOGIN), reqParam.get(PASSWORD));
-		DaoFactory dao = DaoFactory.getInstance();
-		AccountDao aDao = dao.getAccountDao();
-		Account existAccount = null;
-		try {
-			existAccount = aDao.getAccountByLogin(reqParam.get(LOGIN));
-		} catch (DaoException e) {
-			throw new AccountServiceException(ERROR_MESSAGE_VAL);
-		}
-		if (existAccount != null) {
-			throw new AccountServiceException(ERROR_MESSAGE_EXIST_LOGIN);
-		}
-	}
-
-	private void validateLogPas(String login, String pass) throws AuthServiceException {
-		if (login == null || login.isEmpty()) {
-			throw new AuthServiceException(ERROR_MESSAGE_EMPTY_LOGIN);
-		}
-		if (pass == null || pass.isEmpty()) {
-			throw new AuthServiceException(ERROR_MESSAGE_EMPTY_PAS);
-		}
-	}
-
-	private Account createAccount(Map<String, String> reqParam, InputStream is) {
-		Account account = new Account();
-		account.setLogin(reqParam.get(LOGIN));
-		account.setPassword(reqParam.get(PASSWORD));
-		account.setFirstName(reqParam.get(FIRST_NAME));
-		account.setLastName(reqParam.get(LAST_NAME));
-		account.setEmail(reqParam.get(EMAIL));
-		account.setPhone(reqParam.get(PHONE_NUMBER));
-		account.setRole(USER);
-
-		Date birthday = null;
-		try {
-			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
-		} catch (IllegalArgumentException e) {
-			birthday = null;
-		}
-		account.setBirthDay(birthday);
-
-		Integer countryId = null;
-		try {
-			countryId = Integer.valueOf(reqParam.get(COUNTRY));
-		} catch (IllegalArgumentException | NullPointerException e) {
-			countryId = null;
-		}
-		account.setCountryId(countryId);
-
-		String rootPath = reqParam.get(PROJECT_PATH);
-		String photoPath = PATH_AVATAR + account.getLogin() + JPG;
-		String fullPhotoPath = rootPath + "\\" + photoPath;
-		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
-		account.setPhoto(photoPath);
-		return account;
-	}
+	
 
 	@Override
 	public List<Account> getAccountList() throws AccountServiceException {
@@ -287,6 +231,66 @@ public class AccountServiceImpl implements AccountService {
 		File file = new File(path+"\\"+photoPath);
 		file.delete();
 		
+	}
+	
+	private void validateParam(Map<String, String> reqParam) throws AccountServiceException {
+		validateLogPas(reqParam.get(LOGIN), reqParam.get(PASSWORD));
+		DaoFactory dao = DaoFactory.getInstance();
+		AccountDao aDao = dao.getAccountDao();
+		Account existAccount = null;
+		try {
+			existAccount = aDao.getAccountByLogin(reqParam.get(LOGIN));
+		} catch (DaoException e) {
+			throw new AccountServiceException(ERROR_MESSAGE_VAL);
+		}
+		if (existAccount != null) {
+			throw new AccountServiceException(ERROR_MESSAGE_EXIST_LOGIN);
+		}
+	}
+
+	private void validateLogPas(String login, String pass) throws AuthServiceException {
+		if (login == null || login.isEmpty()) {
+			throw new AuthServiceException(ERROR_MESSAGE_EMPTY_LOGIN);
+		}
+		if (pass == null || pass.isEmpty()) {
+			throw new AuthServiceException(ERROR_MESSAGE_EMPTY_PAS);
+		}
+	}
+
+	private Account createAccount(Map<String, String> reqParam, InputStream is) {
+		Account account = new Account();
+		account.setLogin(reqParam.get(LOGIN));
+		account.setPassword(reqParam.get(PASSWORD));
+		account.setFirstName(reqParam.get(FIRST_NAME));
+		account.setLastName(reqParam.get(LAST_NAME));
+		account.setEmail(reqParam.get(EMAIL));
+		account.setPhone(reqParam.get(PHONE_NUMBER));
+		account.setRole(USER);
+
+		Date birthday = null;
+		try {
+			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
+		} catch (IllegalArgumentException e) {
+			birthday = null;
+		}
+		account.setBirthDay(birthday);
+
+		Integer countryId = null;
+		try {
+			countryId = Integer.valueOf(reqParam.get(COUNTRY));
+		} catch (IllegalArgumentException | NullPointerException e) {
+			countryId = null;
+		}
+		account.setCountryId(countryId);
+
+		String rootPath = reqParam.get(PROJECT_PATH);
+		String photoPath = PATH_AVATAR + account.getLogin() + JPG;
+		String fullPhotoPath = rootPath + "\\" + photoPath;
+		if(is!=null){
+		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+		account.setPhoto(photoPath);
+		}
+		return account;
 	}
 
 }

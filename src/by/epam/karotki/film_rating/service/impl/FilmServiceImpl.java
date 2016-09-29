@@ -23,6 +23,7 @@ import by.epam.karotki.film_rating.service.exception.FilmServiceException;
 import by.epam.karotki.film_rating.service.util.ServiceUtil;
 
 public class FilmServiceImpl implements FilmService {
+	
 	private static final String ERROR_MESSAGE = "can't get films";
 	private static final String ERROR_MESSAGE_VALIDATE = "id field equal zero";
 	private static final String TITLE = "title";
@@ -307,79 +308,7 @@ public class FilmServiceImpl implements FilmService {
 		return newFilm;
 	}
 
-	private Film createFilm(Map<String, String> reqParam, InputStream is) {
-		Film film = new Film();
-		film.setTitle(reqParam.get(TITLE));
-		film.setDescription(reqParam.get(DESCRIPTION));
-		int audience;
-		try {
-			audience = Integer.valueOf(reqParam.get(AUDIENCE));
-		} catch (NumberFormatException e) {
-			audience = 0;
-		}
-		film.setAudience(audience);
-
-		int budget;
-		try {
-			budget = Integer.valueOf(reqParam.get(BUDGET));
-		} catch (NumberFormatException e) {
-			budget = 0;
-		}
-		film.setBudget(budget);
-
-		double boxOffice;
-		try {
-			boxOffice = Double.valueOf(BOX_OFFICE);
-		} catch (NumberFormatException e) {
-			boxOffice = 0;
-		}
-		film.setBoxOfficeCash(boxOffice);
-		film.setWebSite(reqParam.get(SITE));
-		film.setTeaser(reqParam.get(TEASER));
-
-		Time duration = null;
-		try {
-			duration = Time.valueOf(reqParam.get(DURATION));
-		} catch (IllegalArgumentException e) {
-			duration = null;
-		}
-		film.setDuration(duration);
-
-		Date premierDate = null;
-		try {
-			premierDate = Date.valueOf(reqParam.get(RELEASE));
-		} catch (IllegalArgumentException e) {
-			premierDate = null;
-		}
-		film.setPremierDate(premierDate);
-
-		if (is != null) {
-			String rootPath = reqParam.get(PROJECT_PATH);
-			String photoPath = PATH_POSTER + film.getTitle() + JPG;
-			String fullPhotoPath = rootPath + "\\" + photoPath;
-			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
-			film.setPoster(photoPath);
-		}
-
-		return film;
-	}
-
-	private void validateParam(Map<String, String> reqParam) throws FilmServiceException {
-
-	}
-
-	@Override
-	public void addFilm(Film film, String lang) throws FilmServiceException {
-		DaoFactory dao = DaoFactory.getInstance();
-		FilmDao fDao = dao.getFilmDao();
-		try {
-			fDao.addFilm(film, lang);
-		} catch (DaoException e) {
-			// log
-			throw new FilmServiceException(ERROR_MESSAGE, e);
-		}
-
-	}
+	
 
 	@Override
 	public List<Film> getAllFilms(String lang) throws FilmServiceException {
@@ -554,6 +483,80 @@ public class FilmServiceImpl implements FilmService {
 
 		File file = new File(path + "\\" + posterPath);
 		file.delete();
+	}
+	
+	private Film createFilm(Map<String, String> reqParam, InputStream is) {
+		Film film = new Film();
+		film.setTitle(reqParam.get(TITLE));
+		film.setDescription(reqParam.get(DESCRIPTION));
+		int audience;
+		try {
+			audience = Integer.valueOf(reqParam.get(AUDIENCE));
+		} catch (NumberFormatException e) {
+			audience = 0;
+		}
+		film.setAudience(audience);
+
+		int budget;
+		try {
+			budget = Integer.valueOf(reqParam.get(BUDGET));
+		} catch (NumberFormatException e) {
+			budget = 0;
+		}
+		film.setBudget(budget);
+
+		double boxOffice;
+		try {
+			boxOffice = Double.valueOf(BOX_OFFICE);
+		} catch (NumberFormatException e) {
+			boxOffice = 0;
+		}
+		film.setBoxOfficeCash(boxOffice);
+		film.setWebSite(reqParam.get(SITE));
+		film.setTeaser(reqParam.get(TEASER));
+
+		Time duration = null;
+		try {
+			duration = Time.valueOf(reqParam.get(DURATION));
+		} catch (IllegalArgumentException e) {
+			duration = null;
+		}
+		film.setDuration(duration);
+
+		Date premierDate = null;
+		try {
+			premierDate = Date.valueOf(reqParam.get(RELEASE));
+		} catch (IllegalArgumentException e) {
+			premierDate = null;
+		}
+		film.setPremierDate(premierDate);
+
+		if (is != null) {
+			String rootPath = reqParam.get(PROJECT_PATH);
+			String photoPath = PATH_POSTER + film.getTitle() + JPG;
+			String fullPhotoPath = rootPath + "\\" + photoPath;
+			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+			film.setPoster(photoPath);
+		}
+
+		return film;
+	}
+
+	private void validateParam(Map<String, String> reqParam) throws FilmServiceException {
+
+	}
+
+	@Override
+	public void addFilm(Film film, String lang) throws FilmServiceException {
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmDao fDao = dao.getFilmDao();
+		try {
+			fDao.addFilm(film, lang);
+		} catch (DaoException e) {
+			// log
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
+
 	}
 
 }

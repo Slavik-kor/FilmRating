@@ -19,9 +19,13 @@ import by.epam.karotki.film_rating.entity.Film;
 //import org.apache.logging.log4j.Logger;
 
 public class FilmDaoImpl implements FilmDao {
-//	 private static final Logger LOG = LogManager.getLogger();
+
+	// private static final Logger LOG = LogManager.getLogger();
+
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String FILM_BY_RATING = "SELECT * FROM (SELECT idFilm, Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser, ROUND(AVG(Rate),2) Rating"
@@ -68,29 +72,28 @@ public class FilmDaoImpl implements FilmDao {
 
 	private static final String ADD_FILM = "INSERT INTO Film (Title, Description, Budget, BoxOfficeCash, Audience, PremierDate, Duration, WebSite, Poster, Teaser) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
-	
+
 	private static final String ADD_FILM_LANG = "INSERT INTO Film_lang (Title, Description, idFilm, lang) "
 			+ "VALUES(?,?,?,?)";
 
 	private static final String UPDATE_FILM = "UPDATE Film SET Title=?, Description=?, Budget=?, BoxOfficeCash=?, Audience=?, PremierDate=?, Duration=?, WebSite=?, Poster=?, Teaser=? WHERE idFilm=? ";
 
 	private static final String UPDATE_FILM_LANG = "UPDATE Film_lang SET Title = ?, Description = ? WHERE (idFilm = ?) AND (lang = ?) ";
-	
+
 	private static final String DELETE_FILM = "DELETE FROM Film WHERE idFilm = ? ";
 
 	private static final String DELETE_FILM_LANG = "DELETE FROM Film_lang WHERE (idFilm = ?) AND (lang = ?)";
 
 	private static final String DELETE_COUNTRY_FILM = "DELETE FROM FilmOriginCountry WHERE Film_id = ? ";
-	
+
 	private static final String DELETE_COMMENT_FILM = "DELETE FROM Comment WHERE Film_id = ? ";
-	
+
 	private static final String DELETE_AUTHOR_FILM = "DELETE FROM Film_has_Authors WHERE Film_id = ? ";
-	
+
 	private static final String DELETE_GENRE_FILM = "DELETE FROM Film_Genre WHERE Film_id = ? ";
-	
+
 	private static final String DELETE_FILM_LANG_T = "DELETE FROM Film_lang WHERE idFilm = ? ";
-	
-	
+
 	@Override
 	public List<Film> getTopFilmsByRating(String lang) throws FilmDaoException {
 		List<Film> filmList = new ArrayList<Film>();
@@ -103,7 +106,7 @@ public class FilmDaoImpl implements FilmDao {
 			ps.setString(1, lang);
 			rs = ps.executeQuery();
 			filmList = getFilms(rs);
-			
+
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
@@ -112,7 +115,7 @@ public class FilmDaoImpl implements FilmDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				 //LOG.error("Can't close ResultSet");
+				// LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
@@ -276,7 +279,7 @@ public class FilmDaoImpl implements FilmDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				//LOG.error("Can't close ResultSet");
+				// LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
@@ -378,7 +381,7 @@ public class FilmDaoImpl implements FilmDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-			 //LOG.error("Can't close PreparedStatement");
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -386,44 +389,7 @@ public class FilmDaoImpl implements FilmDao {
 		return film;
 	}
 
-	private Film getFilm(ResultSet rs) throws SQLException {
-		while (rs.next()) {
-			Film film = new Film();
-			film.setId(rs.getInt(DBColumnName.FILM_ID));
-			film.setTitle(rs.getString(DBColumnName.FILM_TITLE));
-			film.setDescription(rs.getString(DBColumnName.FILM_DESCRIPTION));
-			film.setBudget(rs.getDouble(DBColumnName.FILM_BUDGET));
-			film.setBoxOfficeCash(rs.getDouble(DBColumnName.FILM_BOX_OFFICE_CASH));
-			film.setAudience(rs.getInt(DBColumnName.FILM_AUDIENCE));
-			film.setPremierDate(rs.getDate(DBColumnName.FILM_PREMIER_DATE));
-			film.setDuration(rs.getTime(DBColumnName.FILM_DURATION));
-			film.setWebSite(rs.getString(DBColumnName.FILM_SITE));
-			film.setPoster(rs.getString(DBColumnName.FILM_POSTER));
-			film.setTeaser(rs.getString(DBColumnName.FILM_TEASER));
-			return film;
-		}
-		return null;
-	}
-
-	private List<Film> getFilms(ResultSet rs) throws SQLException {
-		List<Film> filmList = new ArrayList<Film>();
-		while (rs.next()) {
-			Film film = new Film();
-			film.setId(rs.getInt(DBColumnName.FILM_ID));
-			film.setTitle(rs.getString(DBColumnName.FILM_TITLE));
-			film.setDescription(rs.getString(DBColumnName.FILM_DESCRIPTION));
-			film.setBudget(rs.getDouble(DBColumnName.FILM_BUDGET));
-			film.setBoxOfficeCash(rs.getDouble(DBColumnName.FILM_BOX_OFFICE_CASH));
-			film.setAudience(rs.getInt(DBColumnName.FILM_AUDIENCE));
-			film.setPremierDate(rs.getDate(DBColumnName.FILM_PREMIER_DATE));
-			film.setDuration(rs.getTime(DBColumnName.FILM_DURATION));
-			film.setWebSite(rs.getString(DBColumnName.FILM_SITE));
-			film.setPoster(rs.getString(DBColumnName.FILM_POSTER));
-			film.setTeaser(rs.getString(DBColumnName.FILM_TEASER));
-			filmList.add(film);
-		}
-		return filmList;
-	}
+	
 
 	@Override
 	public void addFilm(Film film) throws FilmDaoException {
@@ -505,39 +471,39 @@ public class FilmDaoImpl implements FilmDao {
 		try {
 			con = conPool.takeConnection();
 			con.setAutoCommit(false);
-			
+
 			ps_com = con.prepareStatement(DELETE_COMMENT_FILM);
 			ps_com.setInt(1, id);
 			ps_com.executeUpdate();
-			
+
 			ps_country = con.prepareStatement(DELETE_COUNTRY_FILM);
 			ps_country.setInt(1, id);
 			ps_country.executeUpdate();
-			
+
 			ps_genre = con.prepareStatement(DELETE_GENRE_FILM);
 			ps_genre.setInt(1, id);
 			ps_genre.executeUpdate();
-			
+
 			ps_author = con.prepareStatement(DELETE_AUTHOR_FILM);
 			ps_author.setInt(1, id);
 			ps_author.executeUpdate();
-			
+
 			ps_lang = con.prepareStatement(DELETE_FILM_LANG_T);
 			ps_lang.setInt(1, id);
 			ps_lang.executeUpdate();
-			
+
 			ps = con.prepareStatement(DELETE_FILM);
 			ps.setInt(1, id);
 			ps.executeUpdate();
-			
+
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
-			try{
+			try {
 				con.setAutoCommit(true);
-			}catch(SQLException e){
+			} catch (SQLException e) {
 				//
 			}
 			try {
@@ -625,7 +591,7 @@ public class FilmDaoImpl implements FilmDao {
 			ps.setString(1, film.getTitle());
 			ps.setString(2, film.getDescription());
 			ps.setInt(3, film.getId());
-			ps.setString(4,lang);
+			ps.setString(4, lang);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
@@ -690,6 +656,45 @@ public class FilmDaoImpl implements FilmDao {
 			}
 			conPool.returnConnection(con);
 		}
+	}
+	
+	private Film getFilm(ResultSet rs) throws SQLException {
+		while (rs.next()) {
+			Film film = new Film();
+			film.setId(rs.getInt(DBColumnName.FILM_ID));
+			film.setTitle(rs.getString(DBColumnName.FILM_TITLE));
+			film.setDescription(rs.getString(DBColumnName.FILM_DESCRIPTION));
+			film.setBudget(rs.getDouble(DBColumnName.FILM_BUDGET));
+			film.setBoxOfficeCash(rs.getDouble(DBColumnName.FILM_BOX_OFFICE_CASH));
+			film.setAudience(rs.getInt(DBColumnName.FILM_AUDIENCE));
+			film.setPremierDate(rs.getDate(DBColumnName.FILM_PREMIER_DATE));
+			film.setDuration(rs.getTime(DBColumnName.FILM_DURATION));
+			film.setWebSite(rs.getString(DBColumnName.FILM_SITE));
+			film.setPoster(rs.getString(DBColumnName.FILM_POSTER));
+			film.setTeaser(rs.getString(DBColumnName.FILM_TEASER));
+			return film;
+		}
+		return null;
+	}
+
+	private List<Film> getFilms(ResultSet rs) throws SQLException {
+		List<Film> filmList = new ArrayList<Film>();
+		while (rs.next()) {
+			Film film = new Film();
+			film.setId(rs.getInt(DBColumnName.FILM_ID));
+			film.setTitle(rs.getString(DBColumnName.FILM_TITLE));
+			film.setDescription(rs.getString(DBColumnName.FILM_DESCRIPTION));
+			film.setBudget(rs.getDouble(DBColumnName.FILM_BUDGET));
+			film.setBoxOfficeCash(rs.getDouble(DBColumnName.FILM_BOX_OFFICE_CASH));
+			film.setAudience(rs.getInt(DBColumnName.FILM_AUDIENCE));
+			film.setPremierDate(rs.getDate(DBColumnName.FILM_PREMIER_DATE));
+			film.setDuration(rs.getTime(DBColumnName.FILM_DURATION));
+			film.setWebSite(rs.getString(DBColumnName.FILM_SITE));
+			film.setPoster(rs.getString(DBColumnName.FILM_POSTER));
+			film.setTeaser(rs.getString(DBColumnName.FILM_TEASER));
+			filmList.add(film);
+		}
+		return filmList;
 	}
 
 }

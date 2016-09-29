@@ -66,6 +66,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			+ "FROM (SELECT g.idAuthor idAuthor, coalesce(t.AuthorFirstName,g.AuthorFirstName) AuthorFirstName, "
 			+ "coalesce(t.AuthorLastName,g.AuthorLastName) AuthorLastName, AuthorsBirthday, Photo, CountryOfBirth_id "
 			+ "FROM (Author g LEFT JOIN (SELECT * FROM Author_lang WHERE lang = ?) t USING(idAuthor))) Authors ";
+	
 	@Override
 	public List<Author> getAuthorListByCountry(String country) throws AuthorDaoException {
 
@@ -196,34 +197,6 @@ public class AuthorDaoImpl implements AuthorDao {
 		return author;
 	}
 
-	private Author getAuthor(ResultSet rs) throws SQLException {
-		while (rs.next()) {
-			Author author = new Author();
-			author.setId(rs.getInt(DBColumnName.AUTHOR_ID));
-			author.setFirstName(rs.getString(DBColumnName.AUTHOR_FIRST_NAME));
-			author.setLastName(rs.getString(DBColumnName.AUTHOR_LAST_NAME));
-			author.setBirthDay(rs.getDate(DBColumnName.AUTHOR_BIRTHDAY));
-			author.setPhoto(rs.getString(DBColumnName.AUTHOR_PHOTO));
-			author.setCountryOfBirthId(rs.getInt(DBColumnName.AUTHOR_COUNTRY));
-			return author;
-		}
-		return null;
-	}
-	
-	private List<Author> getAuthors(ResultSet rs) throws SQLException {
-		List<Author> authorList = new ArrayList<Author>();
-		while (rs.next()) {
-			Author author = new Author();
-			author.setId(rs.getInt(DBColumnName.AUTHOR_ID));
-			author.setFirstName(rs.getString(DBColumnName.AUTHOR_FIRST_NAME));
-			author.setLastName(rs.getString(DBColumnName.AUTHOR_LAST_NAME));
-			author.setBirthDay(rs.getDate(DBColumnName.AUTHOR_BIRTHDAY));
-			author.setPhoto(rs.getString(DBColumnName.AUTHOR_PHOTO));
-			author.setCountryOfBirthId(rs.getInt(DBColumnName.AUTHOR_COUNTRY));
-			authorList.add(author);
-		}
-		return authorList;
-	}
 
 	@Override
 	public void addAuthor(Author author) throws AuthorDaoException {
@@ -474,6 +447,35 @@ public class AuthorDaoImpl implements AuthorDao {
 			conPool.returnConnection(con);
 		}				
 		
+	}
+	
+	private Author getAuthor(ResultSet rs) throws SQLException {
+		while (rs.next()) {
+			Author author = new Author();
+			author.setId(rs.getInt(DBColumnName.AUTHOR_ID));
+			author.setFirstName(rs.getString(DBColumnName.AUTHOR_FIRST_NAME));
+			author.setLastName(rs.getString(DBColumnName.AUTHOR_LAST_NAME));
+			author.setBirthDay(rs.getDate(DBColumnName.AUTHOR_BIRTHDAY));
+			author.setPhoto(rs.getString(DBColumnName.AUTHOR_PHOTO));
+			author.setCountryOfBirthId(rs.getInt(DBColumnName.AUTHOR_COUNTRY));
+			return author;
+		}
+		return null;
+	}
+	
+	private List<Author> getAuthors(ResultSet rs) throws SQLException {
+		List<Author> authorList = new ArrayList<Author>();
+		while (rs.next()) {
+			Author author = new Author();
+			author.setId(rs.getInt(DBColumnName.AUTHOR_ID));
+			author.setFirstName(rs.getString(DBColumnName.AUTHOR_FIRST_NAME));
+			author.setLastName(rs.getString(DBColumnName.AUTHOR_LAST_NAME));
+			author.setBirthDay(rs.getDate(DBColumnName.AUTHOR_BIRTHDAY));
+			author.setPhoto(rs.getString(DBColumnName.AUTHOR_PHOTO));
+			author.setCountryOfBirthId(rs.getInt(DBColumnName.AUTHOR_COUNTRY));
+			authorList.add(author);
+		}
+		return authorList;
 	}
 
 	

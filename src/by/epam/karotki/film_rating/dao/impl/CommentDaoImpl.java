@@ -20,9 +20,13 @@ import by.epam.karotki.film_rating.entity.Comment;
 //import org.apache.logging.log4j.Logger;
 
 public class CommentDaoImpl implements CommentDao {
+	
 	//private static final Logger LOG = LogManager.getLogger();
+	
 	private ConnectionPool conPool = ConnectionPool.getInstance();
+	
 	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	
 	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 	
 	private static final String GET_COMMENT = "SELECT Account_id, Film_id, CommentText, CommentDate, Rate FROM Comment";

@@ -15,6 +15,7 @@ import by.epam.karotki.film_rating.service.exception.GenreServiceException;
 import by.epam.karotki.film_rating.service.util.ServiceUtil;
 
 public class GenreServiceImpl implements GenreService {
+	
 	private static final String ERROR_MESSAGE = "can't get film genres";
 
 	@Override

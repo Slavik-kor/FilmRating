@@ -1,6 +1,4 @@
-package by.epam.karotki.film_rating.service.exception;
-
-import by.epam.karotki.film_rating.dao.exception.DaoException;
+package by.epam.karotki.film_rating.dao.exception;
 
 public class InitDaoException extends DaoException {
 	

@@ -17,19 +17,23 @@ import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolE
 import by.epam.karotki.film_rating.dao.exception.DaoException;
 
 public class FilmAuthorDaoImpl implements FilmAuthorDao {
-//private static final Logger LOG = LogManager.getLogger();
-private ConnectionPool conPool = ConnectionPool.getInstance();
-private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
-private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
-	
+
+	// private static final Logger LOG = LogManager.getLogger();
+
+	private ConnectionPool conPool = ConnectionPool.getInstance();
+
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
+
 	private static final String ADD_FILM_AUTHOR = "INSERT INTO Film_has_Authors (Film_id,Authors_idAuthors,Role) VALUES (?,?,?) ";
-	
+
 	private static final String DELETE_FILM_AUTHOR = "DELETE FROM Film_has_Authors WHERE (Film_id = ?) AND (Authors_idAuthors = ?) AND (Role = ?)";
-	
+
 	private static final String SELECT_FILM_ID = "SELECT Film_id FROM Film_has_Authors WHERE (Authors_idAuthors = ?) AND (Role = ?)";
-	
+
 	private static final String SELECT_AUTHOR_ID = "SELECT Authors_idAuthors FROM Film_has_Authors WHERE (Film_id = ?) AND (Role = ?)";
-	
+
 	@Override
 	public void addAuthorToFilm(int idFilm, int idAuthor, String role) throws DaoException {
 		Connection con = null;
@@ -37,7 +41,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(ADD_FILM_AUTHOR);
-			ps.setInt(1,idFilm);
+			ps.setInt(1, idFilm);
 			ps.setInt(2, idAuthor);
 			ps.setString(3, role);
 			ps.executeUpdate();
@@ -48,8 +52,8 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		} finally {
 			try {
 				ps.close();
-				} catch (SQLException e) {
-				 //LOG.error("Can't close PreparedStatement");
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -62,8 +66,8 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(DELETE_FILM_AUTHOR);
-			ps.setInt(1,idFilm);
-			ps.setInt(2,idAuthor);
+			ps.setInt(1, idFilm);
+			ps.setInt(2, idAuthor);
 			ps.setString(3, role);
 			ps.executeUpdate();
 		} catch (ConnectionPoolException e) {
@@ -90,11 +94,11 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(SELECT_FILM_ID);
-			ps.setInt(1,idAuthor);
+			ps.setInt(1, idAuthor);
 			ps.setString(2, role);
 			rs = ps.executeQuery();
 			filmIds = new ArrayList<Integer>();
-			while(rs.next()){
+			while (rs.next()) {
 				filmIds.add(rs.getInt(DBColumnName.FILM_AUTHOR_FILM_ID));
 			}
 		} catch (ConnectionPoolException e) {
@@ -104,8 +108,8 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		} finally {
 			try {
 				ps.close();
-				} catch (SQLException e) {
-				 //LOG.error("Can't close PreparedStatement");
+			} catch (SQLException e) {
+				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -121,11 +125,11 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(SELECT_AUTHOR_ID);
-			ps.setInt(1,idFilm);
+			ps.setInt(1, idFilm);
 			ps.setString(2, role);
 			rs = ps.executeQuery();
 			authorIds = new ArrayList<Integer>();
-			while(rs.next()){
+			while (rs.next()) {
 				authorIds.add(rs.getInt(DBColumnName.FILM_AUTHOR_AUTHOR_ID));
 			}
 		} catch (ConnectionPoolException e) {
@@ -135,7 +139,7 @@ private static final String ERROR_MESSAGE_CP = "Can't get connection from Connec
 		} finally {
 			try {
 				ps.close();
-				} catch (SQLException e) {
+			} catch (SQLException e) {
 				// LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);

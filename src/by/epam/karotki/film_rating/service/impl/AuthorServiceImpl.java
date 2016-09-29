@@ -238,35 +238,6 @@ public class AuthorServiceImpl implements AuthorService {
 		}
 	}
 
-	private Author createAuthor(Map<String, String> reqParam, InputStream is) {
-		Author author = new Author();
-		author.setFirstName(reqParam.get(F_NAME));
-		author.setLastName(reqParam.get(L_NAME));
-
-		Date birthday = null;
-		try {
-			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
-		} catch (IllegalArgumentException e) {
-			birthday = null;
-		}
-		author.setBirthDay(birthday);
-
-		Integer countryId = null;
-		try {
-			countryId = Integer.valueOf(reqParam.get(COUNTRY));
-		} catch (IllegalArgumentException | NullPointerException e) {
-			countryId = null;
-		}
-		author.setCountryOfBirthId(countryId);
-
-		String rootPath = reqParam.get(PROJECT_PATH);
-		String photoPath = PATH_PHOTO + AUTHOR_FILE++ + JPG;
-		String fullPhotoPath = rootPath + "\\" + photoPath;
-		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
-		author.setPhoto(photoPath);
-
-		return author;
-	}
 
 	@Override
 	public void deleteAuthor(int idAuthor, String path) throws AuthorServiceException {
@@ -330,6 +301,36 @@ public class AuthorServiceImpl implements AuthorService {
 			throw new AuthorServiceException("can't add films to actor", e);
 		}
 
+	}
+	
+	private Author createAuthor(Map<String, String> reqParam, InputStream is) {
+		Author author = new Author();
+		author.setFirstName(reqParam.get(F_NAME));
+		author.setLastName(reqParam.get(L_NAME));
+
+		Date birthday = null;
+		try {
+			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
+		} catch (IllegalArgumentException e) {
+			birthday = null;
+		}
+		author.setBirthDay(birthday);
+
+		Integer countryId = null;
+		try {
+			countryId = Integer.valueOf(reqParam.get(COUNTRY));
+		} catch (IllegalArgumentException | NullPointerException e) {
+			countryId = null;
+		}
+		author.setCountryOfBirthId(countryId);
+
+		String rootPath = reqParam.get(PROJECT_PATH);
+		String photoPath = PATH_PHOTO + AUTHOR_FILE++ + JPG;
+		String fullPhotoPath = rootPath + "\\" + photoPath;
+		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+		author.setPhoto(photoPath);
+
+		return author;
 	}
 
 }

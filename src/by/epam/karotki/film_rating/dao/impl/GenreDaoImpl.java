@@ -19,11 +19,14 @@ import by.epam.karotki.film_rating.dao.exception.GenreDaoException;
 import by.epam.karotki.film_rating.entity.Genre;
 
 public class GenreDaoImpl implements GenreDao {
-	//private static final Logger LOG = LogManager.getLogger();
-	private ConnectionPool conPool = ConnectionPool.getInstance();
-	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
-	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 	
+	//private static final Logger LOG = LogManager.getLogger();
+	
+	private ConnectionPool conPool = ConnectionPool.getInstance();
+	
+	private static final String ERROR_MESSAGE_QUERY = "Can't perform query";
+	
+	private static final String ERROR_MESSAGE_CP = "Can't get connection from ConnectionPool";
 
 	private static final String GENRES_BY_FILM = "SELECT idGenre, Name, Description FROM Genre "
 			+ "JOIN Film_Genre film ON Genre.idGenre = film.Genre_id WHERE film.Film_id=?";
@@ -43,7 +46,6 @@ public class GenreDaoImpl implements GenreDao {
 
 	private static final String DELETE_GENRE_LANG = "DELETE FROM Genre_lang WHERE (idGenre = ?) AND (lang = ?)";
 
-	
 	@Override
 	public List<Genre> getGenreListByFilm(int idFilm) throws GenreDaoException {
 		List<Genre> genreList = new ArrayList<Genre>();
@@ -88,18 +90,6 @@ public class GenreDaoImpl implements GenreDao {
 		return genreList;
 	}
 	
-	/*	private Genre getGenre(ResultSet rs) throws SQLException {
-		Genre genre = null;
-		while (rs.next()) {
-			genre = new Genre();
-			genre.setId(rs.getInt(DBColumnNames.GENRE_ID));
-			genre.setName(rs.getString(DBColumnNames.GENRE_NAME));
-			genre.setDescription(rs.getString(DBColumnNames.GENRE_DESCRIPTION));
-			return genre;
-		}
-		return genre;
-	}
- */
 	@Override
 	public List<Genre> getGenreByCriteria(Criteria cr, String lang) throws GenreDaoException {
 		List<Genre> genre = null;
