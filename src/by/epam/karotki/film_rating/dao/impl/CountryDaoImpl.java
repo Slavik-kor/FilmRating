@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.epam.karotki.film_rating.dao.CountryDao;
 import by.epam.karotki.film_rating.dao.Criteria;
 import by.epam.karotki.film_rating.dao.DBColumnName;
@@ -16,6 +19,8 @@ import by.epam.karotki.film_rating.dao.exception.CountryDaoException;
 import by.epam.karotki.film_rating.entity.Country;
 
 public class CountryDaoImpl implements CountryDao {
+	
+	private static final Logger LOG = LogManager.getLogger();
 	
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	
@@ -66,12 +71,12 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -98,12 +103,12 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -129,7 +134,7 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -155,7 +160,7 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		
@@ -178,7 +183,7 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -203,7 +208,7 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		
@@ -229,7 +234,7 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		
@@ -255,7 +260,7 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -283,12 +288,12 @@ public class CountryDaoImpl implements CountryDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -318,7 +323,5 @@ public class CountryDaoImpl implements CountryDao {
 		return countryList;
 
 	}
-
-	
 
 }

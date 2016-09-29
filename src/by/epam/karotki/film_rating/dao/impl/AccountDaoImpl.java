@@ -92,12 +92,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				//LOG.error("Can't close ResultSet");
+				LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -123,12 +123,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -156,12 +156,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -177,7 +177,6 @@ public class AccountDaoImpl implements AccountDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			LOG.warn("warn");
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(AUTHORIZATION);
 			ps.setString(1, login);
@@ -192,12 +191,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -233,7 +232,7 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -305,7 +304,7 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -332,12 +331,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -371,12 +370,12 @@ public class AccountDaoImpl implements AccountDao {
 			try{
 				con.setAutoCommit(true);
 			}catch(SQLException e){
-				//
+				LOG.error("Can't set autoCommit to connection");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -392,7 +391,6 @@ public class AccountDaoImpl implements AccountDao {
 		try {
 			con = conPool.takeConnection();
 			ps = con.prepareStatement(ACCOUNTS);
-			//ps.setInt(1, value);
 			rs = ps.executeQuery();
 			accountList = getAccounts(rs);
 		} catch (ConnectionPoolException e) {
@@ -403,12 +401,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -434,12 +432,12 @@ public class AccountDaoImpl implements AccountDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}

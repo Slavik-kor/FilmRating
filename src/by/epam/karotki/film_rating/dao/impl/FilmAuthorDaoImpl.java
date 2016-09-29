@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.FilmAuthorDao;
@@ -18,7 +18,7 @@ import by.epam.karotki.film_rating.dao.exception.DaoException;
 
 public class FilmAuthorDaoImpl implements FilmAuthorDao {
 
-	// private static final Logger LOG = LogManager.getLogger();
+	private static final Logger LOG = LogManager.getLogger();
 
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 
@@ -53,7 +53,7 @@ public class FilmAuthorDaoImpl implements FilmAuthorDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -78,7 +78,7 @@ public class FilmAuthorDaoImpl implements FilmAuthorDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -109,7 +109,7 @@ public class FilmAuthorDaoImpl implements FilmAuthorDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -140,7 +140,7 @@ public class FilmAuthorDaoImpl implements FilmAuthorDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}

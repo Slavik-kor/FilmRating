@@ -16,12 +16,12 @@ import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolE
 import by.epam.karotki.film_rating.dao.exception.CommentDaoException;
 import by.epam.karotki.film_rating.entity.Comment;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CommentDaoImpl implements CommentDao {
 	
-	//private static final Logger LOG = LogManager.getLogger();
+	private static final Logger LOG = LogManager.getLogger();
 	
 	private ConnectionPool conPool = ConnectionPool.getInstance();
 	
@@ -56,12 +56,12 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close ResultSet");
+				 LOG.error("Can't close ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}
@@ -92,7 +92,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		
@@ -116,7 +116,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		
@@ -142,7 +142,7 @@ public class CommentDaoImpl implements CommentDao {
 			try {
 				ps.close();
 				} catch (SQLException e) {
-				// LOG.error("Can't close PreparedStatement");
+				 LOG.error("Can't close PreparedStatement");
 			}
 			conPool.returnConnection(con);
 		}		

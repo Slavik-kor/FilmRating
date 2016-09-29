@@ -10,7 +10,11 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.39-bin.jar"/>
-	<classpathentry kind="lib" path="src/lib/junit.jar"/>
+	<classpathentry kind="lib" path="src/lib/junit.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="src/lib/log4j-api-2.6.1.jar"/>
 	<classpathentry kind="lib" path="src/lib/log4j-core-2.6.1.jar"/>
