@@ -14,6 +14,7 @@ import by.epam.karotki.film_rating.service.ServiceFactory;
 @WebListener
 public class FilmRatingListener implements ServletContextListener {
 	private InitService iService;
+	
 
 	/**
 	 * Default constructor.
@@ -25,14 +26,16 @@ public class FilmRatingListener implements ServletContextListener {
 	/**
 	 * @see ServletContextListener#contextDestroyed(ServletContextEvent)
 	 */
-	public void contextDestroyed(ServletContextEvent arg0) {
+	public void contextDestroyed(ServletContextEvent event) {
 		iService.destroy();
 	}
 
 	/**
 	 * @see ServletContextListener#contextInitialized(ServletContextEvent)
 	 */
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent event) {
+		
+		//	String str = event.getServletContext().getInitParameter(LOCALE);
 		
 			ServiceFactory fService = ServiceFactory.getInstance();
 			iService = fService.getInitService();

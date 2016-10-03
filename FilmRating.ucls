@@ -216,7 +216,7 @@
   </class>  
   <enumeration id="23" language="java" name="by.epam.karotki.film_rating.dao.Operator" project="FilmRating" 
     file="/FilmRating/src/by/epam/karotki/film_rating/dao/Operator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="164" y="1990"/>    
+    <position height="-1" width="-1" x="214" y="1986"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -490,7 +490,7 @@
   </class>  
   <class id="52" language="java" name="by.epam.karotki.film_rating.entity.Country" project="FilmRating" 
     file="/FilmRating/src/by/epam/karotki/film_rating/entity/Country.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1115" y="4460"/>    
+    <position height="-1" width="-1" x="924" y="4963"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -499,7 +499,7 @@
   </class>  
   <class id="53" language="java" name="by.epam.karotki.film_rating.entity.Film" project="FilmRating" 
     file="/FilmRating/src/by/epam/karotki/film_rating/entity/Film.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1342" y="4674"/>    
+    <position height="-1" width="-1" x="1163" y="4675"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -524,276 +524,368 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="56">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="23"/>  
-  </dependency>  
-  <association id="57">    
+  <association id="56">    
     <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="58" name="filmCountryDao"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="31" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="61" name="authorDao"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="63">    
-    <end type="SOURCE" refId="40"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <generalization id="64">    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <dependency id="65">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <association id="66">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="67" name="instance"/>      
-      <multiplicity id="68" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="69">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <generalization id="70">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <association id="71">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="72" name="commands"/>      
-      <multiplicity id="73" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="74">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="75" name="cService"/>      
-      <multiplicity id="76" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="77">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <generalization id="78">    
-    <end type="SOURCE" refId="43"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <generalization id="79">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <dependency id="80">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="3"/>  
-  </dependency>  
-  <association id="81">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="82" name="filmAuthorDao"/>      
-      <multiplicity id="83" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="84">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="45"/>  
-  </dependency>  
-  <generalization id="85">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="86">    
-    <end type="SOURCE" refId="44" navigable="false">      
-      <attribute id="87" name="instance"/>      
-      <multiplicity id="88" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="44" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="89">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="90" name="filmDao"/>      
-      <multiplicity id="91" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="32" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="92">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="93">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="94" name="comService"/>      
-      <multiplicity id="95" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="96">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="97" name="gService"/>      
-      <multiplicity id="98" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="99">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="25"/>  
-  </dependency>  
-  <association id="100">    
-    <end type="SOURCE" refId="46" navigable="false">      
-      <attribute id="101" name="instance"/>      
-      <multiplicity id="102" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="46" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="103">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="104" name="uService"/>      
-      <multiplicity id="105" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="106">    
-    <end type="SOURCE" refId="44"/>    
-    <end type="TARGET" refId="47"/>  
-  </dependency>  
-  <association id="107">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="108" name="genreDao"/>      
-      <multiplicity id="109" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="34" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="110">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="111" name="filmGenreDao"/>      
-      <multiplicity id="112" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="33" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="113">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="114" name="userDao"/>      
-      <multiplicity id="115" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="116">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="117" name="aService"/>      
-      <multiplicity id="118" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="119">    
-    <end type="SOURCE" refId="42"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="120">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="121" name="initDao"/>      
-      <multiplicity id="122" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="35" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="123">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <generalization id="124">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <association id="125">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="126" name="instance"/>      
-      <multiplicity id="127" minimum="0" maximum="1"/>    
+      <attribute id="57" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="128">    
+  <dependency id="59">    
     <end type="SOURCE" refId="44"/>    
     <end type="TARGET" refId="46"/>  
   </dependency>  
-  <association id="129">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="130" name="countryDao"/>      
-      <multiplicity id="131" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="132">    
-    <end type="SOURCE" refId="38"/>    
-    <end type="TARGET" refId="36"/>  
-  </generalization>  
-  <association id="133">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="134" name="fService"/>      
-      <multiplicity id="135" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="136">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="137" name="instance"/>      
-      <multiplicity id="138" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="139">    
-    <end type="SOURCE" refId="18"/>    
+  <generalization id="60">    
+    <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="14"/>  
   </generalization>  
-  <generalization id="140">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <association id="141">    
+  <association id="61">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="142" name="iService"/>      
-      <multiplicity id="143" minimum="0" maximum="1"/>    
+      <attribute id="62" name="iService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="63" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="144">    
+  <dependency id="64">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <generalization id="65">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="15"/>  
+  </generalization>  
+  <association id="66">    
+    <end type="SOURCE" refId="46" navigable="false">      
+      <attribute id="67" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="68" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="46" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
     <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="145" name="commentDao"/>      
-      <multiplicity id="146" minimum="0" maximum="1"/>    
+      <attribute id="70" name="filmCountryDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="71" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <dependency id="73">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="74">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="75" name="cService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="78" name="countryDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="79" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="80">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="47"/>  
+  </dependency>  
+  <association id="81">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="82" name="userDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="83" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="84">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="85" name="filmDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="86" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="87">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <association id="88">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="89" name="comService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="90" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="92" name="aService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="93" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="95" name="commands">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="96" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="97">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="98">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="99" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="100" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="101">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="102">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="103">    
+    <end type="SOURCE" refId="41"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="104">    
+    <end type="SOURCE" refId="44" navigable="false">      
+      <attribute id="105" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="106" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="108" name="fService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="109" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="111" name="gService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="112" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="114" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="115" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="117" name="authorDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="118" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="119">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="120">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="121">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <generalization id="122">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="123">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="124" name="filmGenreDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="125" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="126">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="127">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="128" name="filmAuthorDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="129" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="131" name="commentDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="132" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="133">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="134">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="135">    
+    <end type="SOURCE" refId="43"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <association id="136">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="137" name="initDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="138" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="139">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="140">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="141">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="142" name="genreDao">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="143" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="144">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="145" name="uService">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="146" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
