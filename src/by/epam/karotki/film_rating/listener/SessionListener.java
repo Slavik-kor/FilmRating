@@ -1,6 +1,7 @@
 package by.epam.karotki.film_rating.listener;
 
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -22,15 +23,19 @@ public class SessionListener implements HttpSessionListener {
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
     public void sessionCreated(HttpSessionEvent arg0)  { 
-    	
-         arg0.getSession().setAttribute(LOCALE, "ru");
+    	System.out.println("session is created");
+    	HttpSession session = arg0.getSession();
+    	String locale = session.getServletContext().getInitParameter(LOCALE);
+         session.setAttribute(LOCALE, locale);
+     	System.out.println(session.getAttribute(LOCALE));
+
     }
 
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
     public void sessionDestroyed(HttpSessionEvent arg0)  { 
-         // TODO Auto-generated method stub
+    	System.out.println("session is closed");
     }
 	
 }
