@@ -16,26 +16,23 @@ public class SessionListener implements HttpSessionListener {
      * Default constructor. 
      */
     public SessionListener() {
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
-    public void sessionCreated(HttpSessionEvent arg0)  { 
-    	System.out.println("session is created");
-    	HttpSession session = arg0.getSession();
+    public void sessionCreated(HttpSessionEvent event)  { 
+    	HttpSession session = event.getSession();
     	String locale = session.getServletContext().getInitParameter(LOCALE);
          session.setAttribute(LOCALE, locale);
-     	System.out.println(session.getAttribute(LOCALE));
-
     }
 
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
-    public void sessionDestroyed(HttpSessionEvent arg0)  { 
-    	System.out.println("session is closed");
+    public void sessionDestroyed(HttpSessionEvent event)  { 
+    	
     }
 	
 }
