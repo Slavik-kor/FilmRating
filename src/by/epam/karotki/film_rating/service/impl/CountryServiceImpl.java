@@ -21,6 +21,7 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public List<Country> getCountriesByFilm(int idFilm,String lang) throws CountryServiceException {
+		validate(idFilm, lang);
 		List<Country> countryList = new ArrayList<Country>();
 		DaoFactory dao = DaoFactory.getInstance();
 		CountryDao cDao = dao.getCountryDao();
@@ -45,6 +46,7 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public Country getCountryById(int id,String lang) throws CountryServiceException {
+		validate(id, lang);
 		Country country = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		CountryDao cDao = dao.getCountryDao();
@@ -65,6 +67,7 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public List<Country> getAllCountries(String lang) throws CountryServiceException {
+		validate(lang);
 		List<Country> countryList = new ArrayList<Country>();
 		DaoFactory dao = DaoFactory.getInstance();
 		CountryDao cDao = dao.getCountryDao();
@@ -79,6 +82,7 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public void addCountryToFilm(int idFilm, List<Integer> idCountry) throws CountryServiceException {
+		validate(idFilm, idCountry);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmCountryDao fGDao = dao.getFilmCountryDao();
 		try {
@@ -101,7 +105,26 @@ public class CountryServiceImpl implements CountryService {
 			throw new CountryServiceException("can't add country List to film", e);
 		}
 	}
+	
+	private void validate(int intValue, String stringValue) throws CountryServiceException{
+		if((intValue == 0)||(stringValue == null)){
+			throw new CountryServiceException("incorrect initial data");
+		}
+	}
+	
+	private void validate(int intValue, List<Integer> listValue) throws CountryServiceException{
+		if((intValue == 0)||(listValue == null)){
+			throw new CountryServiceException("incorrect initial data");
+		}
+	}
 
+	private void validate(String... stringValue) throws CountryServiceException{
+		for(String i : stringValue){
+			if(i == null){
+				throw new CountryServiceException("incorrect initial data");
+			}
+		}
+	}
 
 
 }

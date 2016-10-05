@@ -87,8 +87,6 @@ public class AccountServiceImpl implements AccountService {
 		return newAccount;
 	}
 
-	
-
 	@Override
 	public List<Account> getAccountList() throws AccountServiceException {
 		List<Account> accountList = null;
@@ -106,10 +104,14 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account updateAccount(Map<String, String> reqParam, InputStream is) throws AccountServiceException {
+		String login = reqParam.get(LOGIN);
+		if (login == null) {
+			throw new AccountServiceException(ERROR_MESSAGE_ACC);
+		}
 		DaoFactory dao = DaoFactory.getInstance();
 		AccountDao aDao = dao.getAccountDao();
 		Account account = null;
-		String login = reqParam.get(LOGIN);
+
 		try {
 
 			account = aDao.getAccountByLogin(login);
@@ -120,39 +122,39 @@ public class AccountServiceImpl implements AccountService {
 		if (account == null) {
 			throw new AccountServiceException(ERROR_MESSAGE_ACC);
 		}
-		
+
 		account.setLogin(login);
-		
+
 		String pass = reqParam.get(PASSWORD);
-		if(pass!=null){
+		if (pass != null) {
 			account.setPassword(pass);
-			}
-		
+		}
+
 		String fName = reqParam.get(FIRST_NAME);
-		if(fName!=null){
+		if (fName != null) {
 			account.setFirstName(fName);
-			}
-		
+		}
+
 		String lName = reqParam.get(LAST_NAME);
-		if(lName!=null){
+		if (lName != null) {
 			account.setLastName(lName);
-			}
+		}
 
 		String eMail = reqParam.get(EMAIL);
-		if(eMail!=null){
+		if (eMail != null) {
 			account.setEmail(eMail);
 		}
-		
+
 		String phone = reqParam.get(PHONE_NUMBER);
-		if(phone!=null){
-		account.setPhone(phone);
+		if (phone != null) {
+			account.setPhone(phone);
 		}
-		
+
 		String role = reqParam.get(ROLE);
 		if (role != null) {
 			account.setRole(role);
 		}
-		
+
 		Date birthday = null;
 		try {
 			birthday = Date.valueOf(reqParam.get(BIRTHDAY));
@@ -179,12 +181,12 @@ public class AccountServiceImpl implements AccountService {
 
 		Account newAccount = null;
 		try {
-			
+
 			aDao.updateAccount(account);
-			
+
 			Criteria criteria = dao.createCriteria();
 			criteria.addCriterion(Operator.EQUAL, DBColumnName.ACCOUNT_ID, String.valueOf(account.getId()));
-			
+
 			newAccount = aDao.getAccountByCriteria(criteria).get(0);
 		} catch (NullPointerException e) {
 			newAccount = null;
@@ -211,8 +213,10 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void deleteAccount(int id,String path) throws AccountServiceException {
-
+	public void deleteAccount(int id, String path) throws AccountServiceException {
+		if ((id == 0) || (path == null)) {
+			throw new AccountServiceException(ERROR_MESSAGE_ACC);
+		}
 		DaoFactory dao = DaoFactory.getInstance();
 		AccountDao aDao = dao.getAccountDao();
 		String photoPath = "";
@@ -228,11 +232,11 @@ public class AccountServiceImpl implements AccountService {
 			throw new AccountServiceException(ERROR_MESSAGE_ACC, e);
 
 		}
-		File file = new File(path+"\\"+photoPath);
+		File file = new File(path + "\\" + photoPath);
 		file.delete();
-		
+
 	}
-	
+
 	private void validateParam(Map<String, String> reqParam) throws AccountServiceException {
 		validateLogPas(reqParam.get(LOGIN), reqParam.get(PASSWORD));
 		DaoFactory dao = DaoFactory.getInstance();
@@ -286,9 +290,9 @@ public class AccountServiceImpl implements AccountService {
 		String rootPath = reqParam.get(PROJECT_PATH);
 		String photoPath = PATH_AVATAR + account.getLogin() + JPG;
 		String fullPhotoPath = rootPath + "\\" + photoPath;
-		if(is!=null){
-		ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
-		account.setPhoto(photoPath);
+		if (is != null) {
+			ServiceUtil.saveFromRequestFile(is, fullPhotoPath);
+			account.setPhoto(photoPath);
 		}
 		return account;
 	}

@@ -25,7 +25,7 @@ import by.epam.karotki.film_rating.service.util.ServiceUtil;
 public class FilmServiceImpl implements FilmService {
 	
 	private static final String ERROR_MESSAGE = "can't get films";
-	private static final String ERROR_MESSAGE_VALIDATE = "id field equal zero";
+	private static final String ERROR_MESSAGE_VALIDATE = "incorrect initial data";
 	private static final String TITLE = "title";
 	private static final String DESCRIPTION = "description";
 	private static final String SITE = "site";
@@ -48,7 +48,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByNewest(String lang) throws FilmServiceException {
-
+		validate(lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -65,7 +65,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public Film getFilmById(int id, String lang) throws FilmServiceException {
-
+		validate(id,lang);
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
 		Film film = null;
@@ -85,9 +85,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByGenre(int idGenre, String lang) throws FilmServiceException {
-		if (idGenre == 0) {
-			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
-		}
+		validate(idGenre,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -115,9 +113,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByDirector(int idAuthor, String lang) throws FilmServiceException {
-		if (idAuthor == 0) {
-			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
-		}
+		validate(idAuthor,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -144,9 +140,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByScenarioWriter(int idAuthor, String lang) throws FilmServiceException {
-		if (idAuthor == 0) {
-			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
-		}
+		validate(idAuthor,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -173,9 +167,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByActor(int idAuthor, String lang) throws FilmServiceException {
-		if (idAuthor == 0) {
-			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
-		}
+		validate(idAuthor,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -202,6 +194,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByYear(int year, String lang) throws FilmServiceException {
+		validate(year,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -219,6 +212,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByRating(String lang) throws FilmServiceException {
+		validate(lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -233,6 +227,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByComments(int idAccount, String lang) throws FilmServiceException {
+		validate(idAccount,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -261,6 +256,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getFilmsByAccountRate(int idAccount, String lang) throws FilmServiceException {
+		validate(idAccount,lang);
 		List<Film> films = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		FilmDao fDao = factory.getFilmDao();
@@ -312,6 +308,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public List<Film> getAllFilms(String lang) throws FilmServiceException {
+		validate(lang);
 		List<Film> filmList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmDao fDao = dao.getFilmDao();
@@ -326,6 +323,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public Film updateFilm(Map<String, String> updParam, InputStream is) throws FilmServiceException {
+		validateParam(updParam);
 		int idFilm = Integer.valueOf(updParam.get(FILM_ID));
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmDao fDao = dao.getFilmDao();
@@ -465,6 +463,7 @@ public class FilmServiceImpl implements FilmService {
 
 	@Override
 	public void deleteFilm(int id, String path) throws FilmServiceException {
+		validate(id,path);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmDao fDao = dao.getFilmDao();
 		Film film = null;
@@ -483,6 +482,22 @@ public class FilmServiceImpl implements FilmService {
 
 		File file = new File(path + "\\" + posterPath);
 		file.delete();
+	}
+	
+	
+	
+	@Override
+	public void addFilm(Film film, String lang) throws FilmServiceException {
+		validate(film,lang);
+		DaoFactory dao = DaoFactory.getInstance();
+		FilmDao fDao = dao.getFilmDao();
+		try {
+			fDao.addFilm(film, lang);
+		} catch (DaoException e) {
+			// log
+			throw new FilmServiceException(ERROR_MESSAGE, e);
+		}
+
 	}
 	
 	private Film createFilm(Map<String, String> reqParam, InputStream is) {
@@ -542,21 +557,26 @@ public class FilmServiceImpl implements FilmService {
 		return film;
 	}
 
-	private void validateParam(Map<String, String> reqParam) throws FilmServiceException {
-
-	}
-
-	@Override
-	public void addFilm(Film film, String lang) throws FilmServiceException {
-		DaoFactory dao = DaoFactory.getInstance();
-		FilmDao fDao = dao.getFilmDao();
-		try {
-			fDao.addFilm(film, lang);
-		} catch (DaoException e) {
-			// log
-			throw new FilmServiceException(ERROR_MESSAGE, e);
+	
+	private void validate(int intValue, String stringValue) throws FilmServiceException{
+		if((intValue == 0)||(stringValue == null)){
+			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
 		}
-
 	}
 
+	private void validate(Object... stringValue) throws FilmServiceException{
+		for (Object i : stringValue){
+		if(i == null){
+			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
+		}
+		}
+	}
+	
+	private void validateParam(Map<String, String> reqParam) throws FilmServiceException {
+		if(reqParam == null){
+			throw new FilmServiceException(ERROR_MESSAGE_VALIDATE);
+		}
+	}
+
+	
 }

@@ -20,6 +20,7 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public List<Genre> getGenreListByFilm(int idFilm, String lang) throws GenreServiceException {
+		validate(idFilm,lang);
 		List<Genre> genreList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		GenreDao gDao = dao.getGenreDao();
@@ -43,7 +44,7 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public void addGenreToFilm(int idFilm, List<Integer> idGenre) throws GenreServiceException {
-
+		validate(idFilm,idGenre);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmGenreDao fGDao = dao.getFilmGenreDao();
 
@@ -71,6 +72,7 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public List<Genre> getAllGenres(String lang) throws GenreServiceException {
+		validate(lang);
 		List<Genre> genreList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		GenreDao gDao = dao.getGenreDao();
@@ -82,6 +84,26 @@ public class GenreServiceImpl implements GenreService {
 			throw new GenreServiceException(ERROR_MESSAGE, e);
 		}
 		return genreList;
+	}
+	
+	private void validate(int intValue, String stringValue) throws GenreServiceException{
+		if((intValue == 0)||(stringValue == null)){
+			throw new GenreServiceException("incorrect initial data");
+		}
+	}
+	
+	private void validate(int intValue, List<Integer> listValue) throws GenreServiceException{
+		if((intValue == 0)||(listValue == null)){
+			throw new GenreServiceException("incorrect initial data");
+		}
+	}
+	
+	private void validate(Object...value) throws GenreServiceException{
+		for(Object i : value){
+		if(i == null){
+			throw new GenreServiceException("incorrect initial data");
+		}
+		}
 	}
 
 }

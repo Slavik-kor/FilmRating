@@ -37,6 +37,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public List<Author> getDirectorsByFilm(int idFilm, String lang) throws AuthorServiceException {
+		validate(idFilm,lang);
 		List<Author> authorList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
@@ -59,6 +60,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public List<Author> getScenarioWritersByFilm(int idFilm, String lang) throws AuthorServiceException {
+		validate(idFilm,lang);
 		List<Author> authorList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
@@ -81,6 +83,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public List<Author> getActorByFilm(int idFilm, String lang) throws AuthorServiceException {
+		validate(idFilm,lang);
 		List<Author> authorList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
@@ -103,6 +106,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public Author getAuthorById(int idAuthor, String lang) throws AuthorServiceException {
+		validate(idAuthor,lang);
 		List<Author> authorList = null;
 		Author author = null;
 		DaoFactory dao = DaoFactory.getInstance();
@@ -125,6 +129,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addDirectorToFilm(int idFilm, List<Integer> idAuthor) throws AuthorServiceException {
+		validate(idFilm,idAuthor);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try {
@@ -147,6 +152,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addScenarioToFilm(int idFilm, List<Integer> idAuthor) throws AuthorServiceException {
+		validate(idFilm,idAuthor);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try {
@@ -169,6 +175,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addActorToFilm(int idFilm, List<Integer> idAuthor) throws AuthorServiceException {
+		validate(idFilm,idAuthor);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try {
@@ -191,6 +198,9 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public List<Author> getAllAuthors(String lang) throws AuthorServiceException {
+		if(lang == null){
+			throw new AuthorServiceException("incorrect initial data");
+		}
 		List<Author> authorList = null;
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
@@ -206,6 +216,9 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public Author addAuthor(Map<String, String> reqParam, InputStream is) throws AuthorServiceException {
+		if(reqParam == null){
+			throw new AuthorServiceException("incorrect initial data");
+		}
 		Author author = createAuthor(reqParam, is);
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
@@ -229,6 +242,9 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addAuthor(Author author, String lang) throws AuthorServiceException {
+		if((author == null)||(lang == null)){
+			throw new AuthorServiceException("incorrect initial data");
+		}
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
 		try {
@@ -241,6 +257,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void deleteAuthor(int idAuthor, String path) throws AuthorServiceException {
+		validate(idAuthor,path);
 		DaoFactory dao = DaoFactory.getInstance();
 		AuthorDao aDao = dao.getAuthorDao();
 		Author author = null;
@@ -263,6 +280,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addFilmsToDirector(String[] idFilm, int idAuthor) throws AuthorServiceException {
+		validate(idFilm,idAuthor);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try {
@@ -277,6 +295,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addFilmsToScenario(String[] idFilm, int idAuthor) throws AuthorServiceException {
+		validate(idFilm,idAuthor);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try {
@@ -291,6 +310,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public void addFilmsToActor(String[] idFilm, int idAuthor) throws AuthorServiceException {
+		validate(idFilm,idAuthor);
 		DaoFactory dao = DaoFactory.getInstance();
 		FilmAuthorDao fADao = dao.getFilmAuthorDao();
 		try {
@@ -332,5 +352,22 @@ public class AuthorServiceImpl implements AuthorService {
 
 		return author;
 	}
+	
+	private void validate(int id,String lang) throws AuthorServiceException{
+		if ((id==0)||(lang==null)){
+			throw new AuthorServiceException("incorrect ititial data");
+		}
+	}
 
+	private void validate(String[] lang,int id) throws AuthorServiceException{
+		if ((id==0)||(lang==null)){
+			throw new AuthorServiceException("incorrect ititial data");
+		}
+	}
+	
+	private void validate(int id,List<Integer> list) throws AuthorServiceException{
+		if ((id==0)||(list==null)){
+			throw new AuthorServiceException("incorrect ititial data");
+		}
+	}
 }

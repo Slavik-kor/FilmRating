@@ -19,6 +19,7 @@ public class CommentServiceImpl implements CommentService {
 	
 	@Override
 	public List<Comment> getCommentsByAccount(int idAccount) throws CommentServiceException {
+		validate(idAccount);
 		List<Comment> commentList = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
@@ -37,6 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> getCommentsByFilm(int idFilm) throws CommentServiceException {
+		validate(idFilm);
 		List<Comment> commentList = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
@@ -54,6 +56,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void addComment(Comment comment) throws CommentServiceException {
+		validate(comment);
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
 		try{
@@ -66,6 +69,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public double getAvgRateByFilm(int idFilm) throws CommentServiceException {
+		validate(idFilm);
 		List<Comment> commentList = null;
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
@@ -84,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void updateComment(Comment comment) throws CommentServiceException {
-		
+		validate(comment);
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
 		try{
@@ -97,6 +101,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void deleteComment(int idAccount, int idFilm) throws CommentServiceException {
+		validate(idAccount,idFilm);
 		DaoFactory factory = DaoFactory.getInstance();
 		CommentDao cDao = factory.getCommentDao();
 		try{
@@ -105,6 +110,20 @@ public class CommentServiceImpl implements CommentService {
 			throw new CommentServiceException(ERROR_MESSAGE_GET,e);
 		}
 		
+	}
+	
+	private void validate(int... value) throws CommentServiceException{
+		for (int i : value){
+			if(i == 0) {
+				throw new CommentServiceException("incorrect initial data");
+			}
+		}
+	}
+	
+	private void validate(Comment comment) throws CommentServiceException{
+		if(comment == null){
+			throw new CommentServiceException("incorrect initial data");
+		}
 	}
 
 }
