@@ -74,6 +74,7 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public List<Account> getUsersByCountry(String country) throws AccountDaoException {
+		LOG.debug("Start performing method getUsersByCountry//( String country//) with country = "+country);
 		List<Account> userList = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -101,6 +102,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method getUsersByCountry//( String country//) with return "+userList);
 		return userList;
 	}
 
@@ -384,6 +386,7 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public List<Account> getAccountList() throws AccountDaoException {
+		LOG.debug("Start performing method getAccountList()" );
 		List<Account> accountList = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -410,11 +413,13 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method getAccountList() with return "+accountList);
 		return accountList;
 	}
 
 	@Override
 	public List<Account> getAccountByCriteria(Criteria criteria) throws AccountDaoException {
+		LOG.debug("Start performing method getAccountByCriteria(Criteria criteria) with criteria = "+criteria.getClause());
 		List<Account> accountList = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -434,6 +439,7 @@ public class AccountDaoImpl implements AccountDao {
 			} catch (SQLException e) {
 				 LOG.error("Can't close ResultSet");
 			}
+		
 			try {
 				ps.close();
 			} catch (SQLException e) {
@@ -441,6 +447,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method getAccountByCriteria( Criteria criteria) with return "+accountList);
 		return accountList;
 	}
 

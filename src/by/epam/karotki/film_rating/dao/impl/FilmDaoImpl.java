@@ -607,6 +607,7 @@ public class FilmDaoImpl implements FilmDao {
 
 	@Override
 	public void updateFilm(Film film, String lang) throws FilmDaoException {
+		LOG.debug("Start performing method void updateFilm(Film film, String lang) with film ="+film+",lang = "+lang);
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -630,10 +631,12 @@ public class FilmDaoImpl implements FilmDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method void updateFilm(Film film, String lang)");
 	}
 
 	@Override
 	public void deleteFilmById(int id, String lang) throws FilmDaoException {
+		LOG.debug("Start performing method void deleteFilmId(int id, String lang) with id ="+id+",lang = "+lang);
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -654,6 +657,7 @@ public class FilmDaoImpl implements FilmDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method void deleteFilmId(int id, String lang)");
 	}
 	
 	private Film getFilm(ResultSet rs) throws SQLException {

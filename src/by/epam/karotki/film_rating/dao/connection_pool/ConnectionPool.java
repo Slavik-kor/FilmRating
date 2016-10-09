@@ -8,11 +8,11 @@ import java.util.concurrent.BlockingQueue;
 
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public final class ConnectionPool {
-//	private static final Logger LOG = LogManager.getLogger(ConnectionPool.class);
+
+	private static final Logger LOG = LogManager.getLogger();
 
 	private BlockingQueue<Connection> connectionQueue;
 	private BlockingQueue<Connection> givenAwayConQueue;
@@ -71,6 +71,7 @@ public final class ConnectionPool {
 		} catch (InterruptedException e) {
 			throw new ConnectionPoolException("Error connecting to the data source.", e);
 		} 
+		LOG.trace("Connection is got");
 		return con;
 	}
 
@@ -81,9 +82,10 @@ public final class ConnectionPool {
 			try {
 				con.close();
 			} catch (SQLException e) {
-	//			LOG.warn("Can't close connection!");
+				LOG.error("Can't close connection!");
 			}
 		}
+		LOG.trace("Connection is returned");
 	}
 
 	public void dispose() {
@@ -97,7 +99,7 @@ public final class ConnectionPool {
 			try {
 				con.close();
 			} catch (SQLException e) {
-//				LOG.warn("Can't close connection!");
+				LOG.error("Can't close connection!");
 			}
 		}
 	}

@@ -4,6 +4,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.epam.karotki.film_rating.service.InitService;
 import by.epam.karotki.film_rating.service.ServiceFactory;
 
@@ -12,15 +15,17 @@ import by.epam.karotki.film_rating.service.ServiceFactory;
  *
  */
 @WebListener
-public class SContextListener implements ServletContextListener {
+public class FRServletContextListener implements ServletContextListener {
 	
 	private InitService iService;
+	
+	private static final Logger LOG = LogManager.getLogger();
 	
 
 	/**
 	 * Default constructor.
 	 */
-	public SContextListener() {
+	public FRServletContextListener() {
 
 	}
 
@@ -29,6 +34,7 @@ public class SContextListener implements ServletContextListener {
 	 */
 	public void contextDestroyed(ServletContextEvent event) {
 		iService.destroy();
+		LOG.info("Servlet Context is destroyed");
 	}
 
 	/**
@@ -39,6 +45,7 @@ public class SContextListener implements ServletContextListener {
 			ServiceFactory fService = ServiceFactory.getInstance();
 			iService = fService.getInitService();
 			iService.init();
+			LOG.info("Servlet Context initialization is performed");
 		
 	}
 
