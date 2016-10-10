@@ -74,7 +74,7 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public List<Account> getUsersByCountry(String country) throws AccountDaoException {
-		LOG.debug("Start performing method getUsersByCountry//( String country//) with country = "+country);
+		LOG.debug("Start performing method List<Account> getUsersByCountry( String country) with country = "+country);
 		List<Account> userList = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -102,12 +102,13 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
-		LOG.debug("Finish performing method getUsersByCountry//( String country//) with return "+userList);
+		LOG.debug("Finish performing method List<Account> getUsersByCountry( String country) with return "+userList);
 		return userList;
 	}
 
 	@Override
 	public List<Account> getBannedUsers() throws AccountDaoException {
+		LOG.debug("Start performing method List<Account> getBannedUsers()");
 		List<Account> userList = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -134,12 +135,14 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method List<Account> getBannedUsers() with return " + userList);
 		return userList;
 	}
 
 	
 	@Override
 	public List<Account> getActiveUsersByComment(int value) throws AccountDaoException {
+		LOG.debug("Start performing method List<Account> getActiveUsersByComment(int value) with value = "+value);
 		List<Account> userList = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -167,6 +170,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method List<Account> getActiveUsersByComment(int value) with return " + userList);
 		return userList;
 	}
 
@@ -174,6 +178,7 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	public Account authorization(String login, String password) throws AccountDaoException {
+		LOG.debug("Start performing method authorization(String login, String password) with login = " + login);
 		Account account = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -202,11 +207,13 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method Account authorization(String login, String password) with return "+account);
 		return account;
 	}
 
 	@Override
 	public void addAccount(Account account) throws AccountDaoException {
+		LOG.debug("Start performing method void addAccount(Account account) with account = " + account);
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -238,10 +245,12 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method void addAccount(Account account)");
 	}
 
 	@Override
 	public void updateAccount(Account account) throws AccountDaoException {
+		LOG.debug("Start performing method void updateAccount(Account account) with account = " + account);
 		Connection con = null;
 		PreparedStatement ps = null;
 		try {
@@ -310,11 +319,12 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
-
+		LOG.debug("Finish performing method void updateAccount(Account account) ");
 	}
 
 	@Override
 	public Account getAccountByLogin(String login) throws AccountDaoException {
+		LOG.debug("Start performing method getAccountByLogin(String login) with login = " + login);
 		Account account = null;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -342,12 +352,14 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
+		LOG.debug("Finish performing method Account getAccountByLogin(String login) with return "+account);
 		return account;
 	
 	}
 
 	@Override
 	public void deleteAccountById(int id) throws AccountDaoException {
+		LOG.debug("Start performing method deleteAccountById(int id) with id = " + id);
 		Connection con = null;
 		PreparedStatement ps = null;
 		PreparedStatement ps_comment = null;
@@ -381,7 +393,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
-		
+		LOG.debug("Finish performing method void deleteAccountById(int id) with return ");
 	}
 
 	@Override
@@ -413,7 +425,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
-		LOG.debug("Finish performing method getAccountList() with return "+accountList);
+		LOG.debug("Finish performing method getAccountList() with return " + accountList);
 		return accountList;
 	}
 
@@ -447,7 +459,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
-		LOG.debug("Finish performing method getAccountByCriteria( Criteria criteria) with return "+accountList);
+		LOG.debug("Finish performing method getAccountByCriteria(Criteria criteria) with return "+accountList);
 		return accountList;
 	}
 

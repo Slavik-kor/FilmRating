@@ -21,7 +21,7 @@ public class Authorization implements Command {
 	private static final String ACCOUNT = "account";
 	private static final String PREV_PAGE = "prev_page";
 	private static final String ERROR_MESSAGE = "errorMessage";
-	//private static final String INDEX_PAGE = "index.jsp";
+	// private static final String INDEX_PAGE = "index.jsp";
 	private static final String ERROR_PAGE = "error.jsp";
 
 	@Override
@@ -30,18 +30,18 @@ public class Authorization implements Command {
 		String password = request.getParameter(PASSWORD);
 
 		AccountService aService = ServiceFactory.getInstance().getAccountService();
-        RequestDispatcher errorDispatcher = request.getRequestDispatcher(ERROR_PAGE);
+		RequestDispatcher errorDispatcher = request.getRequestDispatcher(ERROR_PAGE);
 		try {
 			Account account = aService.autorization(login, password);
 			HttpSession session = request.getSession(true);
 			session.setAttribute(ACCOUNT, account);
-            String prev_page = (String)session.getAttribute(PREV_PAGE);
-            if(prev_page!=null){
-            response.sendRedirect(prev_page);
-            }else {
-            	request.setAttribute(ERROR_MESSAGE, "attribute \"prev_page\" not founded");
-    			errorDispatcher.forward(request, response);
-            }
+			String prev_page = (String) session.getAttribute(PREV_PAGE);
+			if (prev_page != null) {
+				response.sendRedirect(prev_page);
+			} else {
+				request.setAttribute(ERROR_MESSAGE, "attribute \"prev_page\" not found");
+				errorDispatcher.forward(request, response);
+			}
 		} catch (AuthServiceException e) {
 
 			request.setAttribute(ERROR_MESSAGE, "Wrong login or password");
