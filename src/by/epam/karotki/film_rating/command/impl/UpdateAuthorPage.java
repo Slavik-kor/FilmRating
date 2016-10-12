@@ -39,6 +39,9 @@ public class UpdateAuthorPage implements Command {
 		if(locale == null || locale.isEmpty()){
 			locale = RU;
 		}
+		
+		
+		
 	}
 	
 	

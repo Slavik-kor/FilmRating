@@ -25,27 +25,32 @@ public class Profile implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HttpSession session = request.getSession(false);
+		if(session == null){
+			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+		}
+		
 		Account account = (Account)session.getAttribute(ACCOUNT);
-		if(((session!=null))&&(account!=null)){
+		
+		if(account == null){
+			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+		}
+		
 			String locale = (String)session.getAttribute(LOCALE);
 			if(locale == null || locale.isEmpty()){
 				locale = RU;
 			}
+			
 		ServiceFactory sFactory = ServiceFactory.getInstance();	
 		CountryService cService = sFactory.getCountryService();
 			Country country = null;
 		try{
 			country = cService.getCountryById(account.getCountryId(), locale);
 		} catch (ServiceException e){
-			
-		}
-		 
-				
-		request.setAttribute(COUNTRY, country);	
-		request.getRequestDispatcher(PROFILE_PAGE).forward(request, response);
-		}else{
 			request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
 		}
+		 
+		request.setAttribute(COUNTRY, country);	
+		request.getRequestDispatcher(PROFILE_PAGE).forward(request, response);
 
 	}
 

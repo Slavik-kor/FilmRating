@@ -7,9 +7,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.epam.karotki.film_rating.entity.Comment;
 
 public class ServiceUtil {
+	private static final Logger LOG = LogManager.getLogger();
 
 	public static void saveFromRequestFile(InputStream is, String path) {
 		OutputStream os = null;
@@ -21,12 +25,12 @@ public class ServiceUtil {
 			}
 
 		} catch (IOException e) {
-			// log System.out.println("IOException during save file ");
+			LOG.error("IOException during save file ");
 		} finally {
 			try {
 				os.close();
 			} catch (IOException e) {
-				// log
+				LOG.error("can't close OutputSream");
 			}
 		}
 
