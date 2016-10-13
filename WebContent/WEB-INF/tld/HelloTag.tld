@@ -11,4 +11,10 @@
 		<body-content>empty</body-content>
 		<info>helloworld tag shows Hello World string</info>
 	</tag>
+	<tag>
+		<name>menu</name>
+		<tag-class></tag-class>
+		<body-content></body-content>
+		<info></info>
+	</tag>
 </taglib>

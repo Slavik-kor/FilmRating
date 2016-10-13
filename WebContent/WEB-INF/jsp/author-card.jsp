@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -29,6 +30,7 @@
 <fmt:message bundle="${loc}" key="locale.profile.birthday" var="birthday_loc" />
 <fmt:message bundle="${loc}" key="locale.profile.country" var="country_loc" />
 
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -50,7 +52,7 @@
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="update_author_page" />
 				<input type="hidden" name="idAuthor" value="${author.id }" />
-				<button type="submit" class="btn btn-warning" type="button">Изменить автора</button>
+				<button type="submit" class="btn btn-warning" type="button">${edit }</button>
 			</form>
 		</div>
 	</c:if>
@@ -60,7 +62,7 @@
 			
 			<div class="container col-lg-4 col-lg-offset-1">
 				<img src="${author.photo}" width="250" class="img-rounded"
-					onerror="this.src = 'images/author/noFoto.jpg'" alt="фото">
+					onerror="this.src = 'images/author/noFoto.jpg'" alt="photo">
 			</div>
 			<div class="container col-lg-6">
 				<table class="table table-hover">

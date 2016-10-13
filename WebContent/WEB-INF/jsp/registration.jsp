@@ -31,6 +31,12 @@
 	var="cancel" />
 <fmt:message bundle="${loc}" key="locale.registration.change"
 	var="change" />
+<fmt:message bundle="${loc}" key="locale.registration.update" var="update" />	
+<fmt:message bundle="${loc}" key="locale.registration.passMess" var="passMess" />	
+<fmt:message bundle="${loc}" key="locale.registration.warning" var="warning" />	
+<fmt:message bundle="${loc}" key="locale.registration.notFitPass" var="notFitPass" />	
+<fmt:message bundle="${loc}" key="locale.registration.rePass" var="rePass" />	
+
 <c:set var="mode" value="${requestScope.mode}" />
 <c:set var="account" value="${sessionScope.account}" />
 <c:choose>
@@ -81,8 +87,8 @@
 						class="form-control" id="pass" name="pass" placeholder="${password}" required>
 				</div>
 				<div class="form-group">
-					<label for="pass">${password}</label><span>*</span> <input  type="password"
-						class="form-control" id="re-pass" name="re-pass" placeholder="${password}" required>
+					<label for="pass">${rePass}</label><span>*</span> <input  type="password"
+						class="form-control" id="re-pass" name="re-pass" placeholder="${rePass}" required>
 				</div>
 				
 				</c:if>
@@ -144,7 +150,7 @@
 				<c:choose>
 					<c:when test="${mode=='update'}">
 						<button class="btn btn-danger" type="button"
-											data-toggle="modal" data-target="#myModal">Обновить</button>
+											data-toggle="modal" data-target="#myModal">${update }</button>
 					<!-- Modal -->
 										<div class="modal fade" id="myModal" tabindex="-1"
 											role="dialog" aria-labelledby="myModalLabel"
@@ -156,7 +162,7 @@
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
-														<h4 class="modal-title" id="myModalLabel">Введите пароль</h4>
+														<h4 class="modal-title" id="myModalLabel">${passMess }</h4>
 													</div>
 														<div class="modal-body">
 															<label for="pass">${password}</label><span>*</span> <input required type="password"
@@ -164,9 +170,9 @@
 														</div>
 													<div class="modal-footer">
 																	
-														<button type="submit" class="btn btn-primary">Обновить</button>
+														<button type="submit" class="btn btn-primary">${update }</button>
 													<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Закрыть</button>
+															data-dismiss="modal">${cancel }</button>
 													
 													</div>
 												</div>
@@ -184,15 +190,15 @@
 											 <div class="modal-dialog" role="document">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h4 class="modal-title" id="myModalLabel">Предупреждение</h4>
+														<h4 class="modal-title" id="myModalLabel">${warning }</h4>
 													</div>
 														<div class="modal-body">
-															<h4 class="modal-body" id="myModalLabel">Пароль не совпадает</h4>
+															<h4 class="modal-body" id="myModalLabel">${notFitPass }</h4>
 														</div>
 													<div class="modal-footer">
 																	
 													<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Закрыть</button>
+															data-dismiss="modal">${cancel }</button>
 													</div>
 													</div>
 												</div>

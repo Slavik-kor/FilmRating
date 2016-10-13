@@ -291,6 +291,11 @@ public class AuthorDaoImpl implements AuthorDao {
 		} catch (ConnectionPoolException e) {
 			throw new AuthorDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
+			try{
+				con.rollback();
+			}catch(SQLException ex){
+				LOG.error("Can't rollback during deleting author");
+			}
 			throw new AuthorDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {

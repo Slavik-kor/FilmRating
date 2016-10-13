@@ -38,6 +38,13 @@
 <fmt:message bundle="${loc}" key="locale.film.comment" var="textComment" />
 <fmt:message bundle="${loc}" key="locale.film.submit" var="submit" />
 <fmt:message bundle="${loc}" key="locale.film.clear" var="clear" />
+<fmt:message bundle="${loc}" key="locale.film.conf" var="confirmation" />
+<fmt:message bundle="${loc}" key="locale.film.delCom" var="delCommentMessage" />
+<fmt:message bundle="${loc}" key="locale.film.redFilm" var="redFilm" />
+<fmt:message bundle="${loc}" key="locale.film.deleteFilm" var="delFilm" />
+<fmt:message bundle="${loc}" key="locale.comment.rate" var="rate" />
+<fmt:message bundle="${loc}" key="locale.registration.cancel" var="cancel" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -54,12 +61,12 @@
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="delete_film" />
 				<input type="hidden" name="idFilm" value="${film.id }" />
-				<button type="submit" class="btn btn-danger" type="button">Удалить</button>
+				<button type="submit" class="btn btn-danger" type="button">${delFilm }</button>
 			</form>
 			<form action="Controller" method="post">
 				<input type="hidden" name="command" value="update_film_page" />
 				<input type="hidden" name="idFilm" value="${film.id }" />
-				<button type="submit" class="btn btn-warning" type="button">Изменить</button>
+				<button type="submit" class="btn btn-warning" type="button">${redFilm }</button>
 			</form>
 			</div>
 		</c:if>
@@ -71,9 +78,9 @@
 				</div>
 				<div class = "container col-lg-2 col-lg-offset-4">
 				
-					<h3>Рейтинг:<fmt:formatNumber type="number" maxFractionDigits="2" value="${rating }"/></h3>
+					<h3>${userRate }: <fmt:formatNumber type="number" maxFractionDigits="2" value="${rating }"/></h3>
 				
-				</div>
+				</div> 
 				<div class="container col-lg-4 col-lg-offset-1">
 					<img src="${film.poster }" width="250" class="img-rounded"
 						alt="постер" onerror="this.src = 'images/poster/noFoto.jpg'">
@@ -226,7 +233,7 @@
 							<div class=" padd-0 brdr bgc-fff btm-mrg-20 box-shad">
 								<div class="view">
 									<img src="${accounts[index].photo }"  width="50"
-										class="img-rounded" onerror="this.src = 'images/author/noFoto.jpg'" alt="постер">
+										class="img-rounded" onerror="this.src = 'images/author/noFoto.jpg'" alt="poster">
 								</div>
 								<div class="detail">
 
@@ -237,7 +244,6 @@
 								</div>
 								<div class="row">
 									<c:if test="${(comments[index].accountId==account.id)}">			
-										<button class="btn btn-success" >${editComment }</button>
 										<form  action="Controller" method="post">
 										<input type="hidden" name="command" value="delete_comment" />
 										<input type="hidden" name="film" value="${film.id }" />
@@ -256,17 +262,17 @@
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
-														<h4 class="modal-title" id="myModalLabel">Подтверждение</h4>
+														<h4 class="modal-title" id="myModalLabel">${confirmation}</h4>
 													</div>
-													<div class="modal-body">Удалить комментарий?</div>
+													<div class="modal-body">${delCommentMessage }</div>
 													<div class="modal-footer">
 														
 													<form action="Controller" method="post">
 														<input type="hidden" name="command" value="delete_comment" />
 														<input type="hidden" name="film" value="${film.id }" />
-														<button type="submit" class="btn btn-primary">Удалить</button>
+														<button type="submit" class="btn btn-primary">${delComment }</button>
 													<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Закрыть</button>
+															data-dismiss="modal">${cancel }</button>
 													</form>
 													</div>
 												</div>

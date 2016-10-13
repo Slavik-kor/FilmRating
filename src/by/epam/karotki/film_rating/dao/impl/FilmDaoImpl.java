@@ -497,6 +497,11 @@ public class FilmDaoImpl implements FilmDao {
 		} catch (ConnectionPoolException e) {
 			throw new FilmDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
+			try{
+				con.rollback();
+			}catch(SQLException ex){
+				LOG.error("Can't rollback during deleting film");
+			}
 			throw new FilmDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try {

@@ -379,6 +379,11 @@ public class AccountDaoImpl implements AccountDao {
 		} catch (ConnectionPoolException e) {
 			throw new AccountDaoException(ERROR_MESSAGE_CP, e);
 		} catch (SQLException e) {
+			try{
+			con.rollback();
+			}catch(SQLException ex){
+				LOG.error("Can't rollback during deleting account");
+			}
 			throw new AccountDaoException(ERROR_MESSAGE_QUERY, e);
 		} finally {
 			try{
@@ -393,7 +398,7 @@ public class AccountDaoImpl implements AccountDao {
 			}
 			conPool.returnConnection(con);
 		}
-		LOG.debug("Finish performing method void deleteAccountById(int id) with return ");
+		LOG.debug("Finish performing method void deleteAccountById(int id) ");
 	}
 
 	@Override

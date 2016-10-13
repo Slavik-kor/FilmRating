@@ -25,6 +25,11 @@
 <fmt:message bundle="${loc}" key="locale.profile.role" var="role" />
 <fmt:message bundle="${loc}" key="locale.profile.edit" var="edit" />
 <fmt:message bundle="${loc}" key="locale.profile.delete" var="delete" />
+<fmt:message bundle="${loc}" key="locale.film.conf" var="confirmation" />
+<fmt:message bundle="${loc}" key="locale.profile.delMess" var="reallyDelMess" />
+<fmt:message bundle="${loc}" key="locale.film.delete" var="del" />
+<fmt:message bundle="${loc}" key="locale.registration.cancel" var="cancel" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -101,16 +106,16 @@
 															aria-label="Close">
 															<span aria-hidden="true">&times;</span>
 														</button>
-														<h4 class="modal-title" id="myModalLabel">Подтверждение</h4>
+														<h4 class="modal-title" id="myModalLabel">${confirmation }</h4>
 													</div>
-													<div class="modal-body">Вы точно хотите удалить аккаунт?</div>
+													<div class="modal-body">${reallyDelMess }</div>
 													<div class="modal-footer">
 														
 													<form action="Controller" method="post">
 														<input type="hidden" name="command" value="delete_account" />
-														<button type="submit" class="btn btn-primary">Удалить</button>
+														<button type="submit" class="btn btn-primary">${del }</button>
 													<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Закрыть</button>
+															data-dismiss="modal">${cancel }</button>
 													</form>
 													</div>
 												</div>

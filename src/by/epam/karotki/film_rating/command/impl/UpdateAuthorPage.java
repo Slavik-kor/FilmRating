@@ -30,7 +30,7 @@ public class UpdateAuthorPage implements Command {
 		}
 		Account account = (Account) session.getAttribute(ACCOUNT);
 		if ((account == null) || (!account.getRole().equals(ADMIN))) {
-			request.setAttribute(ERROR_MESSAGE, "Not enough access right. It's needed authorization");
+			request.setAttribute(ERROR_MESSAGE, "Not enough access right or needed authorization");
 			errorDispatcher.forward(request, response);
 			return;
 		}
