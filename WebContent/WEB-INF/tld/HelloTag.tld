@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_1.xsd">
 	<tlib-version>1.0</tlib-version>
-	<short-name>hello</short-name>
+	<short-name>cst</short-name>
 	<uri>/WEB-INF/tld/HelloTag</uri>
 	<tag>
 		<name>HelloWorld</name>
@@ -12,9 +12,24 @@
 		<info>helloworld tag shows Hello World string</info>
 	</tag>
 	<tag>
-		<name>menu</name>
-		<tag-class></tag-class>
-		<body-content></body-content>
-		<info></info>
+		<name>button</name>
+		<tag-class>by.epam.karotki.film_rating.jstl.Button</tag-class>
+		<body-content>empty</body-content>
+		<info>collapse button</info>
+		<attribute>
+			<name>active</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>role</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>login</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 </taglib>

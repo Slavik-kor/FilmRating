@@ -2,6 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="/WEB-INF/tld/HelloTag" prefix="cst"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,37 +54,8 @@
 										</c:when>
 									</c:choose>
 									<td>
-										<div class="btn-group">
-											<button type="button" class="btn btn-info">Действие</button>
-											<button type="button" class="btn btn-info dropdown-toggle"
-												data-toggle="dropdown">
-												<span class="caret"></span> <span class="sr-only">Меню
-													с переключением</span>
-											</button>
-											<ul class="dropdown-menu" role="menu">
-											<c:choose>
-												<c:when test="${account.active == false }">
-													<li><a href="#">Отменить бан</a></li>
-												</c:when>
-												<c:otherwise>
-													<li><a href="#">Забанить</a></li>
-												</c:otherwise>
-											</c:choose>
-											<c:choose>
-												<c:when test="${account.role == 'User' }">
-													<li><a href="#">Сделать администратором</a></li>
-												</c:when>
-												<c:when test="${account.role == 'Admin' }">
-													<li><a href="#">Сделать пользователем</a></li>
-												</c:when>
-											</c:choose>	
-												
-												<li class="divider"></li>
-												<li><a href="#">Удалить</a></li>
-											</ul>
-										</div>
+										<cst:button active="${account.active }" role="${account.role }" login="${account.login }"/>
 									</td>
-
 								</tr>
 							</c:forEach>
 						</tbody>

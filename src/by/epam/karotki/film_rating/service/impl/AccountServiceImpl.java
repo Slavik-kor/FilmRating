@@ -28,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
 	private static final String COUNTRY = "country";
 	private static final String EMAIL = "email";
 	private static final String ROLE = "role";
+	private static final String ACTIVE = "active";
 	private static final String PHONE_NUMBER = "phone-number";
 	private static final String USER = "User";
 	private static final String PATH_AVATAR = "images\\avatar\\avatar";
@@ -154,7 +155,14 @@ public class AccountServiceImpl implements AccountService {
 		if (role != null) {
 			account.setRole(role);
 		}
-
+		
+		
+		String active = reqParam.get(ACTIVE);
+		if(Boolean.valueOf(active)){
+			account.setActive(true);
+		}
+		
+		
 		Date birthday = null;
 		try {
 			birthday = Date.valueOf(reqParam.get(BIRTHDAY));

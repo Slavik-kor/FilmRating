@@ -44,10 +44,19 @@ public class AddAuthorPage implements Command {
 			locale = RU;
 		}
 		
-		Account account = null;
-		if ((session != null) && ((account = (Account) session.getAttribute(ACCOUNT)) != null)) {
+		
+		Account account = (Account) session.getAttribute(ACCOUNT);
+		if(account == null){
+			request.setAttribute(ERROR_MESSAGE, "Not enough access right. It's needed authorization");
+			errorDispatcher.forward(request, response);
+		}
+		
 				String role = account.getRole();
-				if (role.equals(ADMIN)) {
+				if (!role.equals(ADMIN)) {
+					request.setAttribute(ERROR_MESSAGE, "Not enough access right");
+					errorDispatcher.forward(request, response);
+
+				}
 					ServiceFactory factory = ServiceFactory.getInstance();
 					CountryService cService = factory.getCountryService();
 					FilmService fService = factory.getFilmService();
@@ -62,16 +71,6 @@ public class AddAuthorPage implements Command {
 					}
 					
 					pageDispatcher.forward(request, response);
-				} else {
-					request.setAttribute(ERROR_MESSAGE, "Not enough access right");
-					errorDispatcher.forward(request, response);
-				}
-		} else {
-			request.setAttribute(ERROR_MESSAGE, "Not enough access right. It's needed authorization");
-			errorDispatcher.forward(request, response);
-		}
-		
-
-	}
-
+				} 
+									
 }
