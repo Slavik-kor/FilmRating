@@ -51,6 +51,9 @@ public class CriteriaImpl implements Criteria {
 				}
 				exp += ")";
 			break;
+		case LIKE:
+			exp = column + " LIKE '%"+value[0]+"%'";
+			break;
 		default:
 			exp = "";
 		}

@@ -4,16 +4,21 @@ import static org.junit.Assert.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import by.epam.karotki.film_rating.dao.Criteria;
+import by.epam.karotki.film_rating.dao.DBColumnName;
 import by.epam.karotki.film_rating.dao.DaoFactory;
 import by.epam.karotki.film_rating.dao.FilmDao;
+import by.epam.karotki.film_rating.dao.Operator;
 import by.epam.karotki.film_rating.dao.connection_pool.ConnectionPool;
 import by.epam.karotki.film_rating.dao.connection_pool.exception.ConnectionPoolException;
 import by.epam.karotki.film_rating.dao.exception.DaoException;
+import by.epam.karotki.film_rating.dao.impl.CriteriaImpl;
 import by.epam.karotki.film_rating.entity.Film;
 
 public class FilmDaoTest {
@@ -31,6 +36,10 @@ public class FilmDaoTest {
 	private final static String WEB_SITE = "Web site";
 	private final static String POSTER = "Poster path";
 	private final static String TEASER = "Teaser path";
+	private final static String EN = "en";
+	private final static String TITLE_TEST = "Test";
+	private final static String WRONG_TITLE_TEST = "Test111";
+
 
 	@BeforeClass
 	public static void setUpBeforeClass(){
@@ -92,6 +101,27 @@ public class FilmDaoTest {
 		assertEquals(film.getPremierDate(),Date.valueOf(PREMIER_DATE));
 		assertEquals(film.getDuration(),Time.valueOf(TIME));
 
+	}
+	
+	@Test
+	public void findFilmTest(){
+		List<Film> filmList = null;
+		List<Film> wrongFilmList = null;
+		try{
+			Criteria criteria = new CriteriaImpl();
+			criteria.addCriterion(Operator.LIKE, DBColumnName.FILM_TITLE, TITLE_TEST);
+			filmList = aDao.getFilmListByCriteria(criteria, EN);
+			criteria = new CriteriaImpl();
+			criteria.addCriterion(Operator.LIKE, DBColumnName.FILM_TITLE, WRONG_TITLE_TEST);
+			wrongFilmList = aDao.getFilmListByCriteria(criteria, EN);
+		}catch(DaoException e){
+			fail("DaoException");
+		}
+		assertNotNull(filmList);
+		assertEquals(filmList.get(0).getTitle(),TITLE);
+		
+		assertNotNull(wrongFilmList);
+		assertEquals(wrongFilmList.size(),0);
 	}
 	
 	@Test
